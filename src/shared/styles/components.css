@@ -250,6 +250,14 @@
   border-bottom: 1px solid var(--line);
 }
 
+/* Programas: el wordmark es más ancho que el logo de Carola. En mobile chico
+   el CTA de la nav no entra; lo reemplaza el CTA fijo de abajo. */
+@media (max-width: 559px) {
+  .nav__brand.wordmark ~ .nav__actions .btn {
+    display: none;
+  }
+}
+
 @media (min-width: 900px) {
   .nav__links {
     display: flex;
@@ -327,6 +335,70 @@
   min-height: 1.2em;
 }
 
+.field[hidden] {
+  display: none;
+}
+
+/* Opciones excluyentes (formato de la mentoría) como pills */
+.choice {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.choice legend {
+  padding: 0;
+  margin-bottom: var(--s-2);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.choice__options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-2);
+}
+
+.choice__option {
+  position: relative;
+  cursor: pointer;
+}
+
+.choice__option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.choice__option span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 1.1em;
+  border-radius: var(--r-pill);
+  border: 1px solid color-mix(in oklab, var(--ink) 18%, transparent);
+  background: var(--bg-2);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  transition:
+    background-color 0.25s,
+    border-color 0.25s,
+    color 0.25s;
+}
+
+.choice__option input:checked + span {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.choice__option input:focus-visible + span {
+  outline: 2px solid var(--accent-hi);
+  outline-offset: 3px;
+}
+
 .form__hp {
   position: absolute;
   left: -9999px;
@@ -399,6 +471,19 @@
   font-size: var(--fs-xl);
 }
 
+/* Tarjeta de vidrio que contiene un formulario; el brillo toma el acento de la página */
+.form-card {
+  padding: clamp(24px, 4vw, 48px);
+  border-radius: var(--r-media);
+  border: 1px solid var(--line);
+  background: color-mix(in oklab, var(--surface) 86%, transparent);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  box-shadow:
+    var(--shadow-md),
+    0 0 80px -20px color-mix(in oklab, var(--accent) 45%, transparent);
+}
+
 .calendar-embed {
   width: 100%;
   min-height: 640px;
@@ -463,6 +548,184 @@
   padding-bottom: var(--s-5);
   max-width: 62ch;
   color: var(--ink-2);
+}
+
+.faq-section__grid {
+  display: grid;
+  gap: var(--s-6);
+}
+
+@media (min-width: 900px) {
+  .faq-section__grid {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: var(--s-9);
+  }
+}
+
+/* ───────────── Pasos numerados ───────────── */
+.steps {
+  display: grid;
+  counter-reset: step;
+}
+
+.steps li {
+  position: relative;
+  display: grid;
+  gap: 2px;
+  padding: 0 0 var(--s-6) 56px;
+  counter-increment: step;
+}
+
+.steps li::before {
+  content: counter(step);
+  position: absolute;
+  top: -4px;
+  left: 0;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--accent-hi);
+  background: var(--bg);
+  color: var(--accent-hi);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+}
+
+.steps li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 40px;
+  bottom: 4px;
+  left: 18px;
+  width: 1px;
+  background: color-mix(in oklab, var(--accent-hi) 30%, transparent);
+}
+
+.steps strong {
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+.steps span {
+  color: var(--ink-2);
+}
+
+/* ───────────── Testimonios en video ───────────── */
+/* TODO: sumar carolagando.coach en Vimeo > Privacidad > "Dónde se puede insertar" */
+.voices__title {
+  max-width: 18ch;
+  margin-bottom: var(--s-7);
+}
+
+.voices__grid {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 78%;
+  gap: var(--s-4);
+  margin-inline: calc(var(--gutter) * -1);
+  padding-inline: var(--gutter);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--gutter);
+  scrollbar-width: none;
+}
+
+.voices__grid::-webkit-scrollbar {
+  display: none;
+}
+
+.voice {
+  scroll-snap-align: start;
+}
+
+.voice__poster,
+.video-frame {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--r-card);
+}
+
+.voice__poster {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  background:
+    radial-gradient(70% 50% at 30% 20%, color-mix(in oklab, var(--accent) 55%, transparent), transparent 70%),
+    radial-gradient(60% 40% at 80% 90%, color-mix(in oklab, var(--accent-2) 30%, transparent), transparent 70%),
+    var(--surface);
+}
+
+.voice:nth-child(2) .voice__poster {
+  background:
+    radial-gradient(70% 50% at 75% 75%, color-mix(in oklab, var(--accent) 55%, transparent), transparent 70%),
+    radial-gradient(50% 40% at 10% 10%, color-mix(in oklab, var(--accent-2) 25%, transparent), transparent 70%),
+    var(--surface);
+}
+
+.voice:nth-child(3) .voice__poster {
+  background:
+    radial-gradient(80% 50% at 50% 100%, color-mix(in oklab, var(--accent) 60%, transparent), transparent 70%),
+    var(--surface);
+}
+
+.voice__play {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  padding-left: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: 1.1rem;
+  box-shadow: var(--glow);
+  transition: transform 0.5s var(--ease-out);
+}
+
+@media (hover: hover) {
+  .voice__poster:hover .voice__play {
+    transform: scale(1.08);
+  }
+}
+
+.video-frame {
+  border: 0;
+  background: #000;
+}
+
+.voice__name {
+  margin-top: var(--s-4);
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+.voice__role {
+  font-size: var(--fs-sm);
+  color: var(--mute);
+}
+
+@media (min-width: 768px) {
+  .voices__grid {
+    grid-auto-flow: row;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+    margin-inline: 0;
+    padding-inline: 0;
+    overflow: visible;
+  }
+  .voice:nth-child(2) {
+    margin-top: var(--s-9);
+  }
+  .voice:nth-child(3) {
+    margin-top: var(--s-6);
+  }
 }
 
 /* ───────────── CTA fijo en mobile ───────────── */
@@ -563,6 +826,193 @@
   }
 }
 
+/* Links secundarios de los programas en el footer de Carola */
+.footer__programs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--s-2) var(--s-5);
+  margin-top: var(--s-7);
+}
+
+.footer__programs .footer__title {
+  margin: 0;
+}
+
+.footer__programs ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--s-5);
+}
+
+.footer__programs a {
+  display: inline-flex;
+  min-height: 36px;
+  align-items: center;
+  font-size: var(--fs-sm);
+  color: var(--ink-2);
+}
+
+.footer__programs a:hover {
+  color: var(--accent-hi);
+}
+
+/* ───────────── Marca de cada programa (wordmark tipográfico) ───────────── */
+.wordmark {
+  display: inline-grid;
+  justify-items: start;
+  gap: 3px;
+  font-family: var(--font-display);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.wordmark__top {
+  font-size: 0.62em;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  color: var(--ink-2);
+}
+
+.wordmark__main {
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-hi);
+}
+
+.wordmark--lg {
+  font-size: var(--fs-xl);
+}
+
+/* ───────────── Firma "Un programa de Carola Gando" ───────────── */
+.signature {
+  display: grid;
+  gap: var(--s-3);
+  margin-top: var(--s-7);
+  padding: var(--s-5);
+  border-radius: var(--r-card);
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.signature__by {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-3);
+  justify-self: start;
+  min-height: 44px;
+  color: var(--ink-2);
+}
+
+.signature__by .logo-mark {
+  font-size: 32px;
+  color: var(--ink);
+}
+
+.signature__by strong {
+  color: var(--ink);
+}
+
+.signature__mentoring {
+  font-size: var(--fs-sm);
+  color: var(--mute);
+}
+
+.signature__mentoring a {
+  color: var(--accent-hi);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+  .signature {
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: var(--s-6);
+  }
+  .signature__mentoring {
+    justify-self: end;
+    text-align: right;
+  }
+}
+
+/* ───────────── Movimiento compartido ───────────── */
+@keyframes cg-rise {
+  from {
+    transform: translateY(105%);
+  }
+}
+
+@keyframes cg-fade {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+@keyframes cg-fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes cg-photo {
+  from {
+    opacity: 0;
+    transform: translateY(5%) scale(0.98);
+  }
+}
+
+@keyframes cg-drift {
+  to {
+    transform: translate3d(-2%, 1.5%, 0) scale(1.06);
+  }
+}
+
+@keyframes cg-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Cinta en movimiento (una sola por página) */
+.marquee {
+  overflow: hidden;
+  border-block: 1px solid var(--line);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+
+.marquee__track {
+  display: flex;
+  width: max-content;
+  animation: cg-marquee 42s linear infinite;
+}
+
+.marquee ul {
+  display: flex;
+  flex: none;
+}
+
+.marquee li {
+  display: flex;
+  align-items: center;
+  gap: var(--s-6);
+  padding: var(--s-5) 0 var(--s-5) var(--s-6);
+  font-size: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--ink-2);
+  white-space: nowrap;
+}
+
+.marquee li::after {
+  content: "/";
+  color: var(--accent-hi);
+  font-weight: 300;
+}
+
 /* ───────────── Aparición al hacer scroll ───────────── */
 .cg-page.cg-js [data-reveal] {
   opacity: 0;
@@ -586,7 +1036,11 @@
   .btn,
   .btn::before,
   .sticky-cta,
-  .nav {
+  .nav,
+  .voice__play {
     transition: none;
+  }
+  .marquee__track {
+    animation: none;
   }
 }

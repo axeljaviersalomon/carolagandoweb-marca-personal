@@ -1,0 +1,183 @@
+/* Mentorías. Acento: violeta de la marca (default de tokens.css). */
+
+.page-hero__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  margin-top: var(--s-6);
+  animation: cg-fade 1s var(--ease-out) both 0.45s;
+}
+
+/* ───────────── Formatos ───────────── */
+.formats-section {
+  padding-top: var(--s-6);
+}
+
+.formats-section__title {
+  max-width: 18ch;
+  margin-bottom: var(--s-7);
+}
+
+.format-cards {
+  display: grid;
+  gap: var(--s-4);
+}
+
+.format-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  padding: clamp(24px, 3.5vw, 40px);
+  border-radius: var(--r-media);
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+/* La 1:1 es el formato principal: más peso visual */
+.format-card--main {
+  background:
+    radial-gradient(70% 60% at 100% 0%, rgb(138 43 226 / 0.32), transparent 70%),
+    radial-gradient(50% 50% at 0% 100%, rgb(224 33 138 / 0.14), transparent 70%),
+    var(--surface);
+  border-color: color-mix(in oklab, var(--accent-hi) 30%, transparent);
+}
+
+.format-card .label {
+  margin: 0;
+}
+
+.format-card__name {
+  font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.25rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.format-card__text {
+  color: var(--ink-2);
+}
+
+.format-card__list {
+  display: grid;
+  margin-bottom: var(--s-3);
+}
+
+.format-card__list li {
+  padding-block: var(--s-3);
+  border-top: 1px solid var(--line);
+  font-size: var(--fs-sm);
+  color: var(--ink-2);
+}
+
+.format-card__list strong {
+  color: var(--ink);
+}
+
+.format-card .btn {
+  margin-top: auto;
+  align-self: flex-start;
+}
+
+@media (min-width: 900px) {
+  .format-cards {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 1fr);
+    align-items: stretch;
+  }
+  .format-card--main {
+    padding: var(--s-7);
+  }
+}
+
+/* ───────────── Para quién ───────────── */
+.fit-section__grid {
+  display: grid;
+  gap: var(--s-5);
+}
+
+.fit__list li {
+  padding-block: var(--s-5);
+  border-bottom: 1px solid var(--line);
+  font-size: var(--fs-xl);
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+}
+
+.fit__list li:first-child {
+  padding-top: var(--s-2);
+}
+
+@media (min-width: 900px) {
+  .fit-section__grid {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: var(--s-9);
+  }
+}
+
+/* ───────────── Aplicación ───────────── */
+.apply {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.apply__smoke {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(180deg, var(--bg) 0%, transparent 35%, transparent 70%, var(--bg) 100%),
+    linear-gradient(90deg, var(--bg) 0%, transparent 60%),
+    url(/img/humo-1.webp) right bottom / cover no-repeat;
+  opacity: 0.7;
+}
+
+.apply__grid {
+  display: grid;
+  gap: var(--s-7);
+}
+
+.apply__title {
+  font-size: clamp(2.6rem, 1.4rem + 4vw, 4.75rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.apply__intro .lead {
+  margin-top: var(--s-5);
+}
+
+.apply__intro .steps {
+  margin-top: var(--s-7);
+}
+
+.apply__card {
+  padding: clamp(24px, 4vw, 48px);
+  border-radius: var(--r-media);
+  border: 1px solid var(--line);
+  background: rgb(20 17 40 / 0.82);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  box-shadow:
+    var(--shadow-md),
+    0 0 80px -20px rgb(138 43 226 / 0.45);
+}
+
+@media (min-width: 960px) {
+  .apply__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--s-9);
+    align-items: start;
+  }
+  .apply__intro {
+    position: sticky;
+    top: 108px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-hero__ctas {
+    animation: none;
+  }
+}

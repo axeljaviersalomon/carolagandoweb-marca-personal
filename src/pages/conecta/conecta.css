@@ -1,0 +1,426 @@
+/*
+ * Conecta con tu Propósito: marca propia (azul noche + turquesa).
+ * Redefine los tokens de color; tipografía, forma y espaciado son los compartidos.
+ */
+:root {
+  --bg: #000816;
+  --bg-2: #000a1a;
+  --surface: #00122d;
+  --surface-2: #062048;
+  --ink: #fafbff;
+  --ink-2: #c6d3ef;
+  --mute: #93a6cf;
+  --line: rgb(103 151 253 / 0.18);
+
+  --accent: #5dc5c2;
+  --accent-hi: #8fe0dd;
+  --accent-ink: #02161a;
+  --accent-2: #5381ff;
+  --accent-deep: #06304a;
+  --glow: 0 0 0 1px rgb(143 224 221 / 0.3), 0 10px 40px -8px rgb(93 197 194 / 0.6);
+}
+
+.nav__brand.wordmark {
+  font-size: 1.3rem;
+}
+
+/* ───────────── Hero ───────────── */
+.c-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding-top: calc(68px + clamp(48px, 9vw, 128px));
+  padding-bottom: clamp(56px, 8vw, 112px);
+}
+
+.c-hero__glow {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(45% 55% at 88% 70%, rgb(93 197 194 / 0.42), transparent 70%),
+    radial-gradient(40% 50% at 70% 10%, rgb(83 129 255 / 0.35), transparent 70%),
+    radial-gradient(35% 40% at 10% 100%, rgb(103 151 253 / 0.18), transparent 70%);
+  animation:
+    cg-fade-in 1.6s ease-out both,
+    cg-drift 22s ease-in-out infinite alternate;
+}
+
+.c-hero__eyebrow {
+  animation: cg-fade 0.9s var(--ease-out) both;
+}
+
+.c-hero__title {
+  max-width: 15ch;
+  font-size: clamp(2.5rem, 1.3rem + 4.6vw, 5.2rem);
+  font-weight: 600;
+  line-height: 1.03;
+  letter-spacing: -0.04em;
+  animation: cg-fade 1s var(--ease-out) both 0.1s;
+}
+
+.c-hero__sub {
+  margin-top: var(--s-5);
+  max-width: 40ch;
+  font-size: var(--fs-lg);
+  color: var(--ink-2);
+  animation: cg-fade 1s var(--ease-out) both 0.3s;
+}
+
+.c-hero__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  margin-top: var(--s-6);
+  animation: cg-fade 1s var(--ease-out) both 0.45s;
+}
+
+.c-hero__proof {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3) var(--s-6);
+  margin-top: var(--s-8);
+  padding-top: var(--s-5);
+  border-top: 1px solid var(--line);
+  font-size: var(--fs-sm);
+  color: var(--ink-2);
+  animation: cg-fade 1s var(--ease-out) both 0.6s;
+}
+
+.c-hero__proof strong {
+  color: var(--accent-hi);
+}
+
+.c-hero__proof a {
+  color: var(--ink);
+  font-weight: 500;
+  border-bottom: 1px solid var(--line);
+}
+
+/* ───────────── Dolores ───────────── */
+.pains__title {
+  max-width: 16ch;
+  margin-bottom: var(--s-7);
+}
+
+.pains__grid {
+  display: grid;
+  gap: var(--s-3);
+}
+
+.pains__grid li {
+  display: grid;
+  gap: var(--s-2);
+  padding: var(--s-5);
+  border-radius: var(--r-card);
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.pains__grid strong {
+  font-size: var(--fs-lg);
+  letter-spacing: -0.015em;
+}
+
+.pains__grid span {
+  color: var(--ink-2);
+}
+
+.pains__bridge {
+  max-width: 720px;
+  margin-top: var(--s-8);
+}
+
+.pains__bridge h3 {
+  font-size: var(--fs-2xl);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+}
+
+.pains__bridge p {
+  margin-top: var(--s-4);
+  font-size: var(--fs-lg);
+  color: var(--ink-2);
+}
+
+@media (min-width: 640px) {
+  .pains__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1000px) {
+  .pains__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .pains__grid li:nth-child(even) {
+    margin-top: var(--s-7);
+  }
+  .pains__bridge {
+    margin-left: auto;
+  }
+}
+
+/* ───────────── Opciones ───────────── */
+.offers__head {
+  max-width: 640px;
+  margin-bottom: var(--s-7);
+}
+
+.offers__head .lead {
+  margin-top: var(--s-4);
+}
+
+.offers__grid {
+  display: grid;
+  gap: var(--s-4);
+}
+
+.offer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-4);
+  padding: clamp(24px, 3vw, 36px);
+  border-radius: var(--r-media);
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.offer--featured {
+  border-color: color-mix(in oklab, var(--accent) 45%, transparent);
+  background:
+    radial-gradient(70% 60% at 100% 0%, rgb(93 197 194 / 0.28), transparent 70%),
+    radial-gradient(60% 50% at 0% 100%, rgb(83 129 255 / 0.22), transparent 70%),
+    var(--surface);
+}
+
+.offer--soon {
+  background: transparent;
+  border-style: dashed;
+}
+
+.offer__badge {
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-hi);
+}
+
+.offer--soon .offer__badge {
+  color: var(--mute);
+}
+
+.offer__name {
+  font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.25rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.offer__promise {
+  color: var(--ink-2);
+}
+
+.offer__list {
+  display: grid;
+}
+
+.offer__list li {
+  position: relative;
+  padding: var(--s-3) 0 var(--s-3) 24px;
+  border-top: 1px solid var(--line);
+  font-size: var(--fs-sm);
+  color: var(--ink-2);
+}
+
+.offer__list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: calc(var(--s-3) + 0.6em);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.offer--soon .offer__list li::before {
+  background: var(--mute);
+}
+
+.offer__meta {
+  font-size: var(--fs-sm);
+  color: var(--mute);
+}
+
+.offer .btn {
+  margin-top: auto;
+  align-self: flex-start;
+  white-space: normal;
+  text-align: left;
+  padding-block: 0.9em;
+}
+
+@media (min-width: 900px) {
+  .offers__grid {
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .offer--featured {
+    padding: var(--s-7);
+  }
+}
+
+/* ───────────── Primera clase gratis ───────────── */
+.free-class__panel {
+  display: grid;
+  gap: var(--s-6);
+  align-items: center;
+}
+
+.free-class .lead {
+  margin-top: var(--s-4);
+}
+
+@media (min-width: 900px) {
+  .free-class__panel {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+    gap: var(--s-9);
+  }
+}
+
+/* ───────────── El evento ───────────── */
+.experience__title {
+  margin-bottom: var(--s-7);
+}
+
+.experience__list {
+  display: grid;
+  border-top: 1px solid var(--line);
+}
+
+.experience__list li {
+  display: grid;
+  gap: var(--s-2);
+  padding-block: var(--s-6);
+  border-bottom: 1px solid var(--line);
+}
+
+.experience__label {
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-hi);
+}
+
+.experience__list h3 {
+  font-size: clamp(1.6rem, 1.1rem + 2vw, 2.75rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+}
+
+.experience__list li > p:last-child {
+  color: var(--ink-2);
+}
+
+@media (min-width: 900px) {
+  .experience__list li {
+    grid-template-columns: 160px minmax(0, 1fr) minmax(0, 0.9fr);
+    align-items: baseline;
+    gap: var(--s-6);
+  }
+}
+
+/* ───────────── Quién te guía ───────────── */
+.guide__grid {
+  display: grid;
+  gap: var(--s-6);
+  align-items: end;
+}
+
+.guide__photo {
+  justify-self: center;
+  width: min(70%, 320px);
+  border-bottom: 1px solid var(--line);
+}
+
+.guide__photo img {
+  width: 100%;
+  -webkit-mask-image: linear-gradient(180deg, #000 72%, transparent 98%);
+  mask-image: linear-gradient(180deg, #000 72%, transparent 98%);
+}
+
+.guide__role {
+  margin-top: var(--s-2);
+  font-weight: 500;
+  color: var(--accent-hi);
+}
+
+.guide__bio {
+  display: grid;
+  gap: var(--s-4);
+  max-width: 56ch;
+  margin-block: var(--s-5) var(--s-6);
+  color: var(--ink-2);
+}
+
+@media (min-width: 900px) {
+  .guide__grid {
+    grid-template-columns: minmax(0, 0.7fr) minmax(0, 1fr);
+    gap: var(--s-9);
+  }
+  .guide__body {
+    padding-bottom: var(--s-7);
+  }
+}
+
+/* ───────────── Cierre con lista de espera ───────────── */
+.final {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.final__glow {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(50% 60% at 15% 80%, rgb(93 197 194 / 0.25), transparent 70%),
+    radial-gradient(40% 50% at 90% 20%, rgb(83 129 255 / 0.22), transparent 70%);
+}
+
+.final__grid {
+  display: grid;
+  gap: var(--s-7);
+}
+
+.final__title {
+  font-size: clamp(2.4rem, 1.3rem + 3.8vw, 4.5rem);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+}
+
+.final .lead {
+  margin-top: var(--s-5);
+}
+
+@media (min-width: 960px) {
+  .final__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+    gap: var(--s-9);
+    align-items: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .c-hero__glow,
+  .c-hero__eyebrow,
+  .c-hero__title,
+  .c-hero__sub,
+  .c-hero__ctas,
+  .c-hero__proof {
+    animation: none;
+  }
+}

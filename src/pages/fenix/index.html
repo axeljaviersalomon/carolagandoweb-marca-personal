@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mentalidad de Fénix · Renacer de lo que te quebró</title>
+    <meta name="description" content="Mentalidad de Fénix: un e-book y un programa grabado para transformar las crisis en tu punto de partida. Sumate a la lista de espera." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <script type="module" src="/fenix/fenix.js"></script>
+  </head>
+  <body style="margin: 0; background: #0f0705">
+    <div class="cg-page" data-page="fenix">
+      <!-- @include fenix/nav -->
+
+      <!-- TODO(clienta): copy definitivo de Mentalidad de Fénix. Lo que sigue es placeholder. -->
+      <main>
+        <!-- Hero con la lista de espera -->
+        <section class="f-hero" id="lista" data-hero>
+          <div class="f-hero__ember" aria-hidden="true"></div>
+          <div class="container f-hero__grid">
+            <div>
+              <p class="eyebrow f-hero__eyebrow">Próximamente</p>
+              <h1 class="f-hero__title">Renacé de lo que <span class="accent">te quebró.</span></h1>
+              <p class="f-hero__sub">Un e-book y un programa grabado para transformar las crisis en tu punto de partida. Sumate a la lista y enterate primero cuando salga.</p>
+            </div>
+            <div class="form-card f-hero__form">
+              <!-- @include lead-form {"id":"fenix","origin":"fenix","tags":"lista-espera:fenix-ebook","button":"Sumarme a la lista","success_title":"¡Ya estás en la lista!","success_text":"Te avisamos por mail apenas salga el e-book de Mentalidad de Fénix."} -->
+            </div>
+          </div>
+        </section>
+
+        <!-- Qué se viene -->
+        <section class="section coming" id="que-viene" aria-labelledby="coming-title">
+          <div class="container">
+            <h2 class="h2 coming__title" id="coming-title" data-reveal>Qué se viene</h2>
+            <div class="coming__grid">
+              <article class="coming__item" data-reveal>
+                <p class="coming__when">Primero</p>
+                <h3>E-book</h3>
+                <p>Las claves de la mentalidad de fénix para atravesar una pérdida, un fracaso o un final, y usarlo como impulso.</p>
+              </article>
+              <article class="coming__item" data-reveal style="--d: 1">
+                <p class="coming__when">Después</p>
+                <h3>Programa grabado</h3>
+                <p>Un recorrido en video, con ejercicios, para reconstruirte paso a paso y a tu ritmo.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <!-- Para quién -->
+        <section class="section for-you" id="para-vos" aria-labelledby="for-you-title">
+          <div class="container for-you__grid">
+            <h2 class="h2" id="for-you-title" data-reveal>Es para vos si</h2>
+            <ul class="for-you__list">
+              <li data-reveal>Atravesaste algo que te partió y todavía no sabés cómo seguir.</li>
+              <li data-reveal style="--d: 1">Sentís que perdiste la versión de vos que eras antes.</li>
+              <li data-reveal style="--d: 2">Querés que lo que pasó tenga un sentido, no solo dejarlo atrás.</li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Cierre -->
+        <section class="section f-final" data-sticky-hide>
+          <div class="container">
+            <h2 class="f-final__title" data-reveal>Las cenizas también son <span class="accent">un comienzo.</span></h2>
+            <a class="btn" href="#lista" data-reveal style="--d: 1">Sumarme a la lista <span class="arrow" aria-hidden="true">→</span></a>
+          </div>
+        </section>
+      </main>
+
+      <!-- @include fenix/footer -->
+      <!-- @include sticky-cta {"href":"#lista","label":"Sumarme a la lista"} -->
+    </div>
+  </body>
+</html>

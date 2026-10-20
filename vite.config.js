@@ -2,7 +2,7 @@ import { defineConfig } from "vite";
 import prefixSelector from "postcss-prefix-selector";
 import { htmlIncludes, prettyRoutes } from "./scripts/vite-plugins.js";
 
-export const PAGES = ["home", "conecta", "quantum", "fenix"];
+export const PAGES = ["home", "sobre-mi", "mentorias", "contacto", "conecta", "quantum", "fenix"];
 export const ROOT_CLASS = ".cg-page";
 
 /**

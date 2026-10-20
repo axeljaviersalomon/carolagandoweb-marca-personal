@@ -56,10 +56,8 @@ Todo en ARS salvo la mentoría (USD). Hoy no coinciden: Woo cobra ARS 23.499 por
 
 1. ✅ Repo, build singlefile, sistema de diseño compartido.
 2. ✅ Home.
-3. Conecta (reutiliza el copy de `funnels/content/brands/conecta.ts`).
-4. Quantum (copy placeholder).
-5. Fénix (copy placeholder).
-6. Prueba técnica en GHL (cuando haya acceso) → `docs/GHL.md`.
+3. ✅ Rediseño (ver abajo): páginas de Carola + Conecta, Quantum y Fénix con marca propia. Quantum y Fénix con copy placeholder (`TODO(clienta)` en el HTML).
+4. Prueba técnica en GHL (cuando haya acceso) → `docs/GHL.md`.
 
 ## Pendientes de la clienta
 
@@ -69,3 +67,46 @@ Todo en ARS salvo la mentoría (USD). Hoy no coinciden: Woo cobra ARS 23.499 por
 - Copy de Quantum y Fénix; testimonios escritos (frase corta de cada uno).
 - Confirmar que Salto Cuántico puede ser gratis de forma permanente.
 - Habilitar `carolagando.coach` en Vimeo → Privacidad → "Dónde se puede insertar" (los videos de testimonios hoy solo se ven en `quantumprograma.com`).
+
+## Rediseño: Carola exclusiva + programas independientes (decidido e implementado 20-10-2026)
+
+Pedido: el sitio de Carola es solo de ella. Conecta, Quantum y Fénix funcionan casi como sitios independientes, con marca propia, bajo el mismo dominio. Reemplaza los pasos 3 a 5 de "Orden de construcción".
+
+### Sitio de Carola: páginas separadas
+
+| Ruta | Contenido |
+|---|---|
+| `/` Inicio | Hero, números, las 3 tarjetas de programas (debajo de los números, con menos peso que el CTA de aplicar), resumen de mentorías con link, testimonios |
+| `/sobre-mi` | Historia, formación y reconocimientos, escenarios, cinta de países |
+| `/mentorias` | 3 formatos: 1:1, grupal y empresas/charlas. Para quién, qué incluye, proceso en 3 pasos, testimonios, FAQ, formulario de aplicación |
+| `/contacto` | Formulario corto (nombre, email, mensaje) + Instagram + email |
+
+- Nav: Inicio · Sobre mí · Mentorías · Contacto · [Aplicar]. Sin links a los programas en la nav (solo en las tarjetas de Inicio y, como secundario, en el footer).
+- Aplicación: suma el campo "Formato" (1:1 / grupal / empresas). Tag `interes:mentoria-1a1|mentoria-grupal|empresas`. Si elige empresas, aparece el campo "Empresa".
+- Contacto: webhook nuevo `contact` en `src/shared/js/config.js`, tag `interes:contacto`, workflow de GHL "Contacto general". No entra al pipeline Mentoría.
+
+### Programas con marca propia
+
+- Nav, logo y footer propios por programa. Comparten solo tokens, `base.css`, `components.css`, `forms.js` y `ui.js`.
+- Firma "Un programa de Carola Gando" con link a `/` y una mención a la mentoría (link a `/mentorias`).
+- Actualizar `docs/DESIGN.md`: se elimina la regla "una sola marca en las 4 páginas".
+
+### Impacto técnico
+
+- `vite.config.js`: `PAGES` suma `sobre-mi`, `mentorias`, `contacto`.
+- Partials: los actuales `nav` y `footer` pasan a ser de Carola; se crean los de cada programa (o un partial parametrizado por marca).
+- GHL: 7 páginas de custom code en vez de 4. Actualizar `docs/GHL.md`.
+- `data-hero` y sticky CTA definidos por página.
+
+### Orden
+
+1. Base compartida: partials por marca y páginas nuevas en `PAGES`.
+2. Carola: `/` → `/sobre-mi` → `/mentorias` → `/contacto`.
+3. Conecta, Quantum, Fénix con marca propia.
+4. `docs/DESIGN.md` y `docs/GHL.md`.
+
+### Pendientes de la clienta (nuevos)
+
+- Mentoría grupal: duración, cupos, frecuencia.
+- Empresas/charlas: qué ofrece y en qué formatos; si pasa por llamada como la 1:1.
+- Pipeline aparte para empresas o el mismo de Mentoría.

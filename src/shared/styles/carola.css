@@ -1,0 +1,128 @@
+/*
+ * Marca de Carola: piezas comunes a /, /sobre-mi, /mentorias y /contacto.
+ * Los programas (Conecta, Quantum, Fénix) no importan este archivo.
+ * Acento: violeta de la marca (default de tokens.css).
+ */
+
+/* ───────────── Encabezado de páginas internas ───────────── */
+.page-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding-top: calc(68px + clamp(40px, 7vw, 96px));
+  padding-bottom: clamp(48px, 7vw, 96px);
+}
+
+.page-hero__smoke {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  /* humo-2 tiene el humo a la izquierda: se espeja para que quede a la derecha */
+  transform: scaleX(-1);
+}
+
+.page-hero__smoke::before {
+  content: "";
+  position: absolute;
+  inset: -4%;
+  background: url(/img/humo-2.webp) left center / cover no-repeat;
+  animation:
+    cg-fade-in 1.6s ease-out both,
+    cg-drift 26s ease-in-out infinite alternate;
+}
+
+.page-hero__smoke::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(270deg, var(--bg) 25%, rgb(9 9 21 / 0.5) 55%, transparent 85%),
+    linear-gradient(0deg, var(--bg) 2%, transparent 45%);
+}
+
+.page-hero__title {
+  max-width: 16ch;
+  font-size: clamp(2.6rem, 1.4rem + 4.4vw, 5rem);
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  animation: cg-fade 1s var(--ease-out) both 0.1s;
+}
+
+.page-hero__sub {
+  margin-top: var(--s-5);
+  max-width: 44ch;
+  font-size: var(--fs-lg);
+  line-height: 1.6;
+  color: var(--ink-2);
+  animation: cg-fade 1s var(--ease-out) both 0.3s;
+}
+
+.page-hero .eyebrow {
+  animation: cg-fade 0.9s var(--ease-out) both;
+}
+
+/* Etiqueta chica en mayúsculas para subtítulos de bloque */
+.label {
+  font-family: var(--font-body);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-hi);
+  margin-bottom: var(--s-3);
+}
+
+/* Marca de agua del isotipo en los posters de testimonios */
+.voice__poster::before {
+  content: "";
+  position: absolute;
+  inset: 18%;
+  background: rgb(255 255 255 / 0.07);
+  -webkit-mask: url(/img/logo-cg.png) center / contain no-repeat;
+  mask: url(/img/logo-cg.png) center / contain no-repeat;
+}
+
+/* ───────────── Cierre con CTA (sin formulario) ───────────── */
+.cta-band {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  text-align: center;
+}
+
+.cta-band__smoke {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(180deg, var(--bg) 0%, transparent 40%, transparent 60%, var(--bg) 100%),
+    url(/img/humo-1.webp) center / cover no-repeat;
+  opacity: 0.6;
+}
+
+.cta-band__title {
+  font-size: clamp(2.6rem, 1.4rem + 4vw, 4.75rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.cta-band .lead {
+  margin: var(--s-5) auto 0;
+}
+
+.cta-band .btn {
+  margin-top: var(--s-6);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-hero__smoke::before,
+  .page-hero__title,
+  .page-hero__sub,
+  .page-hero .eyebrow {
+    animation: none;
+  }
+}

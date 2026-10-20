@@ -11,6 +11,7 @@
 export const WEBHOOKS = {
   apply: "", // Workflow "Mentoría: aplicación"
   lead: "", // Workflow "Lead magnet" (Salto Cuántico, lista de espera, etc.)
+  contact: "", // Workflow "Contacto general" (formulario de /contacto)
 };
 
 /**

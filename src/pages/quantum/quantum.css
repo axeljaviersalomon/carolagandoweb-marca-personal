@@ -1,0 +1,278 @@
+/*
+ * Quantum: marca propia (violeta profundo + amarillo).
+ * Redefine los tokens de color; tipografía, forma y espaciado son los compartidos.
+ */
+:root {
+  --bg: #0b0618;
+  --bg-2: #10082a;
+  --surface: #1a0d38;
+  --surface-2: #241248;
+  --ink: #f7f3ff;
+  --ink-2: #d4c9ec;
+  --mute: #a497c4;
+  --line: rgb(190 160 255 / 0.16);
+
+  --accent: #ffd84d;
+  --accent-hi: #ffd84d;
+  --accent-ink: #1a0a33;
+  --accent-2: #8a4dff;
+  --accent-deep: #2b1060;
+  --glow: 0 0 0 1px rgb(255 216 77 / 0.3), 0 10px 40px -10px rgb(255 216 77 / 0.5);
+}
+
+.nav__brand.wordmark {
+  font-size: 1.15rem;
+}
+
+.wordmark__main {
+  letter-spacing: 0.32em;
+}
+
+/* ───────────── Hero ───────────── */
+.q-hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding-top: calc(68px + clamp(40px, 7vw, 96px));
+  padding-bottom: clamp(56px, 8vw, 112px);
+}
+
+.q-hero__smoke {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.q-hero__smoke::before {
+  content: "";
+  position: absolute;
+  inset: -4%;
+  background:
+    linear-gradient(160deg, rgb(43 16 96 / 0.75) 0%, rgb(11 6 24 / 0.9) 70%),
+    url(/img/humo-3.webp) center / cover no-repeat;
+  animation:
+    cg-fade-in 1.6s ease-out both,
+    cg-drift 26s ease-in-out infinite alternate;
+}
+
+.q-hero__smoke::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, var(--bg) 2%, transparent 40%);
+}
+
+.q-hero__grid {
+  display: grid;
+  gap: var(--s-7);
+  align-items: center;
+}
+
+.q-hero__eyebrow {
+  animation: cg-fade 0.9s var(--ease-out) both;
+}
+
+.q-hero__title {
+  max-width: 16ch;
+  font-size: clamp(2.4rem, 1.3rem + 4vw, 4.75rem);
+  font-weight: 600;
+  line-height: 1.04;
+  letter-spacing: -0.04em;
+  animation: cg-fade 1s var(--ease-out) both 0.1s;
+}
+
+.q-hero__sub {
+  margin-top: var(--s-5);
+  max-width: 42ch;
+  font-size: var(--fs-lg);
+  color: var(--ink-2);
+  animation: cg-fade 1s var(--ease-out) both 0.3s;
+}
+
+.q-hero__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-3);
+  margin-top: var(--s-6);
+  animation: cg-fade 1s var(--ease-out) both 0.45s;
+}
+
+.q-hero__visual img {
+  width: 100%;
+  max-width: 560px;
+  margin-inline: auto;
+  rotate: -4deg;
+  filter: drop-shadow(0 30px 60px rgb(0 0 0 / 0.5));
+  animation: cg-photo 1.5s var(--ease-out) both 0.3s;
+}
+
+@media (min-width: 900px) {
+  .q-hero__grid {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  }
+  .q-hero__visual {
+    margin-right: calc(var(--gutter) * -1);
+  }
+}
+
+/* ───────────── Programas ───────────── */
+.modules__title {
+  max-width: 16ch;
+  margin-bottom: var(--s-7);
+}
+
+.modules__list {
+  display: grid;
+  gap: var(--s-3);
+  counter-reset: module;
+}
+
+.module {
+  position: relative;
+  display: grid;
+  gap: var(--s-3);
+  padding: var(--s-6) var(--s-5) var(--s-5);
+  border-radius: var(--r-card);
+  border: 1px solid var(--line);
+  background: var(--surface);
+  counter-increment: module;
+}
+
+.module::before {
+  content: counter(module, decimal-leading-zero);
+  font-size: var(--fs-num);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: transparent;
+  -webkit-text-stroke: 1px color-mix(in oklab, var(--accent) 60%, transparent);
+}
+
+.module__name {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2) var(--s-3);
+  font-size: var(--fs-xl);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.module__free {
+  padding: 4px 10px;
+  border-radius: var(--r-pill);
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.module__text {
+  color: var(--ink-2);
+}
+
+@media (min-width: 640px) {
+  .modules__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1100px) {
+  .modules__list {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  .module:nth-child(even) {
+    margin-top: var(--s-7);
+  }
+}
+
+/* ───────────── Paquete ───────────── */
+.bundle__card {
+  display: grid;
+  gap: var(--s-7);
+  padding: clamp(24px, 5vw, 72px);
+  border-radius: var(--r-media);
+  border: 1px solid color-mix(in oklab, var(--accent) 35%, transparent);
+  background:
+    radial-gradient(60% 70% at 100% 0%, rgb(138 77 255 / 0.35), transparent 70%),
+    radial-gradient(40% 50% at 0% 100%, rgb(255 216 77 / 0.12), transparent 70%),
+    var(--surface);
+}
+
+.bundle__card .lead {
+  margin-top: var(--s-4);
+}
+
+.bundle__list {
+  display: grid;
+  margin-bottom: var(--s-6);
+}
+
+.bundle__list li {
+  position: relative;
+  padding: var(--s-3) 0 var(--s-3) 32px;
+  border-bottom: 1px solid var(--line);
+  font-size: var(--fs-lg);
+  font-weight: 500;
+}
+
+.bundle__list li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.bundle__note {
+  margin-top: var(--s-4);
+  font-size: var(--fs-sm);
+  color: var(--mute);
+}
+
+@media (min-width: 960px) {
+  .bundle__card {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--s-9);
+    align-items: center;
+  }
+}
+
+/* ───────────── Salto Cuántico gratis ───────────── */
+.q-free__grid {
+  display: grid;
+  gap: var(--s-7);
+}
+
+.q-free__title {
+  font-size: clamp(2.2rem, 1.3rem + 3.4vw, 4rem);
+  font-weight: 600;
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+}
+
+.q-free .lead {
+  margin-top: var(--s-5);
+}
+
+@media (min-width: 960px) {
+  .q-free__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+    gap: var(--s-9);
+    align-items: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .q-hero__smoke::before,
+  .q-hero__eyebrow,
+  .q-hero__title,
+  .q-hero__sub,
+  .q-hero__ctas,
+  .q-hero__visual img {
+    animation: none;
+  }
+}

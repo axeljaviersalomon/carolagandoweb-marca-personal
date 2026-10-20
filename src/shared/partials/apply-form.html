@@ -1,10 +1,19 @@
 <!--
   Aplicación a la mentoría. Se envía al webhook "apply" de GHL (src/shared/js/config.js)
-  con el tag de la página de origen. Si hay CALENDAR_URL, después del envío
-  se muestra el calendario nativo de GHL para agendar la llamada.
+  con el tag de la página de origen y el del formato elegido. Si hay CALENDAR_URL,
+  después del envío se muestra el calendario nativo de GHL para agendar la llamada.
 -->
 <div class="apply-form" data-apply>
   <form class="form" data-form="apply" data-origin="{{origin}}" novalidate>
+    <fieldset class="field choice">
+      <legend>Formato</legend>
+      <div class="choice__options">
+        <label class="choice__option"><input type="radio" name="format" value="1a1" checked /><span>1:1</span></label>
+        <label class="choice__option"><input type="radio" name="format" value="grupal" /><span>Grupal</span></label>
+        <label class="choice__option"><input type="radio" name="format" value="empresas" /><span>Empresas y charlas</span></label>
+      </div>
+    </fieldset>
+
     <div class="field">
       <label for="apply-name-{{origin}}">Nombre</label>
       <input id="apply-name-{{origin}}" name="name" type="text" autocomplete="name" required />
@@ -20,6 +29,12 @@
     <div class="field">
       <label for="apply-phone-{{origin}}">WhatsApp</label>
       <input id="apply-phone-{{origin}}" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+54 9 11 1234 5678" required />
+      <p class="field__error" aria-live="polite"></p>
+    </div>
+
+    <div class="field" data-format-only="empresas" hidden>
+      <label for="apply-org-{{origin}}">Empresa</label>
+      <input id="apply-org-{{origin}}" name="organization" type="text" autocomplete="organization" />
       <p class="field__error" aria-live="polite"></p>
     </div>
 

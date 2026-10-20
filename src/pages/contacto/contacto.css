@@ -1,0 +1,75 @@
+/* Contacto. Acento: violeta de la marca (default de tokens.css). */
+
+.contact__grid {
+  display: grid;
+  gap: var(--s-7);
+}
+
+.contact__channels {
+  display: grid;
+  gap: var(--s-5);
+  margin-top: var(--s-7);
+}
+
+.contact__channels li {
+  display: grid;
+  gap: var(--s-1);
+}
+
+.contact__channels .label {
+  margin: 0;
+}
+
+.contact__channels a {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: var(--fs-xl);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+  transition: color 0.3s;
+}
+
+.contact__channels a:hover {
+  color: var(--accent-hi);
+}
+
+.contact__aside {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--s-2) var(--s-3);
+  margin-top: var(--s-7);
+  padding-top: var(--s-5);
+  border-top: 1px solid var(--line);
+  color: var(--ink-2);
+}
+
+.contact__card {
+  padding: clamp(24px, 4vw, 48px);
+  border-radius: var(--r-media);
+  border: 1px solid var(--line);
+  background: rgb(20 17 40 / 0.82);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  box-shadow:
+    var(--shadow-md),
+    0 0 80px -20px rgb(138 43 226 / 0.45);
+  animation: cg-fade 1s var(--ease-out) both 0.4s;
+}
+
+@media (min-width: 960px) {
+  .contact__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--s-9);
+    align-items: start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact__card {
+    animation: none;
+  }
+}

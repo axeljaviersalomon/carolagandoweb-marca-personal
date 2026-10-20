@@ -5,11 +5,12 @@ const PARTIALS_DIR = path.resolve("src/shared/partials");
 
 /**
  * Reemplaza `<!-- @include nombre {"clave":"valor"} -->` por el contenido de
- * `src/shared/partials/nombre.html`. Dentro del partial, `{{clave}}` se
- * reemplaza por el valor recibido. Los includes pueden anidarse.
+ * `src/shared/partials/nombre.html`. El nombre puede llevar carpeta
+ * (`carola/nav` → `partials/carola/nav.html`). Dentro del partial, `{{clave}}`
+ * se reemplaza por el valor recibido. Los includes pueden anidarse.
  */
 export function htmlIncludes() {
-  const pattern = /<!--\s*@include\s+([\w-]+)\s*(\{.*?\})?\s*-->/g;
+  const pattern = /<!--\s*@include\s+([\w/-]+)\s*(\{.*?\})?\s*-->/g;
 
   function render(html, depth = 0) {
     if (depth > 10) throw new Error("@include: demasiados niveles de anidación");
@@ -28,7 +29,7 @@ export function htmlIncludes() {
     name: "cg-html-includes",
     transformIndexHtml: { order: "pre", handler: (html) => render(html) },
     handleHotUpdate({ file, server }) {
-      if (file.startsWith(PARTIALS_DIR)) server.ws.send({ type: "full-reload" });
+      if (path.normalize(file).startsWith(PARTIALS_DIR)) server.ws.send({ type: "full-reload" });
     },
   };
 }

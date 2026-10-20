@@ -1,0 +1,36 @@
+<!--
+  Captura de lead (recurso gratis o lista de espera). Se envía al webhook "lead"
+  de GHL con los tags pagina:<origin> + <tags> (p. ej. lead:salto-cuantico).
+  `id` distingue los campos cuando hay más de un formulario en la página.
+-->
+<div class="lead-form">
+  <form class="form" data-form="lead" data-origin="{{origin}}" data-tags="{{tags}}" novalidate>
+    <div class="field">
+      <label for="lead-name-{{id}}">Nombre</label>
+      <input id="lead-name-{{id}}" name="name" type="text" autocomplete="name" required />
+      <p class="field__error" aria-live="polite"></p>
+    </div>
+
+    <div class="field">
+      <label for="lead-email-{{id}}">Email</label>
+      <input id="lead-email-{{id}}" name="email" type="email" autocomplete="email" inputmode="email" required />
+      <p class="field__error" aria-live="polite"></p>
+    </div>
+
+    <div class="form__hp" aria-hidden="true">
+      <label for="lead-company-{{id}}">Empresa</label>
+      <input id="lead-company-{{id}}" name="company" type="text" tabindex="-1" autocomplete="off" />
+    </div>
+
+    <p class="form__alert" role="alert" hidden></p>
+
+    <button class="btn btn--block" type="submit">{{button}} <span class="arrow" aria-hidden="true">→</span></button>
+    <p class="form__note">Te escribimos solo por esto. Podés darte de baja cuando quieras.</p>
+  </form>
+
+  <div class="form-success" data-success tabindex="-1" hidden>
+    <span class="form-success__icon" aria-hidden="true">✓</span>
+    <h3>{{success_title}}</h3>
+    <p class="muted" data-success-text>{{success_text}}</p>
+  </div>
+</div>
