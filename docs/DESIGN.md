@@ -4,31 +4,32 @@ Tokens en `src/shared/styles/tokens.css` (fuente de verdad). Este archivo explic
 
 ## Dirección
 
-Marca personal de una coach de transformación. Editorial, cálida y con energía. Una sola marca (Carola) en las 4 páginas: nav, footer, tipografía y forma son comunes. Cada página cambia **solo el acento** y su imagen principal.
+Estética de la marca de Carola, tomada de su Instagram (@carolagandocoach, destacados) y de quantumprograma.com: fondo casi negro, humo violeta y magenta, Poppins, botones violeta con brillo. El sitio es **solo oscuro** (es parte de la identidad). Una sola marca en las 4 páginas: nav, footer, tipografía y forma son comunes. Cada página cambia **solo el acento** y su imagen principal.
+
+Material reutilizado del WordPress (`Quantum Programa/public_html.zip`): foto de Carola con sus reflejos (`carola-ecos.webp`), fondos de humo (`humo-*.webp`), isotipo (`logo-cg.png`, `logo-cg-silver.webp`), mockup de Abundancia Infinita. Bio y trayectoria copiadas de quantumprograma.com.
 
 ## Color
 
-| Página | Acento claro | Acento oscuro | Origen |
-|---|---|---|---|
-| Home | `#b0204f` rosa profundo | `#ee5f8b` | Identidad de Carola |
-| Conecta | turquesa `#5dc5c2` sobre azul noche `#050d24` | igual | Marca existente de Conecta |
-| Quantum | violeta `#2b1060` + amarillo `#ffd84d` | igual | Marca existente de Quantum |
-| Fénix | brasa `#d2401c` / `#ff8a3d` | igual | Nueva (fuego, fénix) |
+| Página | Acento | Origen |
+|---|---|---|
+| Home | violeta `#8a2be2`, destacado `#c9a3ff`, magenta `#e0218a` solo en humo y brillos | Marca de Carola / Quantum |
+| Conecta | turquesa `#5dc5c2` sobre azul noche `#050d24` | Marca existente de Conecta |
+| Quantum | violeta `#2b1060` + amarillo `#ffd84d` | Marca existente de Quantum |
+| Fénix | brasa `#d2401c` / `#ff8a3d` | Nueva (fuego, fénix) |
 
-Neutros: fondo `#f3f2ee`, tinta `#17151a`, texto secundario `#66626b` (contraste AA sobre el fondo). Modo oscuro automático con `prefers-color-scheme`.
+Neutros: fondo `#090915` (el mismo de quantumprograma.com), superficies `#141128` / `#1c1735`, texto `#f4f1fa`, secundario `#cfc8de`, apagado `#9a92ad` (AA sobre el fondo).
 
 ## Tipografía
 
-- Display: **Bricolage Grotesque** (variable: `wdth` 75-100, `opsz`), 650-760, tracking negativo, `font-stretch` 84-90% en titulares grandes.
-- Texto: **Geist** 400-600.
+- **Poppins** (la de su marca) en todo: titulares 500-600 con tracking negativo, texto 300-400.
+- Mayúsculas solo en momentos de firma ("Tu momento es ahora", eyebrows), como en su web.
 - Escala en `--fs-*` (fluida con `clamp`).
 
 ## Forma
 
 - Botones: pill (`--r-pill`).
-- Tarjetas: `--r-card` 28px. Bloques grandes e imágenes: `--r-media` 36px.
+- Tarjetas: `--r-card` 24px. Bloques grandes: `--r-media` 32px.
 - Campos: `--r-field` 14px.
-- El hero usa un arco (`999px 999px 36px 36px`) como firma visual.
 
 ## Espaciado
 
@@ -36,7 +37,8 @@ Base 4px: `--s-1` (4) … `--s-10` (128). Secciones con `--section-y`.
 
 ## Movimiento
 
-- Entrada del hero (líneas que suben, arco que se revela).
+- Entrada del hero (líneas que suben, foto que aparece) y humo con deriva lenta.
+- Una sola cinta en movimiento por página (países en la Home).
 - Aparición al scroll con `data-reveal` (IntersectionObserver, nunca listeners de scroll). Escalonado con `style="--d: n"`.
 - Hover en botones (relleno que sube) y tarjetas.
 - Todo se desactiva con `prefers-reduced-motion`.

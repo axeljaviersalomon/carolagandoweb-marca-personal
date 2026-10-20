@@ -7,7 +7,8 @@
   color: var(--ink);
   font-family: var(--font-body);
   font-size: var(--fs-base);
-  line-height: 1.6;
+  font-weight: 300;
+  line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: clip;
@@ -45,9 +46,9 @@ h2,
 h3,
 h4 {
   font-family: var(--font-display);
-  font-weight: 700;
-  line-height: 1.05;
-  letter-spacing: -0.025em;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
   color: var(--ink);
   text-wrap: balance;
 }
@@ -90,7 +91,7 @@ button {
 }
 
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--accent-hi);
   outline-offset: 3px;
   border-radius: 6px;
 }
@@ -129,9 +130,9 @@ button {
   font-family: var(--font-body);
   font-size: var(--fs-xs);
   font-weight: 600;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--accent-hi);
   margin-bottom: var(--s-4);
 }
 
@@ -151,5 +152,9 @@ button {
 }
 
 .accent {
-  color: var(--accent);
+  color: var(--accent-hi);
+}
+
+strong {
+  font-weight: 600;
 }

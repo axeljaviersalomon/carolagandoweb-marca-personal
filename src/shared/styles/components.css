@@ -13,8 +13,9 @@
 .btn {
   --btn-bg: var(--accent);
   --btn-fg: var(--accent-ink);
-  --btn-hover-bg: var(--ink);
-  --btn-hover-fg: var(--bg);
+  --btn-hover-bg: #ffffff;
+  --btn-hover-fg: #090915;
+  --btn-shadow: var(--glow);
   --btn-border: transparent;
   position: relative;
   isolation: isolate;
@@ -29,6 +30,7 @@
   border: 1px solid var(--btn-border);
   background: var(--btn-bg);
   color: var(--btn-fg);
+  box-shadow: var(--btn-shadow, none);
   font-family: var(--font-body);
   font-size: var(--fs-sm);
   font-weight: 600;
@@ -80,6 +82,7 @@
   --btn-border: var(--line);
   --btn-hover-bg: var(--surface-2);
   --btn-hover-fg: var(--ink);
+  --btn-shadow: none;
 }
 
 .btn--sm {
@@ -132,13 +135,14 @@
   gap: 10px;
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 1.125rem;
+  font-size: clamp(1rem, 0.9rem + 0.4vw, 1.125rem);
   letter-spacing: -0.02em;
+  white-space: nowrap;
 }
 
 .nav__brand .logo-mark {
   font-size: 30px;
-  color: var(--accent);
+  color: var(--ink);
 }
 
 .nav__links {
@@ -163,7 +167,7 @@
   right: 0;
   bottom: 0;
   height: 1.5px;
-  background: var(--accent);
+  background: var(--accent-hi);
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.45s var(--ease-out);
@@ -284,8 +288,8 @@
   min-height: 52px;
   padding: 14px 16px;
   border-radius: var(--r-field);
-  border: 1px solid color-mix(in oklab, var(--ink) 22%, transparent);
-  background: var(--surface);
+  border: 1px solid color-mix(in oklab, var(--ink) 18%, transparent);
+  background: var(--bg-2);
   font-size: 1rem;
   line-height: 1.4;
   transition:
@@ -308,29 +312,19 @@
 .field textarea:focus {
   outline: none;
   border-color: var(--accent);
-  box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent) 22%, transparent);
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent) 35%, transparent);
 }
 
 .field[data-invalid] input,
 .field[data-invalid] textarea {
-  border-color: #c2361b;
+  border-color: #ff8a6f;
 }
 
 .field__error {
   font-size: var(--fs-xs);
   font-weight: 500;
-  color: #b3301a;
+  color: #ff8a6f;
   min-height: 1.2em;
-}
-
-@media (prefers-color-scheme: dark) {
-  .field__error {
-    color: #ff8a6f;
-  }
-  .field[data-invalid] input,
-  .field[data-invalid] textarea {
-    border-color: #ff8a6f;
-  }
 }
 
 .form__hp {
@@ -498,7 +492,8 @@
 /* ───────────── Footer ───────────── */
 .footer {
   padding-block: var(--s-9) var(--s-6);
-  background: var(--surface-2);
+  background: var(--bg-2);
+  border-top: 1px solid var(--line);
 }
 
 .footer__top {
@@ -514,7 +509,7 @@
 
 .footer__brand .logo-mark {
   font-size: 56px;
-  color: var(--accent);
+  color: var(--ink);
 }
 
 .footer__name {
@@ -546,7 +541,7 @@
 }
 
 .footer__cols a:hover {
-  color: var(--accent);
+  color: var(--accent-hi);
 }
 
 .footer__bottom {
