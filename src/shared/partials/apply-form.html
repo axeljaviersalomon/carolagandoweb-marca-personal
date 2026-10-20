@@ -1,0 +1,48 @@
+<!--
+  Aplicación a la mentoría. Se envía al webhook "apply" de GHL (src/shared/js/config.js)
+  con el tag de la página de origen. Si hay CALENDAR_URL, después del envío
+  se muestra el calendario nativo de GHL para agendar la llamada.
+-->
+<div class="apply-form" data-apply>
+  <form class="form" data-form="apply" data-origin="{{origin}}" novalidate>
+    <div class="field">
+      <label for="apply-name-{{origin}}">Nombre</label>
+      <input id="apply-name-{{origin}}" name="name" type="text" autocomplete="name" required />
+      <p class="field__error" aria-live="polite"></p>
+    </div>
+
+    <div class="field">
+      <label for="apply-email-{{origin}}">Email</label>
+      <input id="apply-email-{{origin}}" name="email" type="email" autocomplete="email" inputmode="email" required />
+      <p class="field__error" aria-live="polite"></p>
+    </div>
+
+    <div class="field">
+      <label for="apply-phone-{{origin}}">WhatsApp</label>
+      <input id="apply-phone-{{origin}}" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="+54 9 11 1234 5678" required />
+      <p class="field__error" aria-live="polite"></p>
+    </div>
+
+    <div class="field">
+      <label for="apply-goal-{{origin}}">¿Qué querés lograr? <span class="optional">(opcional)</span></label>
+      <textarea id="apply-goal-{{origin}}" name="goal" rows="3"></textarea>
+    </div>
+
+    <div class="form__hp" aria-hidden="true">
+      <label for="apply-company-{{origin}}">Empresa</label>
+      <input id="apply-company-{{origin}}" name="company" type="text" tabindex="-1" autocomplete="off" />
+    </div>
+
+    <p class="form__alert" role="alert" hidden></p>
+
+    <button class="btn btn--block" type="submit">Enviar aplicación <span class="arrow" aria-hidden="true">→</span></button>
+    <p class="form__note">Tus datos solo se usan para contactarte por la mentoría.</p>
+  </form>
+
+  <div class="form-success" data-success tabindex="-1" hidden>
+    <span class="form-success__icon" aria-hidden="true">✓</span>
+    <h3>¡Recibimos tu aplicación!</h3>
+    <p class="muted" data-success-text>Carola la va a leer y te escribe en los próximos días.</p>
+    <div data-calendar></div>
+  </div>
+</div>

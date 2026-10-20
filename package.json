@@ -1,0 +1,19 @@
+{
+  "name": "carolagandoweb-marca-personal",
+  "version": "1.0.0",
+  "description": "Web de marca personal de Carola Gando (carolagando.coach) para GoHighLevel",
+  "scripts": {
+    "dev": "vite",
+    "build": "node scripts/build.mjs",
+    "preview": "vite preview --outDir ../../dist"
+  },
+  "license": "UNLICENSED",
+  "type": "module",
+  "devDependencies": {
+    "postcss-prefix-selector": "^2.2.1",
+    "sharp": "^0.35.5",
+    "vite": "^8.3.4",
+    "vite-plugin-singlefile": "^2.3.4"
+  },
+  "private": true
+}
