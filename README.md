@@ -2,6 +2,7 @@
 
 Web de marca personal de Carola Gando. Cuatro páginas (`/`, `/conecta`, `/quantum`, `/fenix`) que se publican en GoHighLevel como bloques de código.
 
+- Vista previa: https://axeljaviersalomon.github.io/carolagandoweb-marca-personal/ (se publica sola en cada push a `main`)
 - Plan y decisiones: [`docs/PLAN.md`](docs/PLAN.md)
 - Publicar en GHL y configurar workflows: [`docs/GHL.md`](docs/GHL.md)
 - Sistema de diseño: [`docs/DESIGN.md`](docs/DESIGN.md)
