@@ -15,6 +15,9 @@ import { viteSingleFile } from "vite-plugin-singlefile";
 import { PAGES } from "../vite.config.js";
 
 const DIST = path.resolve("dist");
+// Prefijo para servir el documento completo bajo una subcarpeta (GitHub Pages).
+// No afecta al fragmento de GHL, que siempre usa rutas desde la raíz del dominio.
+const BASE = process.env.PAGES_BASE?.replace(/\/?$/, "/") ?? "/";
 const TMP = path.join(DIST, ".tmp");
 const only = process.argv.slice(2);
 const pages = only.length ? PAGES.filter((p) => only.includes(p)) : PAGES;
@@ -35,7 +38,9 @@ for (const page of pages) {
   await build({
     configFile: path.resolve("vite.config.js"),
     logLevel: "warn",
-    plugins: [viteSingleFile({ removeViteModuleLoader: true })],
+    // base "/": el plugin fuerza "./" y deja las imágenes de public/ como rutas
+    // relativas, que en GHL no resuelven ni se pueden mapear con images.json.
+    plugins: [viteSingleFile({ removeViteModuleLoader: true, overrideConfig: { base: "/" } })],
     build: {
       outDir: path.join(TMP, page),
       emptyOutDir: true,
@@ -49,7 +54,7 @@ for (const page of pages) {
   const route = page === "home" ? "" : page;
   const fullDir = path.join(DIST, route);
   fs.mkdirSync(fullDir, { recursive: true });
-  fs.writeFileSync(path.join(fullDir, "index.html"), html);
+  fs.writeFileSync(path.join(fullDir, "index.html"), withBase(html));
 
   const fragment = toGhlFragment(html);
   const { html: mapped, missing } = mapImages(fragment);
@@ -76,6 +81,12 @@ function toGhlFragment(html) {
   const styles = head.match(/<style[\s\S]*?<\/style>/gi) ?? [];
   const scripts = head.match(/<script[\s\S]*?<\/script>/gi) ?? [];
   return [...links, ...styles, body.trim(), ...scripts].join("\n");
+}
+
+/** Antepone BASE a las rutas absolutas locales: href="/...", src="/...", url(/...). */
+function withBase(html) {
+  if (BASE === "/") return html;
+  return html.replace(/((?:href|src)=["']|url\(["']?)\/(?!\/)/g, `$1${BASE}`);
 }
 
 function mapImages(html) {
