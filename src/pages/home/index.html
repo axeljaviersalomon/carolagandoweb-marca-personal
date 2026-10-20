@@ -41,19 +41,19 @@
             <dl class="stats" aria-label="Trayectoria en números">
               <div class="stat">
                 <dt class="stat__label">años guiando procesos de transformación</dt>
-                <dd class="stat__num">12<span class="accent">+</span></dd>
+                <dd class="stat__num"><span data-count="12">12</span><span class="accent">+</span></dd>
               </div>
               <div class="stat">
                 <dt class="stat__label">países de América y Europa</dt>
-                <dd class="stat__num">9</dd>
+                <dd class="stat__num"><span data-count="9">9</span></dd>
               </div>
               <div class="stat">
                 <dt class="stat__label">personas en Expansión, un mismo escenario</dt>
-                <dd class="stat__num">4.500</dd>
+                <dd class="stat__num"><span data-count="4500">4.500</span></dd>
               </div>
               <div class="stat">
                 <dt class="stat__label">asistentes en la Cumbre España</dt>
-                <dd class="stat__num">1.500<span class="accent">+</span></dd>
+                <dd class="stat__num"><span data-count="1500">1.500</span><span class="accent">+</span></dd>
               </div>
             </dl>
           </div>
@@ -68,7 +68,7 @@
             </div>
 
             <div class="programs__grid">
-              <a class="program program--conecta" href="/conecta" data-reveal>
+              <a class="program program--conecta" href="/conecta" data-reveal data-glow>
                 <div class="program__glow" aria-hidden="true"></div>
                 <div class="program__body">
                   <p class="program__kicker">Evento, curso y e-book</p>
@@ -78,7 +78,7 @@
                 <span class="program__link">Conocer Conecta <span class="arrow" aria-hidden="true">→</span></span>
               </a>
 
-              <a class="program program--quantum" href="/quantum" data-reveal style="--d: 1">
+              <a class="program program--quantum" href="/quantum" data-reveal data-glow style="--d: 1">
                 <img class="program__img" src="/img/quantum-abundancia.webp" alt="" width="606" height="352" loading="lazy" />
                 <div class="program__body">
                   <p class="program__kicker">Programa grabado y e-book</p>
@@ -88,7 +88,7 @@
                 <span class="program__link">Conocer Quantum <span class="arrow" aria-hidden="true">→</span></span>
               </a>
 
-              <a class="program program--fenix" href="/fenix" data-reveal style="--d: 2">
+              <a class="program program--fenix" href="/fenix" data-reveal data-glow style="--d: 2">
                 <div class="program__body">
                   <p class="program__kicker">Próximamente</p>
                   <h3 class="program__name">Mentalidad de Fénix</h3>
@@ -143,7 +143,9 @@
         <!-- Testimonios -->
         <section class="section voices" aria-labelledby="voices-title">
           <div class="container">
-            <h2 class="h2 voices__title" id="voices-title" data-reveal>Lo que vivieron quienes ya dieron el paso</h2>
+            <div class="section-head">
+              <h2 class="h2" id="voices-title" data-reveal>Lo que vivieron quienes ya dieron el paso</h2>
+            </div>
             <ul class="voices__grid">
               <li class="voice" data-reveal>
                 <button class="voice__poster" type="button" data-vimeo="1142163431" aria-label="Ver testimonio de Ariel Kaller">

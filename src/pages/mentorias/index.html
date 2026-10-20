@@ -27,15 +27,19 @@
               <a class="btn btn--ghost" href="#formatos">Ver formatos</a>
             </div>
           </div>
+          <span class="page-hero__scroll" aria-hidden="true"></span>
         </section>
 
         <!-- Formatos -->
         <section class="section formats-section" id="formatos" aria-labelledby="formats-title">
           <div class="container">
-            <h2 class="h2 formats-section__title" id="formats-title" data-reveal>Tres formatos, un mismo método</h2>
+            <div class="section-head">
+              <h2 class="h2" id="formats-title" data-reveal>Tres formatos, un mismo método</h2>
+              <p class="lead" data-reveal style="--d: 1">Solo, en grupo o con tu equipo. Siempre con un plan claro y mi guía.</p>
+            </div>
 
             <div class="format-cards">
-              <article class="format-card format-card--main" data-reveal>
+              <article class="format-card format-card--main" data-reveal data-glow>
                 <p class="label">1:1</p>
                 <h3 class="format-card__name">Mentoría individual</h3>
                 <p class="format-card__text">Un proceso conmigo, sobre tu caso y a tu ritmo. Para quienes quieren ir a fondo.</p>
@@ -49,7 +53,7 @@
               </article>
 
               <!-- TODO(clienta): duración, cupos y frecuencia de la mentoría grupal -->
-              <article class="format-card" data-reveal style="--d: 1">
+              <article class="format-card" data-reveal data-glow style="--d: 1">
                 <p class="label">Grupal</p>
                 <h3 class="format-card__name">Mentoría grupal</h3>
                 <p class="format-card__text">Un grupo reducido que avanza en conjunto. Mi guía, más la fuerza de personas que buscan lo mismo que vos.</p>
@@ -62,7 +66,7 @@
               </article>
 
               <!-- TODO(clienta): qué ofrece a empresas y en qué formatos; si pasa por llamada como la 1:1 -->
-              <article class="format-card" data-reveal style="--d: 2">
+              <article class="format-card" data-reveal data-glow style="--d: 2">
                 <p class="label">Empresas</p>
                 <h3 class="format-card__name">Empresas y charlas</h3>
                 <p class="format-card__text">Entrenamientos de alto impacto para equipos, convenciones y escenarios. Con la experiencia de haber facilitado eventos de hasta 4.500 personas.</p>
@@ -93,7 +97,9 @@
         <!-- Testimonios -->
         <section class="section voices" aria-labelledby="voices-title">
           <div class="container">
-            <h2 class="h2 voices__title" id="voices-title" data-reveal>Lo que vivieron quienes ya dieron el paso</h2>
+            <div class="section-head">
+              <h2 class="h2" id="voices-title" data-reveal>Lo que vivieron quienes ya dieron el paso</h2>
+            </div>
             <ul class="voices__grid">
               <li class="voice" data-reveal>
                 <button class="voice__poster" type="button" data-vimeo="1142163431" aria-label="Ver testimonio de Ariel Kaller">
@@ -143,7 +149,7 @@
         <!-- Preguntas frecuentes -->
         <section class="section" aria-labelledby="faq-title">
           <div class="container faq-section__grid">
-            <h2 class="h2" id="faq-title">Preguntas frecuentes</h2>
+            <h2 class="h2" id="faq-title" data-reveal>Preguntas frecuentes</h2>
             <div class="faq">
               <details>
                 <summary>¿Las sesiones son online?</summary>

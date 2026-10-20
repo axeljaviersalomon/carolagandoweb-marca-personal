@@ -29,27 +29,14 @@ export function initNav(root) {
   const active = nav.dataset.active;
   nav.querySelectorAll(`[data-nav-link="${active}"]`).forEach((a) => a.setAttribute("aria-current", "page"));
 
-  // Fondo sólido cuando el hero sale de pantalla o el menú está abierto
-  const hero = root.querySelector("[data-hero]");
-  let overHero = Boolean(hero);
-  const paint = () => nav.classList.toggle("is-solid", !overHero || nav.hasAttribute("data-open"));
-  if (hero) {
-    new IntersectionObserver(
-      ([entry]) => {
-        overHero = entry.isIntersecting;
-        paint();
-      },
-      { rootMargin: "-68px 0px 0px 0px" },
-    ).observe(hero);
-  }
-  paint();
+  // La nav siempre tiene fondo; en los programas resalta la sección visible
+  initScrollSpy(nav);
 
   // Menú mobile
   const toggle = nav.querySelector(".nav__toggle");
   const panel = nav.querySelector(".nav__panel");
   const setOpen = (open) => {
     nav.toggleAttribute("data-open", open);
-    paint();
     toggle.setAttribute("aria-expanded", String(open));
     toggle.setAttribute("aria-label", open ? "Cerrar menú" : "Abrir menú");
     panel.hidden = !open;
@@ -103,4 +90,71 @@ export function initVideos(root) {
 
 export function initYear(root) {
   root.querySelectorAll("[data-year]").forEach((el) => (el.textContent = new Date().getFullYear()));
+}
+
+/** Links a anclas de la nav (programas): marca la sección que está en pantalla. */
+function initScrollSpy(nav) {
+  const links = [...nav.querySelectorAll('.nav__links a[href^="#"]')];
+  const targets = links.map((a) => document.getElementById(a.hash.slice(1))).filter(Boolean);
+  if (!targets.length || !("IntersectionObserver" in window)) return;
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        links.forEach((a) => a.classList.toggle("is-active", a.hash === `#${entry.target.id}`));
+      });
+    },
+    // Una franja fina a media pantalla: solo una sección la cruza a la vez
+    { rootMargin: "-45% 0px -50% 0px" },
+  );
+  targets.forEach((t) => io.observe(t));
+}
+
+/** Luz que sigue al puntero en tarjetas con [data-glow]. Solo con mouse. */
+export function initPointerGlow(root) {
+  if (!matchMedia("(hover: hover) and (pointer: fine)").matches) return;
+  root.querySelectorAll("[data-glow]").forEach((card) => {
+    const glow = document.createElement("i");
+    glow.className = "cg-glow";
+    glow.setAttribute("aria-hidden", "true");
+    card.prepend(glow);
+    card.addEventListener("pointermove", (e) => {
+      const r = card.getBoundingClientRect();
+      glow.style.setProperty("--x", `${e.clientX - r.left}px`);
+      glow.style.setProperty("--y", `${e.clientY - r.top}px`);
+    });
+  });
+}
+
+/** Números que cuentan hasta su valor al entrar en pantalla ([data-count]). */
+export function initCountUp(root) {
+  const items = root.querySelectorAll("[data-count]");
+  if (!items.length || !("IntersectionObserver" in window)) return;
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const format = new Intl.NumberFormat("es-AR");
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        io.unobserve(entry.target);
+        const el = entry.target;
+        const end = Number(el.dataset.count);
+        const start = performance.now();
+        const duration = 1600;
+        const tick = (now) => {
+          const t = Math.min((now - start) / duration, 1);
+          // ease-out exponencial: arranca rápido y se asienta despacio
+          const eased = t === 1 ? 1 : 1 - 2 ** (-10 * t);
+          el.textContent = format.format(Math.round(end * eased));
+          if (t < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      });
+    },
+    { threshold: 0.6 },
+  );
+  items.forEach((el) => {
+    el.textContent = "0";
+    io.observe(el);
+  });
 }

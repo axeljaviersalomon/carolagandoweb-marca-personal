@@ -19,12 +19,10 @@
         <!-- Hero con la lista de espera -->
         <section class="f-hero" id="lista" data-hero>
           <div class="f-hero__ember" aria-hidden="true"></div>
-          <div class="container f-hero__grid">
-            <div>
-              <p class="eyebrow f-hero__eyebrow">Próximamente</p>
-              <h1 class="f-hero__title">Renacé de lo que <span class="accent">te quebró.</span></h1>
-              <p class="f-hero__sub">Un e-book y un programa grabado para transformar las crisis en tu punto de partida. Sumate a la lista y enterate primero cuando salga.</p>
-            </div>
+          <div class="container f-hero__inner">
+            <p class="eyebrow f-hero__eyebrow">Próximamente</p>
+            <h1 class="f-hero__title">Renacé de lo que <span class="accent">te quebró.</span></h1>
+            <p class="f-hero__sub">Un e-book y un programa grabado para transformar las crisis en tu punto de partida. Sumate a la lista y enterate primero cuando salga.</p>
             <div class="form-card f-hero__form">
               <!-- @include lead-form {"id":"fenix","origin":"fenix","tags":"lista-espera:fenix-ebook","button":"Sumarme a la lista","success_title":"¡Ya estás en la lista!","success_text":"Te avisamos por mail apenas salga el e-book de Mentalidad de Fénix."} -->
             </div>
@@ -34,14 +32,16 @@
         <!-- Qué se viene -->
         <section class="section coming" id="que-viene" aria-labelledby="coming-title">
           <div class="container">
-            <h2 class="h2 coming__title" id="coming-title" data-reveal>Qué se viene</h2>
+            <div class="section-head">
+              <h2 class="h2" id="coming-title" data-reveal>Qué se viene</h2>
+            </div>
             <div class="coming__grid">
-              <article class="coming__item" data-reveal>
+              <article class="coming__item" data-reveal data-glow>
                 <p class="coming__when">Primero</p>
                 <h3>E-book</h3>
                 <p>Las claves de la mentalidad de fénix para atravesar una pérdida, un fracaso o un final, y usarlo como impulso.</p>
               </article>
-              <article class="coming__item" data-reveal style="--d: 1">
+              <article class="coming__item" data-reveal data-glow style="--d: 1">
                 <p class="coming__when">Después</p>
                 <h3>Programa grabado</h3>
                 <p>Un recorrido en video, con ejercicios, para reconstruirte paso a paso y a tu ritmo.</p>

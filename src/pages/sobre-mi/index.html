@@ -16,28 +16,30 @@
 
       <main>
         <!-- Encabezado -->
-        <section class="page-hero about-hero" data-hero>
+        <section class="page-hero" data-hero>
           <div class="page-hero__smoke" aria-hidden="true"></div>
-          <div class="container about-hero__grid">
-            <div>
-              <p class="eyebrow">Sobre mí</p>
-              <h1 class="page-hero__title">Una de las <span class="accent">entrenadoras de alto impacto</span> más reconocidas de habla hispana.</h1>
-              <p class="page-hero__sub">Soy Carola Gando. Hace más de 12 años guío procesos de transformación personal, combinando mentalidad, propósito y dinámicas de alto impacto.</p>
-            </div>
-            <figure class="about-hero__visual">
-              <img src="/img/carola-retrato.webp" alt="Retrato de Carola Gando sonriendo, con blusa clara y cinturón negro" width="497" height="785" fetchpriority="high" />
-            </figure>
+          <div class="container">
+            <p class="eyebrow">Sobre mí</p>
+            <h1 class="page-hero__title">Una de las <span class="accent">entrenadoras de alto impacto</span> más reconocidas de habla hispana.</h1>
+            <p class="page-hero__sub">Soy Carola Gando. Hace más de 12 años guío procesos de transformación personal, combinando mentalidad, propósito y dinámicas de alto impacto.</p>
           </div>
+          <span class="page-hero__scroll" aria-hidden="true"></span>
         </section>
 
-        <!-- Historia -->
+        <!-- Historia, con el retrato -->
         <section class="section story" aria-labelledby="story-title">
           <div class="container story__grid">
-            <h2 class="story__statement" id="story-title" data-reveal>Creo experiencias donde las personas dejan de esperar y <span class="accent">empiezan a actuar.</span></h2>
-            <div class="story__text" data-reveal style="--d: 1">
-              <!-- TODO(clienta): historia personal en primera persona (cómo empezó, qué la mueve) -->
-              <p>Trabajé con miles de personas en 9 países de América y Europa. En cada proceso busco lo mismo: que encuentres claridad, te animes a dar el salto y sostengas el cambio en el tiempo.</p>
-              <p>Creé Conecta con tu Propósito, Mentalidad de Fénix, Quantum, Mi Poder Personal, Creando mis Días y Amo Emprender. Hoy acompaño a personas, grupos y empresas con mentorías hechas a la medida de cada uno.</p>
+            <figure class="story__photo" data-reveal>
+              <img src="/img/carola-retrato.webp" alt="Retrato de Carola Gando sonriendo, con blusa clara y cinturón negro" width="497" height="785" loading="lazy" />
+              <figcaption>Carola Gando · High Impact Trainer</figcaption>
+            </figure>
+            <div class="story__body">
+              <h2 class="story__statement" id="story-title" data-reveal>Creo experiencias donde las personas dejan de esperar y <span class="accent">empiezan a actuar.</span></h2>
+              <div class="story__text" data-reveal style="--d: 1">
+                <!-- TODO(clienta): historia personal en primera persona (cómo empezó, qué la mueve) -->
+                <p>Trabajé con miles de personas en 9 países de América y Europa. En cada proceso busco lo mismo: que encuentres claridad, te animes a dar el salto y sostengas el cambio en el tiempo.</p>
+                <p>Creé Conecta con tu Propósito, Mentalidad de Fénix, Quantum, Mi Poder Personal, Creando mis Días y Amo Emprender. Hoy acompaño a personas, grupos y empresas con mentorías hechas a la medida de cada uno.</p>
+              </div>
             </div>
           </div>
         </section>
@@ -59,7 +61,9 @@
         <!-- Escenarios -->
         <section class="section stages" aria-labelledby="stages-title">
           <div class="container">
-            <h2 class="h2 stages__title" id="stages-title" data-reveal>Escenarios que coordiné y facilité</h2>
+            <div class="section-head">
+              <h2 class="h2" id="stages-title" data-reveal>Escenarios que coordiné y facilité</h2>
+            </div>
             <ol class="stages__list">
               <li class="stage" data-reveal>
                 <h3 class="stage__name">Expansión</h3>

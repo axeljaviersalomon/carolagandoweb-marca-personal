@@ -30,23 +30,35 @@ Neutros de Carola: superficies `#141128` / `#1c1735`, texto `#f4f1fa`, secundari
 
 ## Tipografía
 
-- **Poppins** (la de su marca) en todo: titulares 500-600 con tracking negativo, texto 300-400.
+- **Poppins** (la de su marca) en todo: titulares en 500 con tracking negativo, la palabra destacada (`.accent`) en 300; texto en 300-400. Nada en 600-700: la jerarquía sale del peso y del aire, no del grosor.
 - Mayúsculas solo en momentos de firma ("Tu momento es ahora", eyebrows), como en su web.
-- Escala en `--fs-*` (fluida con `clamp`).
+- Escala contenida en `--fs-*` (fluida con `clamp`). Heros con `--fs-hero` (máx. 68px), cierres con `--fs-3xl`.
+- Formularios: label 13px en `--ink-2`, campos de 48px con texto de 16px (menos hace zoom en iOS).
 
 ## Forma
 
 - Botones: pill (`--r-pill`).
-- Tarjetas: `--r-card` 24px. Bloques grandes: `--r-media` 32px.
-- Campos: `--r-field` 14px.
+- Tarjetas: `--r-card` 20px. Bloques grandes: `--r-media` 28px.
+- Campos: `--r-field` 12px.
 
 ## Espaciado
 
 Base 4px: `--s-1` (4) … `--s-10` (128). Secciones con `--section-y`.
 
+## Disposición
+
+- Heros de páginas internas y programas **centrados en ambos ejes** (`.page-hero`, `.c-hero`, `.q-hero`, `.f-hero`). Solo Inicio mantiene hero en dos columnas con la foto. Sin imágenes en esos heros: la foto de Sobre mí va en Historia y el mockup de Quantum en El paquete.
+- Títulos de sección centrados con `.section-head` (título + bajada). Las secciones partidas (formularios, Formación, Para quién) quedan en dos columnas.
+- Preguntas frecuentes en una columna centrada.
+- Orden de los programas: problema, experiencia/prueba, oferta, recurso gratis, quién guía, preguntas, cierre. La nav lista las secciones en ese orden y resalta la visible.
+
 ## Movimiento
 
-- Entrada del hero (líneas que suben, foto que aparece) y humo con deriva lenta.
+- Entrada del hero (sube y se enfoca: `cg-fade` con blur) y humo con deriva lenta.
+- Tarjetas con `data-glow`: luz que sigue al puntero (solo mouse) y elevación con `translate` (no `transform`, que lo usa el reveal).
+- Dolores de Conecta: entrada escalonada con escala, barra degradé que se dibuja en la base y número fantasma que gira en hover.
+- Números de Inicio cuentan hasta su valor al entrar (`data-count`).
+- FAQ abre con transición de altura donde el navegador lo soporta (`::details-content`).
 - Una sola cinta en movimiento por página (`.marquee`: países en Sobre mí, palabras en Conecta).
 - Aparición al scroll con `data-reveal` (IntersectionObserver, nunca listeners de scroll). Escalonado con `style="--d: n"`.
 - Hover en botones (relleno que sube) y tarjetas.
@@ -57,6 +69,6 @@ Base 4px: `--s-1` (4) … `--s-10` (128). Secciones con `--section-y`.
 - Sin guiones largos en el copy.
 - Máximo 1 eyebrow cada 3 secciones.
 - Un solo label por intención de CTA (la aplicación siempre es "Aplicar a la mentoría"; en la nav, "Aplicar"; elegir formato en `/mentorias`, "Elegir este formato").
-- Cada página define su `data-hero` (nav transparente encima) y su CTA fijo en mobile (`sticky-cta` + `data-sticky-hide` donde se oculta). `/contacto` no lleva CTA fijo.
+- La nav siempre tiene fondo (vidrio oscuro) y queda fija arriba. `data-hero` solo controla el CTA fijo en mobile (`sticky-cta` + `data-sticky-hide` donde se oculta). `/contacto` no lleva CTA fijo.
 - Labels arriba del input, error abajo, nunca placeholder como label.
 - Todo el CSS va bajo `.cg-page` (lo hace el build): no usar selectores globales fuera de eso.

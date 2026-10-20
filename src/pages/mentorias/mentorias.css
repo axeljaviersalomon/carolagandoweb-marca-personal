@@ -1,21 +1,8 @@
 /* Mentorías. Acento: violeta de la marca (default de tokens.css). */
 
-.page-hero__ctas {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--s-3);
-  margin-top: var(--s-6);
-  animation: cg-fade 1s var(--ease-out) both 0.45s;
-}
-
 /* ───────────── Formatos ───────────── */
 .formats-section {
   padding-top: var(--s-6);
-}
-
-.formats-section__title {
-  max-width: 18ch;
-  margin-bottom: var(--s-7);
 }
 
 .format-cards {
@@ -24,6 +11,8 @@
 }
 
 .format-card {
+  position: relative;
+  isolation: isolate;
   display: flex;
   flex-direction: column;
   gap: var(--s-4);
@@ -31,6 +20,18 @@
   border-radius: var(--r-media);
   border: 1px solid var(--line);
   background: var(--surface);
+  transition:
+    translate 0.55s var(--ease-out),
+    border-color 0.4s,
+    box-shadow 0.55s var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .format-card:hover {
+    translate: 0 -6px;
+    border-color: color-mix(in oklab, var(--accent-hi) 35%, transparent);
+    box-shadow: 0 30px 60px -20px rgb(0 0 0 / 0.5);
+  }
 }
 
 /* La 1:1 es el formato principal: más peso visual */
@@ -47,9 +48,8 @@
 }
 
 .format-card__name {
-  font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.25rem);
-  font-weight: 600;
-  letter-spacing: -0.03em;
+  font-size: clamp(1.4rem, 1.15rem + 0.9vw, 1.85rem);
+  letter-spacing: -0.025em;
 }
 
 .format-card__text {
@@ -97,9 +97,9 @@
   padding-block: var(--s-5);
   border-bottom: 1px solid var(--line);
   font-size: var(--fs-xl);
-  font-weight: 500;
-  line-height: 1.3;
-  letter-spacing: -0.02em;
+  font-weight: 300;
+  line-height: 1.4;
+  letter-spacing: -0.015em;
 }
 
 .fit__list li:first-child {
@@ -137,10 +137,10 @@
 }
 
 .apply__title {
-  font-size: clamp(2.6rem, 1.4rem + 4vw, 4.75rem);
-  font-weight: 600;
-  line-height: 1;
-  letter-spacing: -0.02em;
+  font-size: var(--fs-3xl);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: 0.01em;
   text-transform: uppercase;
 }
 
@@ -156,12 +156,13 @@
   padding: clamp(24px, 4vw, 48px);
   border-radius: var(--r-media);
   border: 1px solid var(--line);
-  background: rgb(20 17 40 / 0.82);
+  background: rgb(20 17 40 / 0.78);
   -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
   box-shadow:
     var(--shadow-md),
-    0 0 80px -20px rgb(138 43 226 / 0.45);
+    inset 0 1px 0 rgb(255 255 255 / 0.05),
+    0 0 80px -30px rgb(138 43 226 / 0.45);
 }
 
 @media (min-width: 960px) {
@@ -172,12 +173,12 @@
   }
   .apply__intro {
     position: sticky;
-    top: 108px;
+    top: calc(var(--nav-h) + var(--s-7));
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .page-hero__ctas {
-    animation: none;
+  .format-card {
+    transition: none;
   }
 }

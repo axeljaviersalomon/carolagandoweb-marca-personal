@@ -8,8 +8,9 @@
   font-family: var(--font-body);
   font-size: var(--fs-base);
   font-weight: 300;
-  line-height: 1.65;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   overflow-x: clip;
   min-height: 100dvh;
@@ -41,16 +42,21 @@ ol {
   list-style: none;
 }
 
+/* Titulares livianos: 500 con tracking negativo; la palabra destacada va en 300 */
 h1,
 h2,
 h3,
 h4 {
   font-family: var(--font-display);
-  font-weight: 600;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -0.025em;
   color: var(--ink);
   text-wrap: balance;
+}
+
+:is(h1, h2, h3) .accent {
+  font-weight: 300;
 }
 
 p {
@@ -91,7 +97,7 @@ button {
 }
 
 :focus-visible {
-  outline: 2px solid var(--accent-hi);
+  outline: 1.5px solid var(--accent-hi);
   outline-offset: 3px;
   border-radius: 6px;
 }
@@ -122,18 +128,29 @@ button {
 
 .section {
   padding-block: var(--section-y);
-  scroll-margin-top: 72px;
+  scroll-margin-top: var(--nav-h);
 }
 
+/* Eyebrow con un trazo fino delante; centrado si el bloque lo está */
 .eyebrow {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.9em;
   font-family: var(--font-body);
   font-size: var(--fs-xs);
-  font-weight: 600;
-  letter-spacing: 0.18em;
+  font-weight: 500;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--accent-hi);
-  margin-bottom: var(--s-4);
+  margin-bottom: var(--s-5);
+}
+
+.eyebrow::before {
+  content: "";
+  width: 20px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
 }
 
 .h2 {
@@ -142,9 +159,27 @@ button {
 
 .lead {
   font-size: var(--fs-lg);
-  line-height: 1.55;
+  line-height: 1.7;
   color: var(--ink-2);
-  max-width: 56ch;
+  max-width: 54ch;
+}
+
+/* Encabezado de sección centrado: título + bajada, misma medida en todo el sitio */
+.section-head {
+  display: grid;
+  justify-items: center;
+  max-width: 44rem;
+  margin: 0 auto clamp(40px, 5vw, 64px);
+  text-align: center;
+}
+
+.section-head .h2 {
+  max-width: 20ch;
+}
+
+.section-head .lead {
+  margin-top: var(--s-4);
+  max-width: 46ch;
 }
 
 .muted {
@@ -156,5 +191,5 @@ button {
 }
 
 strong {
-  font-weight: 600;
+  font-weight: 500;
 }

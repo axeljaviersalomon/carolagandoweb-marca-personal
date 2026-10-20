@@ -12,14 +12,16 @@
   --font-display: "Poppins", "Helvetica Neue", Arial, sans-serif;
   --font-body: "Poppins", "Helvetica Neue", Arial, sans-serif;
 
-  --fs-xs: 0.8125rem;
-  --fs-sm: 0.9375rem;
-  --fs-base: 1.0625rem;
-  --fs-lg: 1.1875rem;
-  --fs-xl: clamp(1.375rem, 1.15rem + 0.8vw, 1.75rem);
-  --fs-2xl: clamp(1.9rem, 1.3rem + 2.2vw, 3.1rem);
-  --fs-3xl: clamp(2.4rem, 1.4rem + 3.8vw, 4.75rem);
-  --fs-num: clamp(2.5rem, 1.8rem + 2.8vw, 4.25rem);
+  /* Escala contenida: la jerarquía sale del peso y del aire, no del tamaño */
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-base: 1rem;
+  --fs-lg: 1.0625rem;
+  --fs-xl: clamp(1.25rem, 1.12rem + 0.45vw, 1.5rem);
+  --fs-2xl: clamp(1.75rem, 1.35rem + 1.5vw, 2.6rem);
+  --fs-3xl: clamp(2.1rem, 1.5rem + 2.4vw, 3.5rem);
+  --fs-hero: clamp(2.4rem, 1.55rem + 3.1vw, 4.25rem);
+  --fs-num: clamp(2.1rem, 1.6rem + 1.8vw, 3.25rem);
 
   /* Neutros */
   --bg: #090915;
@@ -29,7 +31,8 @@
   --ink: #f4f1fa;
   --ink-2: #cfc8de;
   --mute: #9a92ad;
-  --line: rgb(201 184 221 / 0.14);
+  --line: rgb(201 184 221 / 0.12);
+  --line-strong: rgb(201 184 221 / 0.22);
   --shadow-tint: 0 0 0;
 
   /* Acento: violeta de la marca. --accent-hi para palabras destacadas. */
@@ -39,13 +42,13 @@
   --accent-2: #e0218a;
   --accent-soft: color-mix(in oklab, var(--accent) 16%, var(--bg));
   --accent-deep: #290858;
-  --glow: 0 0 0 1px rgb(201 163 255 / 0.25), 0 10px 40px -8px rgb(138 43 226 / 0.75);
+  --glow: 0 0 0 1px rgb(201 163 255 / 0.22), 0 8px 30px -10px rgb(138 43 226 / 0.7);
 
-  /* Forma: botones pill, tarjetas 24px, bloques 32px, campos 14px */
+  /* Forma: botones pill, tarjetas 20px, bloques 28px, campos 12px */
   --r-pill: 999px;
-  --r-card: 24px;
-  --r-media: 32px;
-  --r-field: 14px;
+  --r-card: 20px;
+  --r-media: 28px;
+  --r-field: 12px;
 
   /* Espaciado, base 4px */
   --s-1: 4px;
@@ -60,17 +63,21 @@
   --s-10: 128px;
   --section-y: clamp(var(--s-8), 9vw, var(--s-10));
   --gutter: clamp(16px, 4vw, 40px);
-  --max: 1240px;
+  --max: 1200px;
+  --nav-h: 64px;
 
   --shadow-sm: 0 1px 2px rgb(var(--shadow-tint) / 0.3), 0 4px 16px rgb(var(--shadow-tint) / 0.25);
   --shadow-md: 0 2px 6px rgb(var(--shadow-tint) / 0.3), 0 24px 60px rgb(var(--shadow-tint) / 0.45);
 
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-soft: cubic-bezier(0.25, 0.8, 0.25, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 
   /* Capas */
   --z-nav: 40;
   --z-sticky: 30;
 
   color-scheme: dark;
+  /* Permite animar <details> hasta height: auto (Chrome); el resto abre sin transición */
+  interpolate-size: allow-keywords;
 }
