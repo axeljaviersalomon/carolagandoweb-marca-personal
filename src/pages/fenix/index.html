@@ -3,68 +3,242 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Mentalidad de Fénix · Renacer de lo que te quebró</title>
-    <meta name="description" content="Mentalidad de Fénix: un e-book y un programa grabado para transformar las crisis en tu punto de partida. Sumate a la lista de espera." />
+    <title>Mentalidad de Fénix · Retiro de alto impacto</title>
+    <meta name="description" content="Mentalidad de Fénix: un retiro para dar un salto de mentalidad y permitirte conectar con vos, a través de dinámicas de alto impacto. Sumate a la lista de la próxima edición." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <script type="module" src="/fenix/fenix.js"></script>
   </head>
-  <body style="margin: 0; background: #0f0705">
+  <body style="margin: 0; background: #12040b">
     <div class="cg-page" data-page="fenix">
       <!-- @include fenix/nav -->
 
-      <!-- TODO(clienta): copy definitivo de Mentalidad de Fénix. Lo que sigue es placeholder. -->
+      <!-- TODO(clienta): confirmar copy, fecha y lugar de la próxima edición del retiro -->
       <main>
-        <!-- Hero con la lista de espera -->
-        <section class="f-hero" id="lista" data-hero>
-          <div class="f-hero__ember" aria-hidden="true"></div>
+        <!-- Hero: el lockup del logo sobre el fuego -->
+        <section class="f-hero" data-hero>
+          <div class="f-hero__bg" aria-hidden="true"></div>
+          <canvas class="f-embers" data-embers aria-hidden="true"></canvas>
           <div class="container f-hero__inner">
-            <p class="eyebrow f-hero__eyebrow">Próximamente</p>
-            <h1 class="f-hero__title">Renacé de lo que <span class="accent">te quebró.</span></h1>
-            <p class="f-hero__sub">Un e-book y un programa grabado para transformar las crisis en tu punto de partida. Sumate a la lista y enterate primero cuando salga.</p>
-            <div class="form-card f-hero__form">
-              <!-- @include lead-form {"id":"fenix","origin":"fenix","tags":"lista-espera:fenix-ebook","button":"Sumarme a la lista","success_title":"¡Ya estás en la lista!","success_text":"Te avisamos por mail apenas salga el e-book de Mentalidad de Fénix."} -->
+            <img class="f-iso f-hero__iso" src="/img/fenix-isotipo.webp" alt="" width="572" height="640" fetchpriority="high" />
+            <p class="eyebrow f-hero__eyebrow">Retiro de alto impacto</p>
+            <h1 class="f-lockup">
+              <span class="f-lockup__top"><svg class="f-spark" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 0l2.4 9.6L24 12l-9.6 2.4L12 24l-2.4-9.6L0 12l9.6-2.4z" /></svg>Mentalidad de</span>
+              <span class="f-lockup__main">Fenix</span>
+            </h1>
+            <p class="f-hero__sub">Un espacio para dar un salto de mentalidad y permitirte conectar con vos, a través de dinámicas de alto impacto.</p>
+            <div class="f-hero__ctas">
+              <a class="btn" href="#lista">Sumarme a la lista <span class="arrow" aria-hidden="true">→</span></a>
+              <a class="btn btn--ghost" href="#testimonios">Ver testimonios</a>
             </div>
+            <p class="f-hero__handle"><a href="https://www.instagram.com/mentalidadefenix_/" target="_blank" rel="noopener">@mentalidadefenix_</a></p>
           </div>
         </section>
 
-        <!-- Qué se viene -->
-        <section class="section coming" id="que-viene" aria-labelledby="coming-title">
-          <div class="container">
-            <div class="section-head">
-              <h2 class="h2" id="coming-title" data-reveal>Qué se viene</h2>
-            </div>
-            <div class="coming__grid">
-              <article class="coming__item" data-reveal data-glow>
-                <p class="coming__when">Primero</p>
-                <h3>E-book</h3>
-                <p>Las claves de la mentalidad de fénix para atravesar una pérdida, un fracaso o un final, y usarlo como impulso.</p>
-              </article>
-              <article class="coming__item" data-reveal data-glow style="--d: 1">
-                <p class="coming__when">Después</p>
-                <h3>Programa grabado</h3>
-                <p>Un recorrido en video, con ejercicios, para reconstruirte paso a paso y a tu ritmo.</p>
-              </article>
-            </div>
+        <div class="marquee f-marquee" aria-hidden="true">
+          <div class="marquee__track">
+            <ul><li>Soltar</li><li>Atravesar</li><li>Permitirte</li><li>Conectar</li><li>Perdonar</li><li>Renacer</li></ul>
+            <ul><li>Soltar</li><li>Atravesar</li><li>Permitirte</li><li>Conectar</li><li>Perdonar</li><li>Renacer</li></ul>
           </div>
-        </section>
+        </div>
 
         <!-- Para quién -->
         <section class="section for-you" id="para-vos" aria-labelledby="for-you-title">
           <div class="container for-you__grid">
-            <h2 class="h2" id="for-you-title" data-reveal>Es para vos si</h2>
+            <h2 class="h2 for-you__title" id="for-you-title" data-reveal>Es para <span class="accent">vos</span> si</h2>
             <ul class="for-you__list">
               <li data-reveal>Atravesaste algo que te partió y todavía no sabés cómo seguir.</li>
               <li data-reveal style="--d: 1">Sentís que perdiste la versión de vos que eras antes.</li>
-              <li data-reveal style="--d: 2">Querés que lo que pasó tenga un sentido, no solo dejarlo atrás.</li>
+              <li data-reveal style="--d: 2">Venís sosteniendo un personaje y querés volver a sentir de verdad.</li>
+              <li data-reveal style="--d: 3">Sabés que necesitás un salto, pero solo no te animás a darlo.</li>
             </ul>
           </div>
         </section>
 
-        <!-- Cierre -->
-        <section class="section f-final" data-sticky-hide>
+        <!-- El camino del fénix -->
+        <section class="section path" id="el-retiro" aria-labelledby="path-title">
           <div class="container">
+            <div class="section-head">
+              <h2 class="h2" id="path-title" data-reveal>El fénix no esquiva el fuego. <span class="accent">Lo atraviesa.</span></h2>
+              <p class="lead" data-reveal style="--d: 1">Un retiro con dinámicas de alto impacto, en grupo y fuera de tu rutina, para mirarte de frente y salir distinto.</p>
+            </div>
+
+            <ol class="path__list">
+              <li class="stage">
+                <figure class="stage__photo" data-reveal>
+                  <img src="/img/fenix-venda.webp" alt="Participante recostado con la venda de Mentalidad de Fénix sobre los ojos y las manos juntas al sol" width="960" height="1280" loading="lazy" />
+                </figure>
+                <div class="stage__body" data-reveal style="--d: 1">
+                  <span class="stage__ghost" aria-hidden="true">Fuego</span>
+                  <p class="stage__num">Primero</p>
+                  <h3>Mirar hacia adentro</h3>
+                  <p>Con los ojos vendados bajás el ruido de afuera para escuchar lo que de verdad te está pasando.</p>
+                </div>
+              </li>
+              <li class="stage">
+                <figure class="stage__photo" data-reveal>
+                  <img src="/img/fenix-ronda.webp" alt="El grupo sentado en ronda en un salón de madera, escuchando a la guía en el centro" width="960" height="1280" loading="lazy" />
+                </figure>
+                <div class="stage__body" data-reveal style="--d: 1">
+                  <span class="stage__ghost" aria-hidden="true">Cenizas</span>
+                  <p class="stage__num">Después</p>
+                  <h3>Atravesarlo con otros</h3>
+                  <p>En ronda, con personas que también están dejando algo atrás. Lo que se comparte pesa menos.</p>
+                </div>
+              </li>
+              <li class="stage">
+                <figure class="stage__photo" data-reveal>
+                  <img src="/img/fenix-abrazo.webp" alt="Dos participantes se abrazan de pie en medio del salón mientras el grupo los acompaña" width="960" height="1280" loading="lazy" />
+                </figure>
+                <div class="stage__body" data-reveal style="--d: 1">
+                  <span class="stage__ghost" aria-hidden="true">Renacer</span>
+                  <p class="stage__num">Al final</p>
+                  <h3>Volver a ser vos</h3>
+                  <p>Te vas con herramientas, con paz y con una versión tuya que se permite sentir. Y eso se celebra.</p>
+                </div>
+              </li>
+            </ol>
+          </div>
+        </section>
+
+        <!-- Galería del retiro -->
+        <section class="section gallery" aria-labelledby="gallery-title">
+          <div class="container">
+            <div class="section-head">
+              <h2 class="h2" id="gallery-title" data-reveal>Así se vive</h2>
+            </div>
+            <ul class="gallery__grid">
+              <li class="gallery__item" data-reveal><img src="/img/fenix-sala.webp" alt="Vista desde arriba del salón lleno de participantes recostados entre mantas" width="960" height="1280" loading="lazy" /></li>
+              <li class="gallery__item" data-reveal style="--d: 1"><img src="/img/fenix-guia.webp" alt="La guía habla de pie frente a la chimenea mientras el grupo descansa" width="960" height="1280" loading="lazy" /></li>
+              <li class="gallery__item" data-reveal style="--d: 2"><img src="/img/fenix-manos.webp" alt="Primer plano de un participante con la venda dorada de Mentalidad de Fénix" width="960" height="1280" loading="lazy" /></li>
+              <li class="gallery__item" data-reveal style="--d: 3"><img src="/img/fenix-descanso.webp" alt="Participantes recostados con los ojos vendados durante una dinámica" width="960" height="1280" loading="lazy" /></li>
+              <li class="gallery__item" data-reveal style="--d: 4"><img src="/img/fenix-charla.webp" alt="Tres participantes conversan sentadas junto a la chimenea" width="960" height="1280" loading="lazy" /></li>
+              <li class="gallery__item" data-reveal style="--d: 5"><img src="/img/fenix-celebracion.webp" alt="El grupo celebra de noche con luces violetas" width="960" height="1280" loading="lazy" /></li>
+              <li class="gallery__item" data-reveal style="--d: 6"><img src="/img/fenix-meditacion.webp" alt="El salón visto desde arriba durante una meditación, con todos recostados" width="960" height="1280" loading="lazy" /></li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Testimonios -->
+        <section class="section f-voices" id="testimonios" aria-labelledby="voices-title">
+          <div class="container">
+            <div class="section-head">
+              <h2 class="h2" id="voices-title" data-reveal>Lo que se <span class="accent">llevaron</span></h2>
+            </div>
+            <ul class="f-voices__grid">
+              <li class="f-voice" data-reveal>
+                <div class="f-voice__media">
+                  <button class="voice__poster" type="button" data-video="/img/fenix-testimonio-3.mp4" aria-label="Ver testimonio de Amelie">
+                    <img src="/img/fenix-testimonio-3.webp" alt="" width="1280" height="720" loading="lazy" />
+                    <span class="voice__play" aria-hidden="true">▶</span>
+                  </button>
+                </div>
+                <blockquote><p>Me siento desenmascarada. Se salió el personaje que venía armando y me permití sentir.</p></blockquote>
+                <p class="voice__name">Amelie</p>
+              </li>
+              <li class="f-voice" data-reveal style="--d: 1">
+                <div class="f-voice__media">
+                  <button class="voice__poster" type="button" data-video="/img/fenix-testimonio-2.mp4" aria-label="Ver testimonio de Jefferson">
+                    <img src="/img/fenix-testimonio-2.webp" alt="" width="1280" height="720" loading="lazy" />
+                    <span class="voice__play" aria-hidden="true">▶</span>
+                  </button>
+                </div>
+                <blockquote><p>No tenía expectativas y esto me explotó la cabeza.</p></blockquote>
+                <p class="voice__name">Jefferson</p>
+              </li>
+              <li class="f-voice" data-reveal style="--d: 2">
+                <div class="f-voice__media">
+                  <button class="voice__poster" type="button" data-video="/img/fenix-testimonio-1.mp4" aria-label="Ver testimonio de Nahuel Abasolo">
+                    <img src="/img/fenix-testimonio-1.webp" alt="" width="1280" height="720" loading="lazy" />
+                    <span class="voice__play" aria-hidden="true">▶</span>
+                  </button>
+                </div>
+                <blockquote><p>Es algo donde te permitís mirarte y crecer.</p></blockquote>
+                <p class="voice__name">Nahuel Abasolo</p>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- Lista de espera -->
+        <section class="section f-join" id="lista" aria-labelledby="join-title" data-sticky-hide>
+          <div class="container f-join__grid">
+            <div>
+              <p class="eyebrow">Próxima edición</p>
+              <h2 class="h2" id="join-title" data-reveal>La próxima edición <span class="accent">te espera.</span></h2>
+              <p class="lead" data-reveal style="--d: 1">Sumate a la lista y te avisamos por mail apenas abramos la próxima edición del retiro.</p>
+              <ul class="f-join__next" data-reveal style="--d: 2">
+                <li>
+                  <img class="f-iso" src="/img/fenix-isotipo-sm.webp" alt="" width="229" height="256" loading="lazy" />
+                  <div><strong>E-book</strong><span>Las claves de la mentalidad de fénix para usar una crisis como impulso. Próximamente.</span></div>
+                </li>
+                <li>
+                  <img class="f-iso" src="/img/fenix-isotipo-sm.webp" alt="" width="229" height="256" loading="lazy" />
+                  <div><strong>Programa grabado</strong><span>Un recorrido en video para reconstruirte a tu ritmo. Próximamente.</span></div>
+                </li>
+              </ul>
+            </div>
+            <div class="form-card" data-reveal style="--d: 1">
+              <!-- @include lead-form {"id":"fenix","origin":"fenix","tags":"lista-espera:fenix-retiro","button":"Sumarme a la lista","success_title":"¡Ya estás en la lista!","success_text":"Te avisamos por mail apenas abramos la próxima edición de Mentalidad de Fénix."} -->
+            </div>
+          </div>
+        </section>
+
+        <!-- Quién te guía -->
+        <section class="section guide" id="carola" aria-labelledby="guide-title">
+          <div class="container guide__grid">
+            <figure class="guide__photo">
+              <img src="/img/carola-retrato.webp" alt="Carola Gando, creadora de Mentalidad de Fénix" width="497" height="785" loading="lazy" />
+            </figure>
+            <div class="guide__body">
+              <p class="eyebrow">Quién te guía</p>
+              <h2 class="h2" id="guide-title" data-reveal>Carola Gando</h2>
+              <p class="guide__role">High Impact Trainer · Creadora de Mentalidad de Fénix</p>
+              <div class="guide__bio" data-reveal style="--d: 1">
+                <p>Más de 12 años guiando procesos de transformación personal. Impactó a miles de personas en 9 países de América y Europa.</p>
+                <p>Certificada como High Impact Trainer por la Academia Europea de Neurociencias, con formación en PNL, Coaching Ontológico (ICF) y Firewalking.</p>
+              </div>
+              <a class="link-arrow" href="/sobre-mi">Conocé su historia <span aria-hidden="true">→</span></a>
+            </div>
+          </div>
+        </section>
+
+        <!-- Preguntas frecuentes -->
+        <!-- TODO(clienta): confirmar respuestas -->
+        <section class="section" id="preguntas" aria-labelledby="faq-title">
+          <div class="container faq-section__grid">
+            <h2 class="h2" id="faq-title" data-reveal>Antes de <span class="accent">sumarte</span></h2>
+            <div class="faq">
+              <details>
+                <summary>¿Cuándo es la próxima edición?</summary>
+                <p>Estamos armando la fecha. Sumate a la lista y te avisamos primero, antes de abrir las entradas.</p>
+              </details>
+              <details>
+                <summary>¿Necesito experiencia previa?</summary>
+                <p>No. Solo ganas de permitirte vivirlo al cien por ciento, sin expectativas. Cada persona se encuentra con algo distinto.</p>
+              </details>
+              <details>
+                <summary>¿Cómo son las dinámicas?</summary>
+                <p>Son experiencias vivenciales de alto impacto, en grupo y guiadas por Carola: trabajo hacia adentro, rondas para compartir y momentos para celebrar.</p>
+              </details>
+              <details>
+                <summary>¿Y el e-book y el programa grabado?</summary>
+                <p>Están en camino. Si estás en la lista, te avisamos cuando salgan.</p>
+              </details>
+              <details>
+                <summary>Tengo otra pregunta</summary>
+                <p>Escribinos a <a class="accent" href="mailto:carolagando.coach@gmail.com">carolagando.coach@gmail.com</a> o por Instagram a <a class="accent" href="https://www.instagram.com/mentalidadefenix_/" target="_blank" rel="noopener">@mentalidadefenix_</a>.</p>
+              </details>
+            </div>
+          </div>
+        </section>
+
+        <!-- Cierre -->
+        <section class="section f-final">
+          <canvas class="f-embers" data-embers aria-hidden="true"></canvas>
+          <div class="container">
+            <img class="f-iso f-final__iso" src="/img/fenix-isotipo.webp" alt="" width="572" height="640" loading="lazy" data-reveal />
             <h2 class="f-final__title" data-reveal>Las cenizas también son <span class="accent">un comienzo.</span></h2>
             <a class="btn" href="#lista" data-reveal style="--d: 1">Sumarme a la lista <span class="arrow" aria-hidden="true">→</span></a>
           </div>

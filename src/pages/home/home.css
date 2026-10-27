@@ -323,13 +323,33 @@
   }
 }
 
-/* Mentalidad de Fénix: brasa */
+/* Mentalidad de Fénix: oro sobre bordó y fuego, la paleta de su marca */
 .program--fenix {
-  background: radial-gradient(90% 120% at 100% 100%, #ff8a3d 0%, #d2401c 26%, #4a1208 60%, #1d0703 100%);
+  background:
+    linear-gradient(160deg, rgb(94 15 48 / 0.92) 0%, rgb(18 4 11 / 0.55) 100%),
+    url(/img/fenix-fuego-2.webp) right center / cover no-repeat;
 }
 
 .program--fenix .program__kicker {
-  color: #ffc39a;
+  color: #f2d58c;
+}
+
+/* Isotipo dorado asomando por la esquina, como el mockup de Quantum */
+.program__iso {
+  position: absolute;
+  right: -10%;
+  bottom: -8%;
+  width: 52%;
+  max-width: 200px;
+  opacity: 0.85;
+  filter: drop-shadow(0 0 24px rgb(232 194 106 / 0.35));
+  transition: transform 0.8s var(--ease-out);
+}
+
+@media (hover: hover) {
+  .program--fenix:hover .program__iso {
+    transform: rotate(-8deg) scale(1.05);
+  }
 }
 
 @media (min-width: 768px) {

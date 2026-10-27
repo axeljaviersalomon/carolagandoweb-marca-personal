@@ -15,7 +15,7 @@ Un solo dominio, `carolagando.coach` (todavía no comprado). Un dominio único c
 | `/` | Mentoría 1:1 (USD, el precio no se muestra). Recomienda las 3 subrutas | Aplicación a la mentoría |
 | `/conecta` | Evento en vivo, grabaciones (curso) y e-book (próximamente) | Lista de espera del evento + primera clase gratis |
 | `/quantum` | Paquete (Abundancia Infinita, Espiritualidad Práctica, Rol de las Relaciones, Salto Cuántico) + e-book. Solo el paquete, no programas sueltos | Salto Cuántico gratis (confirmar con la clienta que puede quedar gratis siempre) |
-| `/fenix` | E-book y programa grabado (los dos por crear) | Lista de espera del e-book |
+| `/fenix` | Retiro presencial de alto impacto (próxima edición a confirmar) + e-book y programa grabado (los dos por crear) | Lista de espera de la próxima edición |
 
 Las 3 subrutas también promocionan la mentoría (misma mentoría, un solo flujo; el tag de origen dice de dónde vino).
 

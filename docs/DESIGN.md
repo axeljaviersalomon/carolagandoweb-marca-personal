@@ -24,7 +24,7 @@ Material reutilizado del WordPress (`Quantum Programa/public_html.zip`): foto de
 | Carola | `#090915` | violeta `#8a2be2`, destacado `#c9a3ff`, magenta `#e0218a` solo en humo y brillos | Marca de Carola |
 | Conecta | azul noche `#000816` | turquesa `#5dc5c2` / `#8fe0dd`, azul `#5381ff` | Marca existente de Conecta |
 | Quantum | `#0b0618` | amarillo `#ffd84d` sobre violeta `#2b1060` | Marca existente de Quantum |
-| Fénix | `#0f0705` | brasa `#d2401c` / `#ff9a5a` | Nueva (fuego, fénix) |
+| Fénix | bordó casi negro `#12040b` | oro `#e8c26a` / `#f2d58c` (degradé del logo) sobre bordó `#5e0f30`, fuego `#e2552a` y chispa rosa `#ff6ad5` solo en detalles | Marca existente de Mentalidad de Fénix (@mentalidadefenix_) |
 
 Neutros de Carola: superficies `#141128` / `#1c1735`, texto `#f4f1fa`, secundario `#cfc8de`, apagado `#9a92ad` (AA sobre el fondo). Cada programa define los suyos en su CSS.
 
@@ -34,6 +34,16 @@ Neutros de Carola: superficies `#141128` / `#1c1735`, texto `#f4f1fa`, secundari
 - Mayúsculas solo en momentos de firma ("Tu momento es ahora", eyebrows), como en su web.
 - Escala contenida en `--fs-*` (fluida con `clamp`). Heros con `--fs-hero` (máx. 68px), cierres con `--fs-3xl`.
 - Formularios: label 13px en `--ink-2`, campos de 48px con texto de 16px (menos hace zoom en iOS).
+- Excepción de Fénix: su logo usa una condensada para "FENIX". Se recrea con **Bebas Neue** (solo en `/fenix`, cargada en su `<head>`) para el lockup del hero, el wordmark, las palabras fantasma (FUEGO, CENIZAS, RENACER), la cinta y los números. "MENTALIDAD DE" va en Poppins 300 en mayúsculas, como en el logo. El dorado es un degradé de texto (`--gold`) con un reflejo que lo cruza.
+
+## Material de Fénix
+
+Del paquete de la marca (logos, fondos, flyers) y de las fotos y videos del retiro:
+
+- `fenix-isotipo.webp` (dorado, 572×640) y `fenix-isotipo-sm.webp` (nav, footer, íconos). Es el mismo isotipo de Carola (`logo-cg.png`) en su versión dorada.
+- `fenix-fuego*.webp`: recortes sin texto de la historia de Instagram (hero, lista de espera, tarjeta de Inicio). `fenix-humo.webp`: humo bordó del banner de la marca (sección El retiro).
+- Fotos del retiro (`fenix-<escena>.webp`, 960×1280): en `/fenix` (El retiro, galería) y en `/sobre-mi` ("Así se viven mis retiros").
+- Testimonios en video (`fenix-testimonio-<n>.mp4`, 720p, ~3,7 MB, sin la charla previa) con poster `.webp`. Se cargan al hacer clic (`data-video`, ver `ui.js`). En GHL subirlos a la galería de medios y mapearlos en `images.json` como las imágenes.
 
 ## Forma
 

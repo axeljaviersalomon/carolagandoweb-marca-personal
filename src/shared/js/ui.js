@@ -73,7 +73,7 @@ export function initStickyCta(root) {
   }
 }
 
-/** Videos de Vimeo: se carga el iframe recién al hacer clic. */
+/** Videos (Vimeo o MP4 propio): se cargan recién al hacer clic. */
 export function initVideos(root) {
   root.querySelectorAll("[data-vimeo]").forEach((button) => {
     button.addEventListener("click", () => {
@@ -84,6 +84,22 @@ export function initVideos(root) {
       frame.allowFullscreen = true;
       frame.className = "video-frame";
       button.replaceWith(frame);
+    });
+  });
+
+  // Videos propios (MP4): se cargan recién al hacer clic, con el poster como fondo
+  root.querySelectorAll("[data-video]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const video = document.createElement("video");
+      video.src = button.dataset.video;
+      video.poster = button.querySelector("img")?.src ?? "";
+      video.controls = true;
+      video.playsInline = true;
+      video.autoplay = true;
+      video.className = "video-frame";
+      video.setAttribute("aria-label", button.getAttribute("aria-label") || "Video");
+      button.replaceWith(video);
+      video.focus();
     });
   });
 }

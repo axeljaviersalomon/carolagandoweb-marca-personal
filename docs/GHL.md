@@ -57,7 +57,7 @@ Custom fields: "Objetivo" (`goal`), "Formato mentoría" (`format`: `1a1` | `grup
 | Clase gratis | `/conecta` | `pagina:conecta`, `lead:conecta-clase-gratis` |
 | Lista de espera evento | `/conecta` | `pagina:conecta`, `lista-espera:conecta-evento` |
 | Salto Cuántico | `/quantum` | `pagina:quantum`, `lead:salto-cuantico` |
-| Lista de espera e-book | `/fenix` | `pagina:fenix`, `lista-espera:fenix-ebook` |
+| Lista de espera del retiro | `/fenix` | `pagina:fenix`, `lista-espera:fenix-retiro` |
 
 `<origen>` es `mentorias`, salvo que se llegue desde un programa: la firma linkea a `/mentorias?origen=conecta|quantum|fenix` y el form usa ese valor.
 

@@ -83,10 +83,10 @@ function toGhlFragment(html) {
   return [...links, ...styles, body.trim(), ...scripts].join("\n");
 }
 
-/** Antepone BASE a las rutas absolutas locales: href="/...", src="/...", url(/...). */
+/** Antepone BASE a las rutas absolutas locales: href="/...", src="/...", data-video="/...", url(/...). */
 function withBase(html) {
   if (BASE === "/") return html;
-  return html.replace(/((?:href|src)=["']|url\(["']?)\/(?!\/)/g, `$1${BASE}`);
+  return html.replace(/((?:href|src|data-video)=["']|url\(["']?)\/(?!\/)/g, `$1${BASE}`);
 }
 
 function mapImages(html) {
