@@ -328,7 +328,7 @@
 }
 
 .for-you__list li::before {
-  content: counter(fy, decimal-leading-zero);
+  content: counter(fy);
   font-family: var(--font-brand);
   font-size: 1.3em;
   letter-spacing: 0.04em;

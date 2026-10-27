@@ -242,7 +242,7 @@
 }
 
 .stage::before {
-  content: counter(stage, decimal-leading-zero);
+  content: counter(stage);
   grid-row: span 2;
   padding-top: 0.7em;
   font-size: var(--fs-xs);

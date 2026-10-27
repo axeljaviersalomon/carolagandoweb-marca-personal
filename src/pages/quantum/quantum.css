@@ -134,7 +134,7 @@
 }
 
 .module::before {
-  content: counter(module, decimal-leading-zero);
+  content: counter(module);
   font-size: var(--fs-num);
   font-weight: 300;
   line-height: 1;
