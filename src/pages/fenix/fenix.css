@@ -438,13 +438,6 @@
   color: var(--accent-hi);
 }
 
-.stage__num::before {
-  content: "";
-  width: 28px;
-  height: 1px;
-  background: currentColor;
-}
-
 .stage h3 {
   margin-top: var(--s-3);
   font-size: var(--fs-2xl);
@@ -475,9 +468,6 @@
   }
   .stage:nth-child(2) .stage__body > p:last-child {
     margin-left: auto;
-  }
-  .stage:nth-child(2) .stage__num {
-    flex-direction: row-reverse;
   }
 }
 

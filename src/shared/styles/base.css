@@ -145,14 +145,6 @@ button {
   margin-bottom: var(--s-5);
 }
 
-.eyebrow::before {
-  content: "";
-  width: 20px;
-  height: 1px;
-  background: currentColor;
-  opacity: 0.6;
-}
-
 .h2 {
   font-size: var(--fs-2xl);
 }
