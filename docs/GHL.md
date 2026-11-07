@@ -4,11 +4,11 @@
 
 Antes de cargar las 7 páginas, publicar la Home en una página de prueba y validar:
 
-- [ ] **Bloque custom code**: pegar `dist/ghl/home.html` completo. Ver si GHL tiene límite de caracteres (el archivo pesa ~50 KB).
-- [ ] **Ancho completo**: la sección, fila y columna de GHL a ancho completo y sin padding, para que el diseño ocupe toda la pantalla.
-- [ ] **CSS**: que nada de GHL pise los estilos (todo está bajo `.cg-page`) y que nuestro CSS no rompa elementos nativos de GHL.
-- [ ] **JS**: que el `<script type="module">` inline se ejecute (las animaciones aparecen, el menú mobile abre).
-- [ ] **SEO**: ver el código fuente publicado (`Ctrl+U`) y confirmar que el texto de la página está en el HTML (indexable), no cargado después.
+- [x] **Código**: `dist/ghl/home.html` completo (57 KB) entra sin cortes en el Footer Tracking (7/11/2026).
+- [x] **Ancho completo**: el fragmento queda fuera de las secciones de GHL y ocupa toda la pantalla.
+- [x] **CSS**: GHL no pisa los estilos en la vista previa.
+- [x] **JS**: el `<script type="module">` inline corre (animaciones y contadores), sin errores en consola.
+- [x] **SEO**: ver el código fuente publicado (`Ctrl+U`) y confirmar que el texto de la página está en el HTML (indexable), no cargado después.
 - [ ] **Webhook**: crear el workflow con trigger "Inbound Webhook", pegar la URL en `src/shared/js/config.js` → `WEBHOOKS.apply`, rebuild, enviar el form de `/mentorias` y verificar que llega el contacto con todos los campos.
   - Si GHL lee bien el envío `no-cors` (form-urlencoded), dejarlo. Si no, probar `WEBHOOK_MODE = "cors"` (JSON).
 - [ ] **Pixel**: con Meta Pixel Helper, que el `PageView` y el `Lead` disparen una sola vez.
@@ -27,7 +27,9 @@ npm run build home       # solo una
    { "/img/carola.webp": "https://assets.cdn.filesafe.space/.../carola.webp" }
    ```
 3. `npm run build` (avisa qué imágenes no tienen URL de GHL todavía).
-4. Pegar `dist/ghl/<pagina>.html` en el bloque custom code de esa página. Reemplazar todo el contenido anterior.
+4. En el builder de la página: icono `</>` (Tracking Code) → **Footer Tracking** → `Ctrl+A`, pegar `dist/ghl/<pagina>.html` → Save → guardar la página.
+   - No se usa el elemento "Code": arrastrarlo al canvas no es confiable. El builder exige al menos una sección, así que cada página tiene una sección vacía que el fragmento oculta (`#__nuxt .c-section`).
+   - Sitio en GHL: **Sites → Websites → "Carola Gando Web"**.
 5. Commit + push. El repo es la fuente de verdad: nunca editar el código dentro de GHL.
 
 ## 3. Configuración en GHL
