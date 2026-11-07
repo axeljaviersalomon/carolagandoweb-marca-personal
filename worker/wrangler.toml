@@ -1,0 +1,10 @@
+name = "cg-forms"
+main = "src/index.js"
+compatibility_date = "2026-10-01"
+
+[vars]
+GHL_LOCATION_ID = "MroOvhFrUlGNpKkGwYJp"
+# Vista previa de GHL + dev local. Sumar https://carolagando.coach al conectar el dominio.
+ALLOWED_ORIGINS = "https://sites.leadconnectorhq.com,http://localhost:5173"
+
+# Secret (no va en este archivo): npx wrangler secret put GHL_TOKEN

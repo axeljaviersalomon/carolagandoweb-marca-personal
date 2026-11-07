@@ -1,4 +1,4 @@
-import { WEBHOOKS, WEBHOOK_MODE, CALENDAR_URL, CONTACT_EMAIL } from "./config.js";
+import { FORMS_ENDPOINT, CALENDAR_URL, CONTACT_EMAIL } from "./config.js";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
@@ -17,8 +17,8 @@ const FORMAT_TAGS = { "1a1": "mentoria-1a1", grupal: "mentoria-grupal", empresas
 const ORIGINS = ["home", "sobre-mi", "mentorias", "contacto", "conecta", "quantum", "fenix"];
 
 /**
- * Formularios propios que envían a un Inbound Webhook de GHL.
- * `data-form` define el webhook (apply | lead | contact) y `data-origin` la página.
+ * Formularios propios que envían al Worker cg-forms (ver config.js), que crea el contacto en GHL.
+ * `data-form` define el tipo (apply | lead | contact) y `data-origin` la página.
  * Tags que llegan a GHL: pagina:<origen> + interes:<tipo> (+ data-tags extra).
  */
 export function initForms(root) {
@@ -122,7 +122,7 @@ async function submit(form) {
 
   button.setAttribute("aria-busy", "true");
   try {
-    await send(WEBHOOKS[kind], payload);
+    await send(kind, payload);
     // Contacto general no es un lead de venta: va como evento Contact
     const pixelEvent = kind === "contact" ? "Contact" : "Lead";
     window.fbq?.("track", pixelEvent, { content_name: `${kind}:${origin}` }, { eventID: eventId });
@@ -136,27 +136,23 @@ async function submit(form) {
   }
 }
 
-async function send(url, payload) {
-  if (!url) {
+async function send(kind, payload) {
+  if (!FORMS_ENDPOINT) {
     if (import.meta.env.DEV) {
-      console.info("[cg] webhook sin configurar, envío simulado:", payload);
+      console.info("[cg] endpoint sin configurar, envío simulado:", payload);
       await new Promise((r) => setTimeout(r, 700));
       return;
     }
-    throw new Error("Webhook sin configurar (src/shared/js/config.js)");
+    throw new Error("FORMS_ENDPOINT sin configurar (src/shared/js/config.js)");
   }
 
-  if (WEBHOOK_MODE === "cors") {
-    const res = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    return;
-  }
-
-  await fetch(url, { method: "POST", mode: "no-cors", body: new URLSearchParams(payload) });
+  // Worker cg-forms (worker/): responde con CORS, así que se detectan los errores
+  const res = await fetch(`${FORMS_ENDPOINT}/${kind}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
 }
 
 function showSuccess(form) {
