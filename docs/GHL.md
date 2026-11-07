@@ -29,7 +29,17 @@ npm run build home       # solo una
 3. `npm run build` (avisa qué imágenes no tienen URL de GHL todavía).
 4. En el builder de la página: icono `</>` (Tracking Code) → **Footer Tracking** → `Ctrl+A`, pegar `dist/ghl/<pagina>.html` → Save → guardar la página.
    - No se usa el elemento "Code": arrastrarlo al canvas no es confiable. El builder exige al menos una sección, así que cada página tiene una sección vacía que el fragmento oculta (`#__nuxt .c-section`).
-   - Sitio en GHL: **Sites → Websites → "Carola Gando Web"**.
+   - Sitio en GHL: **Sites → Websites → "Carola Gando Web"**. Vista previa: `https://sites.leadconnectorhq.com/preview/<id>`.
+
+   | Página | Slug | ID (builder y vista previa) |
+   |---|---|---|
+   | home | `/home` (raíz al conectar dominio) | `eSTy7TRgWLrErt4yYP0a` |
+   | sobre-mi | `/sobre-mi` | `fMjtxfsR9SdFfItkqCMD` |
+   | mentorias | `/mentorias` | `kjd4ka7Ppy69Zmp1alrQ` |
+   | contacto | `/contacto` | `vS0TnwfxtMupVVE7Lgxj` |
+   | conecta | `/conecta` | `CkjobmjuXuoYSS6DXZGf` |
+   | quantum | `/quantum` | `5up0PqOvK0cDVvef4TK4` |
+   | fenix | `/fenix` | `3aBtW4Mn7OslMHC8dUCC` |
 5. Commit + push. El repo es la fuente de verdad: nunca editar el código dentro de GHL.
 
 ## 3. Configuración en GHL
