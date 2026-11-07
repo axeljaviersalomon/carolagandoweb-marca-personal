@@ -80,7 +80,16 @@ function toGhlFragment(html) {
   const links = head.match(/<link[^>]+fonts\.(googleapis|gstatic)[^>]*>/gi) ?? [];
   const styles = head.match(/<style[\s\S]*?<\/style>/gi) ?? [];
   const scripts = head.match(/<script[\s\S]*?<\/script>/gi) ?? [];
-  return [...links, ...styles, body.trim(), ...scripts].join("\n");
+  return [...links, ghlReset(), ...styles, body.trim(), ...scripts].join("\n");
+}
+
+/**
+ * El fragmento se pega en el "Footer Tracking" de la página (el builder de GHL
+ * no deja guardar una página sin secciones, y arrastrar el elemento Code no es
+ * confiable). La sección vacía que GHL obliga a tener se oculta acá.
+ */
+function ghlReset() {
+  return "<style>#__nuxt .c-section{display:none!important}</style>";
 }
 
 /** Antepone BASE a las rutas absolutas locales: href="/...", src="/...", data-video="/...", url(/...). */
