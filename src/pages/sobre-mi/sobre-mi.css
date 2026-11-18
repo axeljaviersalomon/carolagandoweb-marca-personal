@@ -1,75 +1,53 @@
 /* Sobre mí. Acento: violeta de la marca (default de tokens.css). */
 
-/* ───────────── Historia con retrato ───────────── */
+/* Título largo del hero: un escalón más chico y más ancho, entra en dos o tres
+   renglones en vez de cuatro */
+.page-hero__title--long {
+  max-width: 30ch;
+  font-size: clamp(2rem, 1.25rem + 2.4vw, 3.5rem);
+  line-height: 1.12;
+}
+
+/* ───────────── Historia con retrato (.portrait y .guide en components.css) ───────────── */
 .story {
   border-top: 1px solid var(--line);
 }
 
-.story__grid {
-  display: grid;
-  gap: var(--s-7);
-  align-items: center;
-}
-
-.story__photo {
-  position: relative;
-  isolation: isolate;
-  justify-self: center;
-  width: min(78%, 360px);
-}
-
-/* Halo violeta detrás del retrato */
-.story__photo::before {
-  content: "";
-  position: absolute;
-  inset: 12% -10% 18%;
-  z-index: -1;
-  border-radius: 50%;
-  background: radial-gradient(closest-side, rgb(138 43 226 / 0.45), rgb(224 33 138 / 0.12) 60%, transparent);
-  filter: blur(20px);
-}
-
-.story__photo img {
-  width: 100%;
-  /* El recorte original tiene el borde inferior irregular: se funde con el fondo */
-  -webkit-mask-image: linear-gradient(180deg, #000 72%, transparent 98%);
-  mask-image: linear-gradient(180deg, #000 72%, transparent 98%);
-}
-
-.story__photo figcaption {
-  margin-top: calc(var(--s-5) * -1);
-  text-align: center;
-  font-size: var(--fs-xs);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--mute);
+@media (min-width: 900px) {
+  .story__grid {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  }
 }
 
 .story__statement {
-  max-width: 20ch;
-  font-size: var(--fs-2xl);
+  font-size: clamp(1.75rem, 1.25rem + 1.5vw, 2.625rem);
   line-height: 1.18;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.03em;
 }
 
 .story__text {
   display: grid;
   gap: var(--s-4);
-  max-width: 54ch;
+  max-width: 58ch;
   margin-top: var(--s-6);
   line-height: 1.8;
   color: var(--ink-2);
 }
 
-@media (min-width: 900px) {
-  .story__grid {
-    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
-    gap: var(--s-9);
-  }
-  .story__photo {
-    width: 100%;
-    max-width: 400px;
-  }
+.story__sign {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-3);
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+
+.story__sign .logo-mark {
+  font-size: calc(28px * var(--up));
+  color: var(--accent-hi);
 }
 
 /* ───────────── En vivo: fotos de sus retiros ───────────── */
@@ -150,143 +128,299 @@
   }
 }
 
-/* ───────────── Formación ───────────── */
+/* ───────────── Formación y reconocimientos ─────────────
+   Mosaico: el premio es la pieza alta de la izquierda y las cuatro formaciones
+   van en 2x2 a su lado, todas con la misma estructura (ícono arriba, título y
+   entidad abajo) para que arranquen y terminen a la misma altura. */
 .creds-section {
-  padding-top: 0;
+  position: relative;
+  isolation: isolate;
+  padding-top: var(--s-6);
 }
 
-.creds-section__grid {
+.creds {
   display: grid;
-  gap: var(--s-6);
+  gap: var(--s-4);
 }
 
-.creds__list {
+.cred {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   display: grid;
-  gap: 0 var(--s-5);
-}
-
-/* Dos columnas recién cuando cada título entra en uno o dos renglones */
-@media (min-width: 480px) {
-  .creds__list {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-.creds__list li {
-  display: grid;
+  grid-template-rows: auto auto 1fr;
   align-content: start;
-  gap: 2px;
-  padding-block: var(--s-4);
-  border-top: 1px solid var(--line);
+  min-height: calc(13rem * var(--up));
+  padding: var(--s-6);
+  border-radius: var(--r-media);
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(160deg, rgb(255 255 255 / 0.035), transparent 45%),
+    var(--surface);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.05);
+  transition:
+    translate 0.55s var(--ease-out),
+    border-color 0.4s,
+    box-shadow 0.55s var(--ease-out);
 }
 
-.creds__list strong {
-  font-size: var(--fs-base);
-  font-weight: 500;
-  line-height: 1.35;
+/* Línea de luz que cruza el borde de arriba */
+.cred::before {
+  content: "";
+  position: absolute;
+  inset: 0 18% auto;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, color-mix(in oklab, var(--accent-hi) 70%, transparent), transparent);
+  opacity: 0.55;
 }
 
-.creds__list span {
+.cred__icon {
+  display: grid;
+  place-items: center;
+  width: calc(52px * var(--up));
+  height: calc(52px * var(--up));
+  border-radius: var(--r-card);
+  border: 1px solid color-mix(in oklab, var(--accent-hi) 30%, transparent);
+  background: radial-gradient(circle at 30% 20%, color-mix(in oklab, var(--accent) 45%, transparent), color-mix(in oklab, var(--accent) 10%, var(--surface)));
+  color: var(--accent-hi);
+  box-shadow: 0 10px 30px -12px var(--accent);
+}
+
+.cred__icon svg {
+  width: 46%;
+  height: 46%;
+}
+
+.cred__title {
+  margin-top: var(--s-6);
+  font-size: clamp(1.25rem, 1rem + 0.8vw, 1.625rem);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.cred__by {
+  margin-top: var(--s-2);
   font-size: var(--fs-sm);
   color: var(--mute);
 }
 
-.creds__list .creds__award {
-  grid-column: 1 / -1;
-  margin-top: var(--s-3);
-  padding: var(--s-4) var(--s-5);
-  border: 1px solid color-mix(in oklab, var(--accent-hi) 30%, transparent);
-  border-radius: var(--r-card);
-  background: linear-gradient(120deg, rgb(138 43 226 / 0.18), rgb(224 33 138 / 0.08));
-}
-
-.creds__award strong {
-  color: var(--accent-hi);
-}
-
-@media (min-width: 900px) {
-  .creds-section__grid {
-    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
-    gap: var(--s-9);
+@media (hover: hover) and (pointer: fine) {
+  .cred:hover {
+    translate: 0 -6px;
+    border-color: color-mix(in oklab, var(--accent-hi) 35%, transparent);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.08),
+      0 30px 60px -28px color-mix(in oklab, var(--accent) 60%, transparent);
   }
 }
 
-/* ───────────── Escenarios ───────────── */
+/* El premio: medalla grande con halo y el título protagonista */
+.cred--award {
+  grid-template-rows: 1fr auto auto auto;
+  align-content: stretch;
+  justify-items: center;
+  text-align: center;
+  border-color: color-mix(in oklab, var(--accent-hi) 32%, transparent);
+  background:
+    radial-gradient(70% 55% at 50% 30%, rgb(138 43 226 / 0.34), transparent 70%),
+    radial-gradient(60% 40% at 50% 100%, rgb(224 33 138 / 0.14), transparent 70%),
+    var(--surface);
+}
+
+.cred__medal {
+  position: relative;
+  align-self: center;
+  display: grid;
+  place-items: center;
+  width: clamp(112px, 12vw, calc(156px * var(--up)));
+  aspect-ratio: 1;
+  margin-block: var(--s-4) var(--s-5);
+  border-radius: 50%;
+  border: 1px solid color-mix(in oklab, var(--accent-hi) 40%, transparent);
+  background: radial-gradient(circle at 35% 25%, color-mix(in oklab, var(--accent-hi) 30%, transparent), rgb(138 43 226 / 0.15) 60%, transparent);
+  color: var(--accent-hi);
+  box-shadow:
+    0 0 0 12px rgb(201 163 255 / 0.04),
+    0 0 0 26px rgb(201 163 255 / 0.025),
+    0 20px 60px -10px rgb(138 43 226 / 0.6);
+}
+
+.cred__medal svg {
+  width: 52%;
+  height: 52%;
+  filter: drop-shadow(0 0 10px rgb(201 163 255 / 0.6));
+}
+
+.cred__kicker {
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent-hi);
+}
+
+.cred--award .cred__title {
+  margin-top: var(--s-3);
+  font-size: var(--fs-title);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+}
+
+@media (min-width: 640px) {
+  .creds {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .cred--award {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Desktop: subgrid. Ícono, título y entidad de las cuatro formaciones caen
+   en las mismas filas: los títulos de cada fila arrancan a la misma altura */
+@media (min-width: 1000px) {
+  .creds {
+    grid-template-columns: minmax(0, 1.15fr) repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(2, auto auto 1fr);
+    gap: var(--s-5);
+  }
+  .cred--award {
+    grid-column: 1;
+    grid-row: 1 / -1;
+  }
+  .cred:not(.cred--award) {
+    grid-row: span 3;
+    grid-template-rows: subgrid;
+    row-gap: 0;
+  }
+}
+
+/* ───────────── Escenarios ─────────────
+   Luces de escenario desde arriba y cada evento como una fila: número, nombre
+   grande y el dato a la derecha (etiqueta chica arriba, valor abajo). En hover
+   el nombre se llena con la luz de la marca. */
 .stages {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  padding-bottom: var(--s-8);
 }
 
-.stages::before {
-  content: "";
+.stages__beams {
   position: absolute;
   inset: 0;
   z-index: -1;
   background:
-    radial-gradient(ellipse 60% 55% at 50% 45%, transparent, var(--bg) 85%),
-    url(/img/humo-2.webp) center / cover no-repeat;
-  opacity: 0.4;
+    conic-gradient(from 150deg at 18% -6%, transparent 0deg, rgb(201 163 255 / 0.13) 14deg, transparent 30deg),
+    conic-gradient(from 180deg at 50% -10%, transparent 0deg, rgb(138 43 226 / 0.12) 10deg, transparent 22deg),
+    conic-gradient(from 182deg at 82% -6%, transparent 0deg, rgb(224 33 138 / 0.11) 14deg, transparent 30deg),
+    radial-gradient(60% 40% at 50% 0%, rgb(138 43 226 / 0.2), transparent 70%);
+  -webkit-mask-image: linear-gradient(180deg, #000 30%, transparent 95%);
+  mask-image: linear-gradient(180deg, #000 30%, transparent 95%);
+  animation: s-beams 9s ease-in-out infinite alternate;
+}
+
+@keyframes s-beams {
+  to {
+    opacity: 0.65;
+  }
 }
 
 .stages__list {
   display: grid;
-  max-width: 60rem;
+  max-width: 64rem;
   margin-inline: auto;
   counter-reset: stage;
-  border-top: 1px solid var(--line);
+  border-top: 1px solid var(--line-strong);
 }
 
 .stage {
+  position: relative;
   display: grid;
-  grid-template-columns: 40px minmax(0, 1fr);
-  gap: var(--s-1) var(--s-4);
-  padding-block: var(--s-5);
-  border-bottom: 1px solid var(--line);
+  grid-template-columns: calc(3rem * var(--up)) minmax(0, 1fr);
+  align-items: center;
+  gap: var(--s-2) var(--s-4);
+  padding: var(--s-6) var(--s-4);
+  border-bottom: 1px solid var(--line-strong);
   counter-increment: stage;
 }
 
 .stage::before {
   content: counter(stage);
   grid-row: span 2;
-  padding-top: 0.7em;
+  align-self: start;
+  padding-top: 0.9em;
   font-size: var(--fs-xs);
-  font-weight: 400;
+  font-weight: 500;
+  letter-spacing: 0.1em;
   color: var(--accent-hi);
 }
 
 .stage__name {
-  font-size: var(--fs-title);
+  padding-block: var(--ink-room);
+  margin-block: calc(var(--ink-room) * -1);
+  font-size: clamp(2rem, 1.1rem + 3.4vw, 4rem);
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  background:
+    linear-gradient(90deg, var(--accent-hi), #f08ad0) 0 0 / 0% 100% no-repeat,
+    linear-gradient(var(--ink), var(--ink));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  transition: background-size 0.8s var(--ease-out);
+}
+
+.stage__meta {
+  display: grid;
+  gap: var(--s-1);
+}
+
+.stage__label {
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+
+.stage__value {
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
   font-weight: 400;
-  letter-spacing: -0.025em;
-  transition: color 0.4s;
-}
-
-.stage__detail {
-  color: var(--ink-2);
-}
-
-.stage__detail strong {
-  color: var(--ink);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--accent-hi);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .stage:hover .stage__name {
-    color: var(--accent-hi);
+    background-size: 100% 100%, 100% 100%;
   }
 }
 
 @media (min-width: 900px) {
   .stage {
-    grid-template-columns: 64px minmax(0, 1fr) minmax(0, 0.8fr);
-    align-items: baseline;
+    grid-template-columns: calc(4rem * var(--up)) minmax(0, 1fr) minmax(0, 15rem);
+    gap: var(--s-6);
+    padding: var(--s-6);
   }
   .stage::before {
     grid-row: auto;
+    align-self: center;
+    padding: 0;
   }
-  .stage__detail {
+  .stage__meta {
+    justify-items: end;
     text-align: right;
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .stages__beams {
+    animation: none;
+  }
+  .stage__name {
+    transition: none;
+  }
+}

@@ -19,7 +19,7 @@
 
   /* Escala con saltos claros (375 → 1440 px):
      etiquetas 14 · chico 15-16 · cuerpo 16-17 · bajada 18-21 · h3 22-30 ·
-     título de tarjeta 28-44 · h2 32-56 · cierre 40-72 · hero 39-88.
+     título de tarjeta 28-44 · h2 32-56 · cierre 40-72 · hero 36-64.
      Nada de texto por debajo de 14px. */
   --fs-xs: 0.875rem;
   --fs-sm: clamp(0.9375rem, 0.91rem + 0.12vw, 1rem);
@@ -29,7 +29,7 @@
   --fs-title: clamp(1.75rem, 1.35rem + 1.7vw, 2.75rem);
   --fs-2xl: clamp(2rem, 1.45rem + 2.4vw, 3.5rem);
   --fs-3xl: clamp(2.5rem, 1.7rem + 3.4vw, 4.5rem);
-  --fs-hero: clamp(2.375rem, 1.2rem + 5.3vw, 5.5rem);
+  --fs-hero: clamp(2.25rem, 1.3rem + 3vw, 4rem);
   --fs-num: clamp(2.25rem, 1.7rem + 2.2vw, 3.75rem);
 
   /* Neutros */
@@ -51,9 +51,8 @@
   --accent-2: #e0218a;
   --accent-soft: color-mix(in oklab, var(--accent) 16%, var(--bg));
   --accent-deep: #290858;
-  /* Color de la cortina entre páginas: el tono de fondo de cada marca */
-  --veil: #1a0836;
-  --veil-bg: radial-gradient(120% 90% at 50% 40%, color-mix(in oklab, var(--veil) 78%, var(--accent)) 0%, var(--veil) 55%, color-mix(in oklab, var(--veil) 60%, #000) 100%);
+  /* Cortina entre páginas: el mismo fondo liso de cada marca, sin degradé */
+  --veil-bg: var(--bg);
   --glow: 0 0 0 1px rgb(201 163 255 / 0.22), 0 8px 30px -10px rgb(138 43 226 / 0.7);
 
   /* Forma: botones pill, tarjetas 20px, bloques 28px, campos 12px */

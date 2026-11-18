@@ -18,7 +18,6 @@
   --accent-ink: #1a0a33;
   --accent-2: #8a4dff;
   --accent-deep: #2b1060;
-  --veil: #1e0b44;
   --glow: 0 0 0 1px rgb(255 216 77 / 0.28), 0 8px 30px -12px rgb(255 216 77 / 0.45);
 }
 
@@ -239,11 +238,15 @@
   color: var(--mute);
 }
 
+/* Las dos columnas arrancan arriba: el título a la altura de la lista */
 @media (min-width: 960px) {
   .bundle__card {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: var(--s-9);
-    align-items: center;
+    align-items: start;
+  }
+  .bundle__list {
+    border-top: 1px solid var(--line);
   }
 }
 
@@ -263,11 +266,12 @@
   margin-top: var(--s-5);
 }
 
+/* Título y tarjeta arrancan a la misma altura */
 @media (min-width: 960px) {
   .q-free__grid {
     grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
     gap: var(--s-9);
-    align-items: center;
+    align-items: start;
   }
 }
 
@@ -282,4 +286,9 @@
   .bundle__visual img {
     transition: none;
   }
+}
+
+/* Nombre grande del pie: nombre corto, un escalón más grande que el de Carola */
+.footer__giant {
+  font-size: 19cqi;
 }

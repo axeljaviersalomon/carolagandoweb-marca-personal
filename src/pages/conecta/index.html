@@ -115,16 +115,16 @@
             <div class="offers__grid">
               <!-- TODO(clienta): fecha, lugar exacto y precio de la próxima edición -->
               <article class="offer offer--featured" data-reveal data-glow>
-                <p class="offer__badge">Experiencia en vivo</p>
-                <h3 class="offer__name">Evento presencial</h3>
-                <p class="offer__promise">Un fin de semana de transformación profunda junto a +300 personas.</p>
+                <p class="offer__badge">Presencial</p>
+                <h3 class="offer__name">Evento en vivo</h3>
+                <p class="offer__promise">Un fin de semana de transformación junto a +300 personas.</p>
                 <ul class="offer__list">
-                  <li>Speakers de mentalidad, propósito y negocios</li>
-                  <li>Dinámicas transformacionales y artistas en vivo</li>
-                  <li>Networking con personas alineadas</li>
+                  <li>Speakers de propósito</li>
+                  <li>Dinámicas y artistas en vivo</li>
+                  <li>Networking con gente afín</li>
                 </ul>
-                <p class="offer__meta">CABA, Buenos Aires · Próxima edición a confirmar</p>
-                <a class="btn" href="#lista-evento">Avisame de la próxima edición <span class="arrow" aria-hidden="true">→</span></a>
+                <p class="offer__meta">CABA · Fecha a confirmar</p>
+                <a class="btn btn--block" href="#lista-evento">Sumarme a la lista <span class="arrow" aria-hidden="true">→</span></a>
               </article>
 
               <!-- TODO(GHL): order form de 2 pasos en /conecta/comprar-curso (Mercado Pago, ARS). TODO(clienta): precio -->
@@ -133,11 +133,12 @@
                 <h3 class="offer__name">Curso online</h3>
                 <p class="offer__promise">8 clases en video para convertir tu propósito en 10 acciones concretas.</p>
                 <ul class="offer__list">
-                  <li>Detectá los 3 patrones que te alejan de tu propósito</li>
-                  <li>Ejercicios prácticos y material descargable</li>
-                  <li>A tu ritmo, con actualizaciones sin costo</li>
+                  <li>Los 3 patrones que te alejan</li>
+                  <li>Ejercicios y descargables</li>
+                  <li>A tu ritmo, con actualizaciones</li>
                 </ul>
-                <a class="btn btn--ghost" href="/conecta/comprar-curso">Quiero el curso <span class="arrow" aria-hidden="true">→</span></a>
+                <p class="offer__meta">Online · Empezás cuando quieras</p>
+                <a class="btn btn--ghost btn--block" href="/conecta/comprar-curso">Quiero el curso <span class="arrow" aria-hidden="true">→</span></a>
               </article>
 
               <article class="offer offer--soon" data-reveal data-glow style="--d: 2">
@@ -147,8 +148,10 @@
                 <ul class="offer__list">
                   <li>Ejercicios paso a paso</li>
                   <li>Leelo en cualquier dispositivo</li>
-                  <li>Te llega al mail apenas comprás</li>
+                  <li>Te llega al mail al comprarlo</li>
                 </ul>
+                <p class="offer__meta">Digital · Fecha a confirmar</p>
+                <span class="btn btn--ghost btn--block offer__soon" aria-disabled="true">En preparación</span>
               </article>
             </div>
           </div>
@@ -159,32 +162,46 @@
           <div class="container">
             <div class="free-class__panel">
               <div>
-                <p class="eyebrow">Gratis</p>
-                <h2 class="h2" id="free-title" data-reveal>Probá la primera clase del curso</h2>
-                <p class="lead" data-reveal style="--d: 1">Dejanos tu email y te mandamos la clase 1 para que veas cómo trabajamos, sin pagar nada.</p>
+                <p class="eyebrow trim-top">Gratis</p>
+                <h2 class="h2" id="free-title" data-reveal>Probá la primera clase del&nbsp;curso</h2>
+                <p class="lead" data-reveal style="--d: 1">Dejanos tu email y te mandamos la&nbsp;clase&nbsp;1 para que veas cómo trabajamos, sin pagar nada.</p>
               </div>
-              <div class="free-class__form form-card" data-reveal style="--d: 1">
+              <div class="free-class__form form-card form-card--mark" data-reveal style="--d: 1">
                 <!-- @include lead-form {"id":"clase","origin":"conecta","tags":"lead:conecta-clase-gratis","button":"Quiero la clase gratis","success_title":"¡Listo! Revisá tu mail","success_text":"Te mandamos el acceso a la primera clase. Si no lo ves, buscalo en promociones o spam."} -->
               </div>
             </div>
           </div>
         </section>
 
-        <!-- Quién te guía -->
+        <!-- Quién te guía: retrato que rompe el marco, datos flotantes y credenciales -->
         <section class="section guide" id="carola" aria-labelledby="guide-title">
           <div class="container guide__grid">
-            <figure class="guide__photo">
-              <img src="/img/carola-retrato.webp" alt="Carola Gando, creadora de Conecta" width="497" height="785" loading="lazy" />
-            </figure>
+            <div class="portrait" data-reveal>
+              <div class="portrait__frame" aria-hidden="true"></div>
+              <span class="portrait__orbit" aria-hidden="true"></span>
+              <figure class="portrait__cut">
+                <img src="/img/carola-retrato.webp" alt="Carola Gando, creadora de Conecta" width="497" height="785" loading="lazy" data-no-zoom />
+              </figure>
+              <ul class="portrait__chips" aria-label="Trayectoria en números">
+                <li class="portrait__chip"><strong>12+</strong><span>años de trayectoria</span></li>
+                <li class="portrait__chip"><strong>9</strong><span>países de América y Europa</span></li>
+                <li class="portrait__chip"><strong>4.500</strong><span>personas en&nbsp;Expansión</span></li>
+              </ul>
+            </div>
             <div class="guide__body">
-              <p class="eyebrow">Quién te guía</p>
-              <h2 class="h2" id="guide-title" data-reveal>Carola Gando</h2>
-              <p class="guide__role">High Impact Trainer · Creadora de Conecta</p>
-              <div class="guide__bio" data-reveal style="--d: 1">
-                <p>Más de 12 años guiando procesos de transformación personal. Impactó a miles de personas en 9 países de América y Europa.</p>
-                <p>Coordinó escenarios como Expansión, con 4.500 personas. Certificada como High Impact Trainer por la Academia Europea de Neurociencias, con formación en PNL, Coaching Ontológico (ICF) y Firewalking.</p>
+              <p class="eyebrow" data-reveal>Quién te guía</p>
+              <h2 class="guide__name" id="guide-title" data-reveal>Carola Gando</h2>
+              <p class="guide__role" data-reveal style="--d: 1">High Impact Trainer · <span class="nowrap">Creadora de Conecta</span></p>
+              <p class="guide__bio" data-reveal style="--d: 1">Guía procesos de transformación personal en escenarios, retiros y mentorías de América y Europa. Coordinó eventos como Expansión y la Cumbre España, y está certificada por la Academia Europea de Neurociencias.</p>
+              <ul class="guide__creds" aria-label="Formación" data-reveal style="--d: 2">
+                <li>High Impact Trainer</li>
+                <li>Coaching Ontológico (ICF)</li>
+                <li>PNL</li>
+                <li>Firewalking</li>
+              </ul>
+              <div class="guide__foot" data-reveal style="--d: 3">
+                <a class="link-arrow" href="/sobre-mi">Conocé su historia <span aria-hidden="true">→</span></a>
               </div>
-              <a class="link-arrow" href="/sobre-mi">Conocé su historia <span aria-hidden="true">→</span></a>
             </div>
           </div>
         </section>
@@ -228,10 +245,10 @@
           <div class="final__glow" aria-hidden="true"></div>
           <div class="container final__grid">
             <div>
-              <h2 class="final__title" id="final-title" data-reveal>El momento perfecto <span class="accent">no existe</span></h2>
+              <h2 class="final__title trim-top" id="final-title" data-reveal>El momento perfecto <span class="accent">no existe</span></h2>
               <p class="lead" data-reveal style="--d: 1">Si te vas sin tomar acción, reafirmás una identidad que ya no te representa. Sumate a la lista y enterate primero de la próxima edición del evento.</p>
             </div>
-            <div class="final__card form-card" data-reveal style="--d: 1">
+            <div class="final__card form-card form-card--mark" data-reveal style="--d: 1">
               <!-- @include lead-form {"id":"evento","origin":"conecta","tags":"lista-espera:conecta-evento","button":"Avisame de la próxima edición","success_title":"¡Ya estás en la lista!","success_text":"Te avisamos por mail apenas abramos las entradas de la próxima edición."} -->
             </div>
           </div>

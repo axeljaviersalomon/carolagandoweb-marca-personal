@@ -120,6 +120,13 @@ button {
   color: var(--accent-ink);
 }
 
+/* Recorta el aire de arriba del renglón hasta la altura de las mayúsculas:
+   el título arranca exactamente a la altura de la tarjeta de al lado.
+   Sin soporte (Firefox) queda el interlineado normal. */
+.trim-top {
+  text-box: trim-start cap alphabetic;
+}
+
 /* Palabras con guion que no se parten (e-book) */
 .nowrap {
   white-space: nowrap;

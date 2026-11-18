@@ -126,21 +126,25 @@
   animation: cg-photo 1.5s var(--ease-out) both 0.3s;
 }
 
-/* Desktop: hero a pantalla completa, foto grande anclada abajo a la derecha */
+/* Desktop: hero a pantalla completa, foto grande anclada abajo a la derecha.
+   Topes para pantallas grandes: el hero no pasa de ~1000px de alto (escalado
+   con --up) y la foto nunca se agranda más allá de su tamaño real (1000x851):
+   así no se pixela. En pantallas anchas la foto se acerca al contenedor en vez
+   de quedar pegada al borde de la ventana. */
 @media (min-width: 900px) {
   /* El texto arranca cerca de la nav: sin el vacío que dejaba el centrado vertical */
   .hero {
     justify-content: flex-start;
-    min-height: max(680px, 100svh);
+    min-height: clamp(680px, 100svh, calc(980px * var(--up)));
     padding-top: calc(var(--nav-h) + clamp(32px, 7vh, 80px));
     padding-bottom: clamp(48px, 7vh, 96px);
   }
   .hero__visual {
     position: absolute;
-    right: 0;
+    right: max(0px, calc((100% - var(--max)) / 2 - 6vw));
     bottom: 0;
-    width: min(48vw, calc(760px * var(--up)));
-    height: calc(100% - var(--nav-h) - 16px);
+    width: min(48vw, 1000px);
+    height: min(calc(100% - var(--nav-h) - 16px), 880px);
     margin: 0;
   }
   .hero__photo {
@@ -207,12 +211,7 @@
 }
 
 /* ───────────── Prueba: fotos reales + números ───────────── */
-.proof__head {
-  display: grid;
-  gap: var(--s-4);
-  margin-bottom: clamp(32px, 5vw, 64px);
-}
-
+/* Encabezado centrado (.section-head): título y bajada sobre la tira de fotos */
 .proof__head .h2 {
   font-size: var(--fs-3xl);
   letter-spacing: -0.03em;
@@ -336,9 +335,15 @@
   border-radius: var(--r-media);
   border: 1px solid var(--line);
   background:
-    radial-gradient(55% 70% at 100% 0%, rgb(138 43 226 / 0.28), transparent 70%),
-    radial-gradient(40% 50% at 0% 100%, rgb(224 33 138 / 0.12), transparent 70%),
+    radial-gradient(60% 55% at 50% 0%, rgb(138 43 226 / 0.24), transparent 72%),
     var(--surface);
+}
+
+/* Intro centrada: título, bajada y botones sobre los tres formatos */
+.mentoring__intro {
+  display: grid;
+  justify-items: center;
+  text-align: center;
 }
 
 /* Dentro del panel, un escalón menos en mobile: "decidieron cambiar" entra junto */
@@ -361,6 +366,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
   gap: var(--s-4) var(--s-6);
   margin-top: var(--s-6);
 }
@@ -397,19 +403,24 @@
 }
 
 .format__text {
-  margin-top: var(--s-3);
+  margin-top: var(--s-2);
   font-size: var(--fs-base);
   color: var(--ink-2);
 }
 
-/* Desktop: el título arriba a lo ancho y los tres formatos en columnas */
+/* Desktop: el título arriba a lo ancho y los tres formatos en columnas.
+   Subgrid: etiqueta, nombre y texto arrancan a la misma altura en las tres */
 @media (min-width: 900px) {
   .formats {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--s-6);
+    grid-template-rows: repeat(3, auto);
+    gap: 0 var(--s-6);
   }
   .format,
   .format:first-child {
+    grid-row: span 3;
+    grid-template-rows: subgrid;
+    row-gap: var(--s-2);
     align-content: start;
     padding: var(--s-5) 0 0;
     border-bottom: 0;

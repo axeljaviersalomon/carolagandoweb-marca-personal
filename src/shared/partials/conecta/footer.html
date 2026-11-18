@@ -2,13 +2,14 @@
   <div class="container">
     <div class="footer__top">
       <div class="footer__brand">
-        <p class="cctp-logo cctp-logo--lg">
-          <img src="/img/cctp-logo.webp" alt="Conecta con tu Propósito" width="768" height="252" loading="lazy" />
-        </p>
-        <p class="muted">Rompé tus limitaciones y descubrí tu verdadero ser.</p>
+        <a class="footer__logo cctp-logo cctp-logo--lg" href="#">
+          <img src="/img/cctp-logo.webp" alt="Conecta con tu Propósito, volver arriba" width="768" height="252" loading="lazy" />
+        </a>
+        <p class="footer__tagline">Rompé tus limitaciones y descubrí tu verdadero ser.</p>
+        <a class="btn btn--sm" href="#opciones">Elegí tu camino <span class="arrow" aria-hidden="true">→</span></a>
       </div>
 
-      <div class="footer__cols">
+      <nav class="footer__cols" aria-label="Pie de página" style="--footer-cols: 2">
         <div>
           <p class="footer__title">Conecta</p>
           <ul>
@@ -25,10 +26,12 @@
             <li><a href="mailto:carolagando.coach@gmail.com">carolagando.coach<wbr />@gmail.com</a></li>
           </ul>
         </div>
-      </div>
+      </nav>
     </div>
 
     <!-- @include program-signature {"origin":"conecta"} -->
+
+    <p class="footer__giant" aria-hidden="true">Conecta</p>
 
     <div class="footer__bottom">
       <p>© <span data-year>2026</span> Conecta con tu Propósito. Todos los derechos reservados.</p>

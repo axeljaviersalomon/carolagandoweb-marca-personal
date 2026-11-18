@@ -21,7 +21,6 @@
   --accent-ink: #2a0716;
   --accent-2: #e2552a;
   --accent-deep: #5e0f30;
-  --veil: #360a1d;
   --glow: 0 0 0 1px rgb(242 213 140 / 0.35), 0 10px 36px -10px rgb(232 194 106 / 0.6);
 
   /* Propios de la marca */
@@ -30,6 +29,8 @@
   --fuego: #e2552a;
   --chispa: #ff6ad5;
   --gold: linear-gradient(176deg, #fbe7a8 0%, #eecb72 38%, #c99a3c 72%, #f3d48a 100%);
+  /* Isotipo dorado: marca de agua del formulario y del retrato */
+  --mark: url(/img/fenix-isotipo.webp);
 }
 
 /* ───────────── Marca: isotipo dorado y lockup ───────────── */
@@ -372,15 +373,18 @@
   background: rgb(18 4 11 / 0.55);
 }
 
+/* Aire arriba y entre etapas para la palabra fantasma, que sobresale de la foto */
 .path__list {
+  --ghost: clamp(4.5rem, 2.5rem + 9vw, 9.5rem);
   display: grid;
-  gap: clamp(56px, 8vw, 112px);
+  gap: calc(clamp(48px, 6vw, 80px) + var(--ghost) * 0.4);
+  padding-top: calc(var(--ghost) * 0.45);
 }
 
 .stage {
   position: relative;
   display: grid;
-  gap: var(--s-6);
+  gap: var(--s-5);
   align-items: center;
 }
 
@@ -419,16 +423,27 @@
   position: relative;
 }
 
-/* Palabra fantasma detrás del texto: FUEGO, CENIZAS, RENACER */
+/* Palabra fantasma (FUEGO, CENIZAS, RENACER) apoyada sobre la esquina de la
+   foto: contorno dorado y, donde pisa la foto, se llena de oro y la ilumina
+   (mix-blend-mode: screen). En mobile se monta sobre el borde de abajo. */
 .stage__ghost {
+  position: relative;
+  z-index: 2;
   display: block;
+  margin-top: -0.62em;
+  padding-inline: 0.04em;
   font-family: var(--font-brand);
-  font-size: clamp(4.5rem, 2.5rem + 9vw, 9.5rem);
+  font-size: var(--ghost);
   line-height: 0.85;
   letter-spacing: 0.02em;
+  background: linear-gradient(180deg, rgb(251 231 168 / 0.95) 0%, rgb(232 194 106 / 0.75) 55%, rgb(232 194 106 / 0) 56%);
+  -webkit-background-clip: text;
+  background-clip: text;
   color: transparent;
-  -webkit-text-stroke: 1px rgb(242 213 140 / 0.45);
-  margin-bottom: var(--s-4);
+  -webkit-text-stroke: 1px rgb(242 213 140 / 0.7);
+  mix-blend-mode: screen;
+  text-shadow: 0 0 40px rgb(232 194 106 / 0.25);
+  pointer-events: none;
 }
 
 .stage__num {
@@ -444,27 +459,49 @@
 
 .stage h3 {
   margin-top: var(--s-3);
-  font-size: var(--fs-2xl);
+  font-size: var(--fs-title);
+  line-height: 1.1;
 }
 
 .stage__body > p:last-child {
   margin-top: var(--s-4);
-  max-width: 42ch;
+  max-width: 44ch;
   color: var(--ink-2);
+  text-wrap: balance;
 }
 
+/* Desktop: la foto a un ancho fijo y el texto pegado a ella. La palabra cruza
+   el borde de arriba de la foto en la esquina que da al texto: la parte que
+   pisa la foto va llena de oro, la que queda afuera en contorno. */
 @media (min-width: 900px) {
   .stage {
-    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
-    gap: var(--s-9);
+    --photo: min(27rem, 40%);
+    grid-template-columns: var(--photo) minmax(0, 1fr);
+    gap: var(--s-8);
   }
-  .stage__photo {
-    max-width: 440px;
+  .stage__ghost {
+    position: absolute;
+    top: 0;
+    left: calc(var(--photo) - 1.05em);
+    margin: 0;
+    translate: 0 -46%;
+    background: linear-gradient(90deg, rgb(251 231 168 / 0.95) 0, rgb(232 194 106 / 0.8) 1em, rgb(232 194 106 / 0) 1.06em);
+    -webkit-background-clip: text;
+    background-clip: text;
   }
   /* Alterna lados: el del medio va con la foto a la derecha */
+  .stage:nth-child(2) {
+    grid-template-columns: minmax(0, 1fr) var(--photo);
+  }
   .stage:nth-child(2) .stage__photo {
     order: 2;
-    justify-self: end;
+  }
+  .stage:nth-child(2) .stage__ghost {
+    left: auto;
+    right: calc(var(--photo) - 1.05em);
+    background: linear-gradient(270deg, rgb(251 231 168 / 0.95) 0, rgb(232 194 106 / 0.8) 1em, rgb(232 194 106 / 0) 1.06em);
+    -webkit-background-clip: text;
+    background-clip: text;
   }
   .stage:nth-child(2) .stage__body {
     justify-self: end;
@@ -671,7 +708,6 @@
 .f-join__grid {
   display: grid;
   gap: var(--s-7);
-  align-items: center;
 }
 
 .f-join .lead {
@@ -732,68 +768,47 @@
   backdrop-filter: blur(14px);
 }
 
+/* La tarjeta arranca y termina a la misma altura que la columna de texto:
+   el formulario arriba y el isotipo dorado de marca de agua en el aire de abajo */
+.f-join__card::after {
+  width: min(78%, calc(380px * var(--up)));
+  right: -12%;
+  bottom: -16%;
+  background: none;
+  -webkit-mask: none;
+  mask: none;
+  background-image: var(--mark);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.12;
+  filter: saturate(0.9);
+}
+
 @media (min-width: 900px) {
   .f-join__grid {
     grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr);
     gap: var(--s-9);
+    align-items: stretch;
   }
 }
 
-/* ───────────── Quién te guía ───────────── */
-.guide__grid {
-  display: grid;
-  gap: var(--s-6);
-  align-items: center;
-}
-
-.guide__photo {
-  position: relative;
-  justify-self: center;
-  width: min(70%, 320px);
-  border-bottom: 1px solid var(--line);
-}
-
-/* Isotipo grande detrás de la foto */
-.guide__photo::before {
-  content: "";
-  position: absolute;
-  inset: -6% -18% 12%;
-  z-index: -1;
-  background: url(/img/fenix-isotipo.webp) center / contain no-repeat;
-  opacity: 0.22;
-}
-
-.guide__photo img {
-  width: 100%;
-  -webkit-mask-image: linear-gradient(180deg, #000 72%, transparent 98%);
-  mask-image: linear-gradient(180deg, #000 72%, transparent 98%);
-}
-
+/* ───────────── Quién te guía ─────────────
+   Retrato y texto en components.css (.portrait, .guide). Acá solo la luz de
+   la marca detrás. */
 .guide {
   position: relative;
   isolation: isolate;
 }
 
-.guide__role {
-  margin-top: var(--s-2);
-  font-size: var(--fs-sm);
-  letter-spacing: 0.01em;
-  color: var(--accent-hi);
-}
-
-.guide__bio {
-  display: grid;
-  gap: var(--s-4);
-  max-width: 54ch;
-  margin-block: var(--s-5);
-  color: var(--ink-2);
-}
-
-@media (min-width: 900px) {
-  .guide__grid {
-    grid-template-columns: minmax(0, 0.7fr) minmax(0, 1fr);
-    gap: var(--s-9);
-  }
+.guide::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(40% 50% at 25% 50%, rgb(94 15 48 / 0.55), transparent 70%),
+    radial-gradient(30% 40% at 80% 40%, rgb(226 85 42 / 0.1), transparent 70%);
 }
 
 /* ───────────── Cierre ───────────── */
@@ -825,23 +840,29 @@
   margin-top: var(--s-6);
 }
 
-/* ───────────── Footer ───────────── */
-.footer {
-  background:
-    radial-gradient(60% 120% at 100% 0%, rgb(94 15 48 / 0.45), transparent 70%),
-    var(--bg-2);
-}
-
+/* ───────────── Footer (mismo fondo liso que la página, ver components.css) ───────────── */
 .footer__brand .f-brand {
   display: flex;
   align-items: center;
-  gap: var(--s-3);
-  margin-bottom: var(--s-2);
-  font-size: 1.5rem;
+  gap: var(--s-4);
+  font-size: clamp(1.75rem, 1.4rem + 1vw, 2.25rem);
 }
 
 .footer__brand .f-iso {
-  font-size: 56px;
+  font-size: clamp(72px, 7vw, calc(96px * var(--up)));
+  filter: drop-shadow(0 0 24px rgb(232 194 106 / 0.3));
+}
+
+/* El nombre grande del pie con la condensada del logo, en contorno dorado */
+.f-giant {
+  font-family: var(--font-brand);
+  font-size: 26cqi;
+  font-weight: 400;
+  line-height: 0.82;
+  letter-spacing: 0.04em;
+  background: linear-gradient(180deg, rgb(242 213 140 / 0.22), rgb(242 213 140 / 0.02) 90%);
+  -webkit-background-clip: text;
+  background-clip: text;
 }
 
 @media (prefers-reduced-motion: reduce) {

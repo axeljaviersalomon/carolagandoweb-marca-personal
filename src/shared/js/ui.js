@@ -179,11 +179,11 @@ export function initCountUp(root) {
 const reducedMotion = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 /**
- * Salida de la transición entre páginas: baja una cortina negra y recién ahí navega.
- * Corre siempre, no solo sin @view-transition: la transición nativa se cancela
- * si el CSS de la página nueva llega tarde (en GHL el fragmento se inyecta al
- * final), y así la salida es igual en todos los navegadores. Si la nativa sí
- * corre, funde el negro con la página nueva y evita cualquier destello.
+ * Salida de la transición entre páginas: baja una cortina del color de fondo y
+ * recién ahí navega (0,22 s). Corre siempre, no solo sin @view-transition: la
+ * transición nativa se cancela si el CSS de la página nueva llega tarde (en GHL
+ * el fragmento se inyecta al final), y así la salida es igual en todos los
+ * navegadores. Si la página nueva tarda, la cortina muestra una barra de carga.
  * La entrada (cortina que se levanta) es CSS puro: ver components.css.
  */
 export function initPageTransitions(root) {
@@ -192,6 +192,7 @@ export function initPageTransitions(root) {
   const veil = document.createElement("div");
   veil.className = "page-veil";
   veil.setAttribute("aria-hidden", "true");
+  veil.innerHTML = '<span class="page-veil__bar"></span>';
   root.append(veil);
 
   let safety;
@@ -201,13 +202,8 @@ export function initPageTransitions(root) {
   };
 
   root.addEventListener("click", (e) => {
-    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-    const link = e.target.closest("a[href]");
-    if (!link || link.hasAttribute("download") || (link.target && link.target !== "_self")) return;
-    const url = new URL(link.href, location.href);
-    if (url.origin !== location.origin || !/^https?:$/.test(url.protocol)) return;
-    // Anclas dentro de la misma página: scroll normal, sin cortina
-    if (url.pathname === location.pathname && url.search === location.search) return;
+    const url = internalUrl(e);
+    if (!url) return;
 
     e.preventDefault();
     veil.classList.add("is-on");
@@ -218,13 +214,92 @@ export function initPageTransitions(root) {
       location.href = url.href;
     };
     veil.addEventListener("transitionend", go, { once: true });
-    setTimeout(go, 480);
+    setTimeout(go, 260);
     // Seguridad: si la navegación no ocurre (o tarda demasiado), la cortina se levanta
-    safety = setTimeout(lift, 4000);
+    safety = setTimeout(lift, 8000);
   });
 
   // Volver con el botón Atrás restaura la página desde la caché: sin cortina
   addEventListener("pageshow", (e) => e.persisted && lift());
+}
+
+/** URL de un clic a otra página del sitio (no anclas de la misma página), o null. */
+function internalUrl(e) {
+  if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return null;
+  const link = e.target.closest("a[href]");
+  if (!link || link.hasAttribute("download") || (link.target && link.target !== "_self")) return null;
+  const url = new URL(link.href, location.href);
+  if (url.origin !== location.origin || !/^https?:$/.test(url.protocol)) return null;
+  if (url.pathname === location.pathname && url.search === location.search) return null;
+  return url;
+}
+
+/**
+ * Precarga de las otras páginas del sitio para que el cambio sea inmediato.
+ * - Chrome y Edge: Speculation Rules. Prerenderiza la página al apoyar el mouse
+ *   sobre un link (200 ms) o al tocarlo, y la trae lista al hacer clic.
+ * - Resto: al apoyar el mouse, enfocar o tocar un link interno se pide la página
+ *   en segundo plano (`<link rel="prefetch">` o fetch) y queda en la caché.
+ * Una página prerenderizada ya corrió sus animaciones de entrada: al mostrarse
+ * se reinician (prerenderingchange) para que entre igual que una carga normal.
+ */
+export function initPrefetch(root) {
+  if (navigator.connection?.saveData) return;
+
+  if (HTMLScriptElement.supports?.("speculationrules")) {
+    const rules = document.createElement("script");
+    rules.type = "speculationrules";
+    rules.textContent = JSON.stringify({
+      prerender: [
+        {
+          where: {
+            and: [
+              { href_matches: "/*" },
+              { not: { selector_matches: "[target=_blank], [download], [href^='#']" } },
+            ],
+          },
+          eagerness: "moderate",
+        },
+      ],
+    });
+    document.head.append(rules);
+    return;
+  }
+
+  const done = new Set([location.pathname]);
+  const canLink = document.createElement("link").relList?.supports?.("prefetch");
+  const warm = (e) => {
+    const link = e.target.closest?.("a[href]");
+    if (!link || (link.target && link.target !== "_self")) return;
+    const url = new URL(link.href, location.href);
+    if (url.origin !== location.origin || done.has(url.pathname)) return;
+    done.add(url.pathname);
+    if (canLink) {
+      const hint = document.createElement("link");
+      hint.rel = "prefetch";
+      hint.href = url.pathname + url.search;
+      document.head.append(hint);
+    } else {
+      fetch(url.pathname + url.search, { credentials: "same-origin", priority: "low" }).catch(() => {});
+    }
+  };
+  root.addEventListener("pointerover", warm, { passive: true });
+  root.addEventListener("focusin", warm);
+  root.addEventListener("touchstart", warm, { passive: true });
+}
+
+/** Página prerenderizada: al mostrarse, sus animaciones de entrada arrancan de cero. */
+export function initPrerenderReplay() {
+  if (!document.prerendering) return;
+  document.addEventListener(
+    "prerenderingchange",
+    () => {
+      document.getAnimations().forEach((a) => {
+        if (a instanceof CSSAnimation && a.timeline === document.timeline) a.currentTime = 0;
+      });
+    },
+    { once: true },
+  );
 }
 
 /** Barra vertical de progreso de scroll. CSS con animation-timeline; si no hay soporte, rAF. */

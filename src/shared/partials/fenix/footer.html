@@ -2,17 +2,18 @@
   <div class="container">
     <div class="footer__top">
       <div class="footer__brand">
-        <p class="f-brand">
-          <img class="f-iso" src="/img/fenix-isotipo-sm.webp" alt="" width="229" height="256" loading="lazy" />
-          <span class="f-wordmark">
+        <a class="footer__logo f-brand" href="#" aria-label="Mentalidad de Fénix, volver arriba">
+          <img class="f-iso" src="/img/fenix-isotipo.webp" alt="" width="572" height="640" loading="lazy" />
+          <span class="f-wordmark" aria-hidden="true">
             <span class="f-wordmark__top">Mentalidad de</span>
             <span class="f-wordmark__main f-gold">Fenix</span>
           </span>
-        </p>
-        <p class="muted">Un espacio para dar un salto de mentalidad y permitirte conectar con vos.</p>
+        </a>
+        <p class="footer__tagline">Un espacio para dar un salto de mentalidad y permitirte conectar con vos.</p>
+        <a class="btn btn--sm" href="#lista">Sumarme a la lista <span class="arrow" aria-hidden="true">→</span></a>
       </div>
 
-      <div class="footer__cols">
+      <nav class="footer__cols" aria-label="Pie de página" style="--footer-cols: 2">
         <div>
           <p class="footer__title">Fénix</p>
           <ul>
@@ -28,10 +29,12 @@
             <li><a href="mailto:carolagando.coach@gmail.com">carolagando.coach<wbr />@gmail.com</a></li>
           </ul>
         </div>
-      </div>
+      </nav>
     </div>
 
     <!-- @include program-signature {"origin":"fenix"} -->
+
+    <p class="footer__giant f-giant" aria-hidden="true">Fenix</p>
 
     <div class="footer__bottom">
       <p>© <span data-year>2026</span> Mentalidad de Fénix. Todos los derechos reservados.</p>

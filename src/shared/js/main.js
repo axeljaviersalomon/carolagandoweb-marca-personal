@@ -9,6 +9,8 @@ import {
   initNav,
   initPageTransitions,
   initPointerGlow,
+  initPrefetch,
+  initPrerenderReplay,
   initReveal,
   initScrollProgress,
   initStickyCta,
@@ -21,6 +23,7 @@ export function boot() {
   const root = document.querySelector(".cg-page");
   if (!root) return;
   root.classList.add("cg-js");
+  initPrerenderReplay();
   initNav(root);
   initReveal(root);
   initPointerGlow(root);
@@ -31,6 +34,7 @@ export function boot() {
   initForms(root);
   initYear(root);
   initPageTransitions(root);
+  initPrefetch(root);
   initScrollProgress(root);
   initBackToTop(root);
 }

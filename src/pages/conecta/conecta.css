@@ -18,8 +18,9 @@
   --accent-ink: #02161a;
   --accent-2: #5381ff;
   --accent-deep: #06304a;
-  --veil: #03183a;
   --glow: 0 0 0 1px rgb(143 224 221 / 0.28), 0 8px 30px -10px rgb(93 197 194 / 0.55);
+  /* Isotipo de Conecta: marca de agua de los formularios y del retrato */
+  --mark: url(/img/cctp-isotipo.webp);
 }
 
 /* Logo oficial en cromo: en la nav y en el footer, con un brillo que lo recorre */
@@ -291,9 +292,20 @@
   color: var(--ink-2);
 }
 
+/* Desde tablet: subgrid. El título y el texto de cada tarjeta caen en las
+   mismas filas: los textos arrancan a la misma altura aunque un título ocupe
+   dos renglones y otro uno */
 @media (min-width: 640px) {
   .pains__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: var(--s-4);
+  }
+  .pain {
+    display: grid;
+    grid-row: span 2;
+    grid-template-rows: subgrid;
+    row-gap: 10px;
+    align-content: start;
   }
 }
 
@@ -391,7 +403,11 @@
   padding-top: 0;
 }
 
-/* ───────────── Opciones ───────────── */
+/* ───────────── Opciones ─────────────
+   Las tres tarjetas tienen la misma estructura (etiqueta, nombre, promesa,
+   tres ítems, dato y botón) y el mismo padding. En desktop usan subgrid: cada
+   pieza cae en la misma fila en las tres, así títulos, ítems y botones quedan
+   a la misma altura. */
 .offers__grid {
   display: grid;
   gap: var(--s-4);
@@ -401,7 +417,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--s-4);
-  padding: clamp(24px, 3vw, 36px);
+  padding: clamp(24px, 3vw, 40px);
   border-radius: var(--r-media);
   border: 1px solid var(--line);
   background: var(--surface);
@@ -445,13 +461,14 @@
 }
 
 .offer__name {
-  font-size: var(--fs-title);
+  font-size: clamp(1.75rem, 1.25rem + 1.3vw, 2.375rem);
   line-height: 1.1;
   letter-spacing: -0.025em;
 }
 
 .offer__promise {
   color: var(--ink-2);
+  text-wrap: balance;
 }
 
 .offer__list {
@@ -460,20 +477,29 @@
 
 .offer__list li {
   position: relative;
-  text-wrap: balance;
-  padding: var(--s-3) 0 var(--s-3) 22px;
+  display: flex;
+  align-items: center;
+  min-height: calc(48px * var(--up));
+  padding: var(--s-2) 0 var(--s-2) 22px;
   border-top: 1px solid var(--line);
   font-size: var(--fs-sm);
+  line-height: 1.4;
   color: var(--ink-2);
+  text-wrap: balance;
+}
+
+.offer__list li:last-child {
+  border-bottom: 1px solid var(--line);
 }
 
 .offer__list li::before {
   content: "";
   position: absolute;
   left: 2px;
-  top: calc(var(--s-3) + 0.7em);
+  top: 50%;
   width: 6px;
   height: 6px;
+  margin-top: -3px;
   border-radius: 50%;
   background: var(--accent);
 }
@@ -490,18 +516,46 @@
 
 .offer .btn {
   margin-top: auto;
-  align-self: flex-start;
-  white-space: normal;
-  text-align: left;
-  padding-block: 0.9em;
+}
+
+/* E-book todavía sin venta: mismo lugar y tamaño que los otros botones, apagado */
+.offer__soon {
+  --btn-border: var(--line);
+  border-style: dashed;
+  color: var(--mute);
+  cursor: default;
+}
+
+.offer__soon::before {
+  display: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .offer__soon:hover {
+    color: var(--mute);
+    border-color: var(--line);
+  }
 }
 
 @media (min-width: 900px) {
   .offers__grid {
-    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-rows: repeat(8, auto);
+    column-gap: var(--s-4);
   }
-  .offer--featured {
-    padding: var(--s-7);
+  .offer {
+    display: grid;
+    grid-row: span 8;
+    grid-template-rows: subgrid;
+    row-gap: var(--s-4);
+  }
+  .offer__list {
+    grid-row: span 3;
+    grid-template-rows: subgrid;
+    row-gap: 0;
+  }
+  .offer .btn {
+    margin-top: var(--s-2);
   }
 }
 
@@ -509,7 +563,7 @@
 .free-class__panel {
   display: grid;
   gap: var(--s-6);
-  align-items: center;
+  align-items: start;
   padding: clamp(24px, 5vw, 72px);
   border-radius: var(--r-media);
   border: 1px solid var(--line);
@@ -530,45 +584,22 @@
   }
 }
 
-/* ───────────── Quién te guía ───────────── */
-.guide__grid {
-  display: grid;
-  gap: var(--s-6);
-  align-items: center;
+/* ───────────── Quién te guía ─────────────
+   Retrato y texto en components.css (.portrait, .guide). Acá solo la luz de la
+   marca detrás. */
+.guide {
+  position: relative;
+  isolation: isolate;
 }
 
-.guide__photo {
-  justify-self: center;
-  width: min(70%, 320px);
-  border-bottom: 1px solid var(--line);
-}
-
-.guide__photo img {
-  width: 100%;
-  -webkit-mask-image: linear-gradient(180deg, #000 72%, transparent 98%);
-  mask-image: linear-gradient(180deg, #000 72%, transparent 98%);
-}
-
-.guide__role {
-  margin-top: var(--s-2);
-  font-size: var(--fs-sm);
-  letter-spacing: 0.01em;
-  color: var(--accent-hi);
-}
-
-.guide__bio {
-  display: grid;
-  gap: var(--s-4);
-  max-width: 54ch;
-  margin-block: var(--s-5) var(--s-5);
-  color: var(--ink-2);
-}
-
-@media (min-width: 900px) {
-  .guide__grid {
-    grid-template-columns: minmax(0, 0.7fr) minmax(0, 1fr);
-    gap: var(--s-9);
-  }
+.guide::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(40% 50% at 25% 50%, rgb(83 129 255 / 0.14), transparent 70%),
+    radial-gradient(35% 45% at 80% 40%, rgb(93 197 194 / 0.08), transparent 70%);
 }
 
 /* ───────────── Cierre con lista de espera ───────────── */
@@ -614,11 +645,13 @@
   margin-top: var(--s-5);
 }
 
+/* El título arranca a la altura de la tarjeta y la tarjeta se estira hasta
+   el final del texto (el aire que sobra lleva el isotipo de marca de agua) */
 @media (min-width: 960px) {
   .final__grid {
     grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
     gap: var(--s-9);
-    align-items: center;
+    align-items: start;
   }
 }
 
@@ -642,4 +675,9 @@
   .offer {
     transition: none;
   }
+}
+
+/* Nombre grande del pie: nombre corto, un escalón más grande que el de Carola */
+.footer__giant {
+  font-size: 21cqi;
 }

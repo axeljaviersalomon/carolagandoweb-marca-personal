@@ -7,6 +7,9 @@
  *
  * Las imágenes se referencian como `/img/...`. Si `images.json` tiene una URL
  * de la galería de medios de GHL para esa ruta, se reemplaza en el fragmento.
+ * Si todavía no la tiene, el fragmento la toma de la vista previa de GitHub
+ * Pages (PREVIEW_URL, sirve con CORS abierto: sirve también para `mask`) para
+ * que no quede rota en GHL. Igual se avisa: lo correcto es subirla a GHL.
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -21,6 +24,8 @@ const BASE = process.env.PAGES_BASE?.replace(/\/?$/, "/") ?? "/";
 const TMP = path.join(DIST, ".tmp");
 const only = process.argv.slice(2);
 const pages = only.length ? PAGES.filter((p) => only.includes(p)) : PAGES;
+
+const PREVIEW_URL = "https://axeljaviersalomon.github.io/carolagandoweb-marca-personal";
 
 const imageMap = fs.existsSync("images.json")
   ? JSON.parse(fs.readFileSync("images.json", "utf8"))
@@ -63,7 +68,7 @@ for (const page of pages) {
 
   const kb = (Buffer.byteLength(mapped) / 1024).toFixed(1);
   console.log(`✓ ${page}: dist/ghl/${page}.html (${kb} KB)`);
-  if (missing.length) console.log(`  imágenes sin URL de GHL en images.json: ${missing.join(", ")}`);
+  if (missing.length) console.log(`  imágenes sin URL de GHL en images.json (van desde la vista previa): ${missing.join(", ")}`);
 }
 
 fs.cpSync(path.resolve("public"), DIST, { recursive: true });
@@ -103,7 +108,7 @@ function mapImages(html) {
   const out = html.replace(/\/img\/[\w./-]+/g, (src) => {
     if (imageMap[src]) return imageMap[src];
     missing.add(src);
-    return src;
+    return PREVIEW_URL + src;
   });
   return { html: out, missing: [...missing] };
 }
