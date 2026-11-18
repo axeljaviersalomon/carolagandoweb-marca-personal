@@ -15,6 +15,8 @@ const scopeCss = prefixSelector({
     if (selector.startsWith(prefix)) return selector;
     // Las transiciones entre páginas viven en el documento, no dentro de .cg-page
     if (selector.startsWith("::view-transition")) return selector;
+    // Escala de pantallas grandes: el <html> real (ver tokens.css)
+    if (selector.startsWith(":root:has(.cg-page")) return selector;
     if (/^(:root|html|body)$/.test(selector)) return prefix;
     // `:root::after` → `.cg-page::after`
     if (selector.startsWith(":root")) return prefix + selector.slice(":root".length);

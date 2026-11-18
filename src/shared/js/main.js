@@ -5,6 +5,7 @@ import { initForms } from "./forms.js";
 import {
   initBackToTop,
   initCountUp,
+  initLightbox,
   initNav,
   initPageTransitions,
   initPointerGlow,
@@ -26,6 +27,7 @@ export function boot() {
   initCountUp(root);
   initStickyCta(root);
   initVideos(root);
+  initLightbox(root);
   initForms(root);
   initYear(root);
   initPageTransitions(root);

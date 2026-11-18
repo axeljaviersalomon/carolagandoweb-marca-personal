@@ -8,6 +8,11 @@
  * Cada página redefine solo el acento (--accent*) en su propio CSS.
  */
 :root {
+  /* Escala para pantallas grandes (TV, 2K, 4K): agranda espaciados, radios,
+     ancho máximo y nav. Las fuentes escalan solas por el font-size del
+     documento (ver más abajo). 1 hasta 1919px. */
+  --up: 1;
+
   /* Tipografía */
   --font-display: "Poppins", "Helvetica Neue", Arial, sans-serif;
   --font-body: "Poppins", "Helvetica Neue", Arial, sans-serif;
@@ -46,29 +51,32 @@
   --accent-2: #e0218a;
   --accent-soft: color-mix(in oklab, var(--accent) 16%, var(--bg));
   --accent-deep: #290858;
+  /* Color de la cortina entre páginas: el tono de fondo de cada marca */
+  --veil: #1a0836;
+  --veil-bg: radial-gradient(120% 90% at 50% 40%, color-mix(in oklab, var(--veil) 78%, var(--accent)) 0%, var(--veil) 55%, color-mix(in oklab, var(--veil) 60%, #000) 100%);
   --glow: 0 0 0 1px rgb(201 163 255 / 0.22), 0 8px 30px -10px rgb(138 43 226 / 0.7);
 
   /* Forma: botones pill, tarjetas 20px, bloques 28px, campos 12px */
   --r-pill: 999px;
-  --r-card: 20px;
-  --r-media: 28px;
-  --r-field: 12px;
+  --r-card: calc(20px * var(--up));
+  --r-media: calc(28px * var(--up));
+  --r-field: calc(12px * var(--up));
 
   /* Espaciado, base 4px */
-  --s-1: 4px;
-  --s-2: 8px;
-  --s-3: 12px;
-  --s-4: 16px;
-  --s-5: 24px;
-  --s-6: 32px;
-  --s-7: 48px;
-  --s-8: 64px;
-  --s-9: 96px;
-  --s-10: 128px;
+  --s-1: calc(4px * var(--up));
+  --s-2: calc(8px * var(--up));
+  --s-3: calc(12px * var(--up));
+  --s-4: calc(16px * var(--up));
+  --s-5: calc(24px * var(--up));
+  --s-6: calc(32px * var(--up));
+  --s-7: calc(48px * var(--up));
+  --s-8: calc(64px * var(--up));
+  --s-9: calc(96px * var(--up));
+  --s-10: calc(128px * var(--up));
   --section-y: clamp(var(--s-8), 9vw, var(--s-10));
-  --gutter: clamp(16px, 4vw, 40px);
-  --max: 1200px;
-  --nav-h: 64px;
+  --gutter: clamp(16px, 4vw, calc(40px * var(--up)));
+  --max: calc(1200px * var(--up));
+  --nav-h: calc(64px * var(--up));
 
   --shadow-sm: 0 1px 2px rgb(var(--shadow-tint) / 0.3), 0 4px 16px rgb(var(--shadow-tint) / 0.25);
   --shadow-md: 0 2px 6px rgb(var(--shadow-tint) / 0.3), 0 24px 60px rgb(var(--shadow-tint) / 0.45);
@@ -89,4 +97,28 @@
   color-scheme: dark;
   /* Permite animar <details> hasta height: auto (Chrome); el resto abre sin transición */
   interpolate-size: allow-keywords;
+}
+
+/* Pantallas grandes: todo crece en proporción en vez de quedar un bloque de
+   1200px perdido en el medio. `:root:has(.cg-page)` queda sin prefijo en el
+   build (ver vite.config.js): es el <html> real, así escalan también los rem. */
+@media (min-width: 1920px) {
+  :root { --up: 1.12; }
+  :root:has(.cg-page) { font-size: 112%; }
+}
+@media (min-width: 2240px) {
+  :root { --up: 1.28; }
+  :root:has(.cg-page) { font-size: 128%; }
+}
+@media (min-width: 2560px) {
+  :root { --up: 1.42; }
+  :root:has(.cg-page) { font-size: 142%; }
+}
+@media (min-width: 3200px) {
+  :root { --up: 1.75; }
+  :root:has(.cg-page) { font-size: 175%; }
+}
+@media (min-width: 3800px) {
+  :root { --up: 2.1; }
+  :root:has(.cg-page) { font-size: 210%; }
 }

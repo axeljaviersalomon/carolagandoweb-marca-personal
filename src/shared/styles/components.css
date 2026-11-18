@@ -24,7 +24,7 @@
   align-items: center;
   justify-content: center;
   gap: 0.6em;
-  min-height: 48px;
+  min-height: calc(48px * var(--up));
   padding: 0 1.5em;
   border-radius: var(--r-pill);
   /* Si el texto no entra en una línea, dos renglones parejos */
@@ -114,14 +114,14 @@
 }
 
 .btn--sm {
-  min-height: 40px;
+  min-height: calc(40px * var(--up));
   padding: 0 1.15em;
   font-size: var(--fs-xs);
 }
 
 @media (pointer: coarse) {
   .btn--sm {
-    min-height: 44px;
+    min-height: calc(44px * var(--up));
   }
 }
 
@@ -134,7 +134,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5em;
-  min-height: 44px;
+  min-height: calc(44px * var(--up));
   font-weight: 500;
   font-size: var(--fs-sm);
   color: var(--ink);
@@ -223,7 +223,7 @@
 }
 
 .nav__brand .logo-mark {
-  font-size: 26px;
+  font-size: calc(26px * var(--up));
   color: var(--ink);
   transition: transform 0.6s var(--ease-out);
 }
@@ -283,8 +283,8 @@
 .nav__toggle {
   display: inline-grid;
   place-items: center;
-  width: 44px;
-  height: 44px;
+  width: calc(44px * var(--up));
+  height: calc(44px * var(--up));
   border-radius: var(--r-pill);
   border: 1px solid var(--line-strong);
 }
@@ -292,7 +292,7 @@
 .nav__toggle span,
 .nav__toggle span::before {
   display: block;
-  width: 16px;
+  width: calc(16px * var(--up));
   height: 1px;
   background: currentColor;
   transition: transform 0.35s var(--ease-out);
@@ -331,7 +331,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 56px;
+  min-height: calc(56px * var(--up));
   font-family: var(--font-display);
   font-size: 1.25rem;
   font-weight: 400;
@@ -401,7 +401,7 @@
 .field input,
 .field textarea {
   width: 100%;
-  min-height: 48px;
+  min-height: calc(48px * var(--up));
   padding: 12px 16px;
   border-radius: var(--r-field);
   border: 1px solid color-mix(in oklab, var(--ink) 12%, transparent);
@@ -417,7 +417,7 @@
 }
 
 .field textarea {
-  min-height: 104px;
+  min-height: calc(104px * var(--up));
   resize: vertical;
 }
 
@@ -500,7 +500,7 @@
 .choice__option span {
   display: inline-flex;
   align-items: center;
-  min-height: 40px;
+  min-height: calc(40px * var(--up));
   padding: 0 1em;
   border-radius: var(--r-pill);
   border: 1px solid color-mix(in oklab, var(--ink) 12%, transparent);
@@ -517,7 +517,7 @@
 
 @media (pointer: coarse) {
   .choice__option span {
-    min-height: 44px;
+    min-height: calc(44px * var(--up));
   }
 }
 
@@ -601,8 +601,8 @@
 .form-success__icon {
   display: grid;
   place-items: center;
-  width: 44px;
-  height: 44px;
+  width: calc(44px * var(--up));
+  height: calc(44px * var(--up));
   margin-bottom: var(--s-2);
   border-radius: 50%;
   border: 1px solid color-mix(in oklab, var(--accent-hi) 50%, transparent);
@@ -640,7 +640,7 @@
 
 .calendar-embed {
   width: 100%;
-  min-height: 640px;
+  min-height: calc(640px * var(--up));
   border: 0;
   border-radius: var(--r-field);
   background: var(--surface);
@@ -672,7 +672,7 @@
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   gap: var(--s-5);
-  min-height: 64px;
+  min-height: calc(64px * var(--up));
   padding-block: var(--s-4);
   font-family: var(--font-display);
   font-size: var(--fs-lg);
@@ -692,8 +692,8 @@
   flex: none;
   display: grid;
   place-items: center;
-  width: 30px;
-  height: 30px;
+  width: calc(30px * var(--up));
+  height: calc(30px * var(--up));
   border-radius: 50%;
   border: 1px solid var(--line-strong);
   font-family: var(--font-body);
@@ -758,8 +758,8 @@
   left: 0;
   display: grid;
   place-items: center;
-  width: 32px;
-  height: 32px;
+  width: calc(32px * var(--up));
+  height: calc(32px * var(--up));
   border-radius: 50%;
   border: 1px solid color-mix(in oklab, var(--accent-hi) 60%, transparent);
   background: var(--bg);
@@ -849,8 +849,8 @@
   position: relative;
   display: grid;
   place-items: center;
-  width: 60px;
-  height: 60px;
+  width: calc(60px * var(--up));
+  height: calc(60px * var(--up));
   padding-left: 3px;
   border-radius: 50%;
   border: 1px solid rgb(255 255 255 / 0.35);
@@ -964,12 +964,17 @@
 .footer__brand {
   display: grid;
   gap: var(--s-3);
-  max-width: 32ch;
+  max-width: 44ch;
   font-size: var(--fs-sm);
 }
 
+/* Bajada de la marca: llena cada renglón y solo evita una palabra sola al final */
+.footer__brand .muted {
+  text-wrap: pretty;
+}
+
 .footer__brand .logo-mark {
-  font-size: 40px;
+  font-size: calc(40px * var(--up));
   color: var(--ink);
   margin-bottom: var(--s-2);
 }
@@ -1003,7 +1008,7 @@
 
 .footer__cols a {
   display: inline-flex;
-  min-height: 36px;
+  min-height: calc(36px * var(--up));
   align-items: center;
   font-size: var(--fs-sm);
   font-weight: 400;
@@ -1026,6 +1031,22 @@
   border-top: 1px solid var(--line);
   font-size: var(--fs-xs);
   color: var(--mute);
+}
+
+/* Firma del desarrollador: igual en todas las páginas */
+.footer__credit a {
+  color: var(--ink-2);
+  text-decoration: underline;
+  text-decoration-color: var(--line-strong);
+  text-underline-offset: 0.25em;
+  transition:
+    color 0.3s,
+    text-decoration-color 0.3s;
+}
+
+.footer__credit a:hover {
+  color: var(--accent-hi);
+  text-decoration-color: currentColor;
 }
 
 @media (min-width: 768px) {
@@ -1056,7 +1077,7 @@
 
 .footer__programs a {
   display: inline-flex;
-  min-height: 36px;
+  min-height: calc(36px * var(--up));
   align-items: center;
   font-size: var(--fs-sm);
   color: var(--ink-2);
@@ -1112,12 +1133,12 @@
   align-items: center;
   gap: var(--s-3);
   justify-self: start;
-  min-height: 44px;
+  min-height: calc(44px * var(--up));
   color: var(--ink-2);
 }
 
 .signature__by .logo-mark {
-  font-size: 26px;
+  font-size: calc(26px * var(--up));
   color: var(--ink);
 }
 
@@ -1307,8 +1328,11 @@
   }
 }
 
-/* ───────────── Transición entre páginas: fundido a negro ─────────────
-   Salida: ui.js baja una cortina negra (.page-veil) y recién ahí navega. Con
+/* ───────────── Transición entre páginas: fundido al color de cada marca ─────────────
+   La cortina usa --veil, el tono de fondo de cada página (violeta en las de
+   Carola, azul en Conecta, etc.): sale con el color de la página que se deja
+   y entra con el de la nueva.
+   Salida: ui.js baja una cortina (.page-veil) y recién ahí navega. Con
    @view-transition (Chrome, Edge, Safari) además la vieja se funde con la nueva
    sin destello; si el CSS de la nueva llega tarde, el navegador la cancela y
    queda la cortina.
@@ -1327,7 +1351,7 @@
     inset: 0;
     z-index: 1000;
     pointer-events: none;
-    background: #000;
+    background: var(--veil-bg);
     animation: cg-curtain-up 0.75s var(--ease-soft) 0.12s both;
   }
 }
@@ -1342,10 +1366,8 @@
   }
 }
 
-/* La vieja queda arriba y se funde sobre el negro de la nueva (su cortina) */
-::view-transition {
-  background: #000;
-}
+/* La vieja queda arriba y se funde sobre la cortina de color de la nueva
+   (el fondo del pseudo queda transparente: lo pone la cortina de cada página) */
 
 ::view-transition-group(root) {
   animation-duration: 0.42s;
@@ -1377,7 +1399,7 @@
   inset: 0;
   z-index: 1001;
   pointer-events: none;
-  background: #000;
+  background: var(--veil-bg);
   opacity: 0;
   transition: opacity 0.4s cubic-bezier(0.4, 0, 1, 1);
 }
@@ -1436,8 +1458,8 @@
   z-index: calc(var(--z-sticky) + 1);
   display: grid;
   place-items: center;
-  width: 48px;
-  height: 48px;
+  width: calc(48px * var(--up));
+  height: calc(48px * var(--up));
   border-radius: 50%;
   border: 1px solid color-mix(in oklab, var(--accent-hi) 40%, transparent);
   background: color-mix(in oklab, var(--bg) 75%, transparent);
@@ -1474,8 +1496,8 @@
 }
 
 .to-top svg {
-  width: 20px;
-  height: 20px;
+  width: calc(20px * var(--up));
+  height: calc(20px * var(--up));
 }
 
 .to-top:focus-visible {
@@ -1502,5 +1524,249 @@
   .to-top,
   .to-top.is-visible {
     transition: none;
+  }
+}
+
+/* ───────────── Fotos ampliables (ui.js initLightbox) ───────────── */
+.is-zoomable {
+  cursor: zoom-in;
+}
+
+.is-zoomable:focus-visible {
+  outline: 2px solid var(--accent-hi);
+  outline-offset: 3px;
+}
+
+:root:has(.cg-page .lightbox[open]) {
+  overflow: hidden;
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  overflow: hidden;
+}
+
+.lightbox::backdrop {
+  background: color-mix(in oklab, var(--bg) 92%, transparent);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.lightbox[open] {
+  display: grid;
+  animation: cg-fade-in 0.35s var(--ease-out) both;
+}
+
+.lightbox__stage {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: var(--s-4);
+  width: 100%;
+  height: 100%;
+  padding: calc(var(--s-8) + var(--s-2)) var(--s-4) var(--s-5);
+}
+
+.lightbox__img {
+  max-width: min(100%, calc(1400px * var(--up)));
+  max-height: calc(100svh - 11rem);
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: var(--r-card);
+  box-shadow: var(--shadow-md);
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.lightbox__img.is-in {
+  animation: cg-lb-in 0.45s var(--ease-out) both;
+}
+
+.lightbox__img.is-in[data-dir="next"] {
+  --lb-x: 32px;
+}
+
+.lightbox__img.is-in[data-dir="prev"] {
+  --lb-x: -32px;
+}
+
+@keyframes cg-lb-in {
+  from {
+    opacity: 0;
+    transform: translateX(var(--lb-x, 0)) scale(0.97);
+  }
+}
+
+.lightbox__cap {
+  display: flex;
+  gap: var(--s-4);
+  align-items: baseline;
+  justify-content: center;
+  max-width: 60ch;
+  font-size: var(--fs-sm);
+  color: var(--ink-2);
+  text-align: center;
+}
+
+.lightbox__count {
+  flex: none;
+  font-variant-numeric: tabular-nums;
+  color: var(--accent-hi);
+  font-weight: 500;
+}
+
+.lightbox__btn {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: calc(48px * var(--up));
+  height: calc(48px * var(--up));
+  padding: 0;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--r-pill);
+  background: color-mix(in oklab, var(--surface) 80%, transparent);
+  color: var(--ink);
+  cursor: pointer;
+  transition:
+    background-color 0.25s,
+    border-color 0.25s,
+    transform 0.25s var(--ease-out);
+}
+
+.lightbox__btn svg {
+  width: 45%;
+  height: 45%;
+}
+
+.lightbox__btn:hover {
+  border-color: var(--accent-hi);
+  background: color-mix(in oklab, var(--accent) 30%, var(--surface));
+}
+
+.lightbox__btn:active {
+  transform: scale(0.94);
+}
+
+.lightbox__btn:focus-visible {
+  outline: 2px solid var(--accent-hi);
+  outline-offset: 3px;
+}
+
+.lightbox__close {
+  top: var(--s-4);
+  right: var(--s-4);
+}
+
+.lightbox__prev,
+.lightbox__next {
+  top: 50%;
+  translate: 0 -50%;
+}
+
+.lightbox__prev {
+  left: var(--s-4);
+}
+
+.lightbox__next {
+  right: var(--s-4);
+}
+
+.lightbox[data-single] .lightbox__prev,
+.lightbox[data-single] .lightbox__next {
+  display: none;
+}
+
+/* Mobile: flechas abajo, a los lados del contador, para no tapar la foto */
+@media (max-width: 699px) {
+  .lightbox__prev,
+  .lightbox__next {
+    top: auto;
+    bottom: var(--s-4);
+    translate: none;
+  }
+  .lightbox__stage {
+    padding-bottom: calc(var(--s-8) + var(--s-4));
+  }
+  .lightbox__img {
+    max-height: calc(100svh - 13rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lightbox[open],
+  .lightbox__img.is-in {
+    animation: none;
+  }
+}
+
+/* ───────────── Conecta con tu Propósito: letras del logo ─────────────
+   Mismo dibujo que el logo oficial (img/cctp-logo.webp): arriba fina y
+   ancha, abajo condensada y pesada, las dos en cromo con un brillo que
+   la recorre. Las dos líneas miden lo mismo de ancho, como en el logo. */
+.cctp-word {
+  display: inline-grid;
+  justify-items: stretch;
+  gap: 0.06em;
+  line-height: 0.92;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  filter: drop-shadow(0 2px 0 rgb(0 0 0 / 0.35)) drop-shadow(0 10px 24px rgb(0 0 0 / 0.45));
+}
+
+.cctp-word__top,
+.cctp-word__main {
+  display: block;
+  color: #e9edf2;
+  background:
+    linear-gradient(105deg, transparent 38%, rgb(255 255 255 / 0.95) 50%, transparent 62%) 160% 0 / 260% 100% no-repeat,
+    linear-gradient(180deg, #ffffff 0%, #dfe5ec 28%, #8a939e 47%, #f4f7fa 53%, #c2c9d1 74%, #737c87 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: cg-chrome 6s var(--ease-in-out) infinite;
+}
+
+.cctp-word__top {
+  font-family: "Montserrat", var(--font-display);
+  font-size: 0.38em;
+  font-weight: 300;
+  letter-spacing: 0.18em;
+  margin-right: -0.18em;
+  -webkit-text-stroke: 0.6px rgb(255 255 255 / 0.55);
+}
+
+.cctp-word__main {
+  font-family: "Oswald", "Arial Narrow", var(--font-display);
+  font-size: 1em;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  animation-delay: 0.25s;
+}
+
+@keyframes cg-chrome {
+  0%,
+  55% {
+    background-position: 160% 0, 0 0;
+  }
+  100% {
+    background-position: -60% 0, 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cctp-word__top,
+  .cctp-word__main {
+    animation: none;
   }
 }

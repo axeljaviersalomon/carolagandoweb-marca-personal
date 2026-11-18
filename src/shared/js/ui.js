@@ -278,3 +278,100 @@ export function initBackToTop(root) {
     button.tabIndex = show ? 0 : -1;
   }).observe(hero);
 }
+
+/**
+ * Fotos ampliables: al hacer clic (o Enter) en una foto de contenido se abre
+ * a pantalla completa y se puede pasar a la anterior o la siguiente con las
+ * flechas, el teclado o deslizando. Quedan fuera las decorativas (alt=""),
+ * las que están dentro de un link o botón y la foto del hero.
+ */
+export function initLightbox(root) {
+  const imgs = [...root.querySelectorAll("main img:not([alt='']):not([data-no-zoom])")].filter(
+    (img) => !img.closest("a, button, [data-hero]"),
+  );
+  if (!imgs.length) return;
+
+  const box = document.createElement("dialog");
+  box.className = "lightbox";
+  box.setAttribute("aria-label", "Foto ampliada");
+  box.innerHTML = `
+    <figure class="lightbox__stage">
+      <img class="lightbox__img" alt="" />
+      <figcaption class="lightbox__cap"><span class="lightbox__count"></span><span class="lightbox__alt"></span></figcaption>
+    </figure>
+    <button class="lightbox__btn lightbox__close" type="button" aria-label="Cerrar">${icon("M6 6l12 12M18 6L6 18")}</button>
+    <button class="lightbox__btn lightbox__prev" type="button" aria-label="Foto anterior">${icon("M15 5l-7 7 7 7")}</button>
+    <button class="lightbox__btn lightbox__next" type="button" aria-label="Foto siguiente">${icon("M9 5l7 7-7 7")}</button>`;
+  root.append(box);
+
+  const big = box.querySelector(".lightbox__img");
+  const count = box.querySelector(".lightbox__count");
+  const alt = box.querySelector(".lightbox__alt");
+  const single = imgs.length === 1;
+  box.toggleAttribute("data-single", single);
+  let index = 0;
+  let opener = null;
+
+  const show = (i, dir = 0) => {
+    index = (i + imgs.length) % imgs.length;
+    const img = imgs[index];
+    big.src = img.currentSrc || img.src;
+    big.alt = img.alt;
+    alt.textContent = img.alt;
+    count.textContent = single ? "" : `${index + 1} / ${imgs.length}`;
+    big.dataset.dir = dir > 0 ? "next" : dir < 0 ? "prev" : "";
+    // Reinicia la animación de entrada de la foto
+    big.classList.remove("is-in");
+    void big.offsetWidth;
+    big.classList.add("is-in");
+  };
+
+  const open = (i) => {
+    opener = imgs[i];
+    show(i);
+    box.showModal();
+  };
+  const close = () => box.open && box.close();
+  box.addEventListener("close", () => {
+    opener?.focus({ preventScroll: true });
+  });
+
+  imgs.forEach((img, i) => {
+    img.classList.add("is-zoomable");
+    img.tabIndex = 0;
+    img.setAttribute("role", "button");
+    img.setAttribute("aria-label", `Ampliar foto: ${img.alt}`);
+    img.addEventListener("click", () => open(i));
+    img.addEventListener("keydown", (e) => {
+      if (e.key !== "Enter" && e.key !== " ") return;
+      e.preventDefault();
+      open(i);
+    });
+  });
+
+  box.querySelector(".lightbox__close").addEventListener("click", close);
+  box.querySelector(".lightbox__prev").addEventListener("click", () => show(index - 1, -1));
+  box.querySelector(".lightbox__next").addEventListener("click", () => show(index + 1, 1));
+  // Clic en el fondo (fuera de la foto y los botones) cierra
+  box.addEventListener("click", (e) => {
+    if (e.target === box || e.target.classList.contains("lightbox__stage")) close();
+  });
+  box.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowRight") show(index + 1, 1);
+    if (e.key === "ArrowLeft") show(index - 1, -1);
+  });
+
+  // Deslizar en pantallas táctiles
+  let startX = null;
+  box.addEventListener("pointerdown", (e) => e.pointerType !== "mouse" && (startX = e.clientX));
+  box.addEventListener("pointerup", (e) => {
+    if (startX === null) return;
+    const dx = e.clientX - startX;
+    startX = null;
+    if (Math.abs(dx) > 40 && !single) show(index + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1);
+  });
+}
+
+function icon(d) {
+  return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${d}"/></svg>`;
+}

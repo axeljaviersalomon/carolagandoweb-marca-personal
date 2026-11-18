@@ -81,15 +81,37 @@
           </div>
         </section>
 
-        <!-- Para quién -->
+        <!-- Para quién: título fijo a la izquierda y cuatro señales en mosaico desfasado -->
         <section class="section fit-section" aria-labelledby="fit-title">
+          <div class="fit-section__bg" aria-hidden="true"></div>
           <div class="container fit-section__grid">
-            <h2 class="h2" id="fit-title" data-reveal>Es para vos si</h2>
+            <div class="fit__head">
+              <p class="eyebrow" data-reveal>Para quién es</p>
+              <h2 class="fit__title" id="fit-title" data-reveal style="--d: 1">Es para vos <span class="accent">si…</span></h2>
+              <p class="lead" data-reveal style="--d: 2">Si te reconocés en&nbsp;alguna, ya&nbsp;diste el primer paso.</p>
+              <a class="btn" href="#aplicar" data-reveal style="--d: 3">Aplicar a&nbsp;la mentoría <span class="arrow" aria-hidden="true">→</span></a>
+            </div>
             <ul class="fit__list">
-              <li data-reveal>Sentís que naciste para más y lo seguís postergando.</li>
-              <li data-reveal style="--d: 1">Repetís los mismos ciclos con el dinero, el trabajo o los vínculos.</li>
-              <li data-reveal style="--d: 2">Querés claridad y alguien que te sostenga mientras das el salto.</li>
-              <li data-reveal style="--d: 3">Liderás un equipo y querés que vuelva a encontrarle sentido a lo que hace.</li>
+              <li class="fit-card fit-card--a" data-reveal data-glow>
+                <span class="fit-card__num" aria-hidden="true">01</span>
+                <p class="fit-card__tag">Propósito</p>
+                <p class="fit-card__text">Sentís que naciste para más y&nbsp;lo seguís postergando.</p>
+              </li>
+              <li class="fit-card fit-card--b" data-reveal data-glow style="--d: 1">
+                <span class="fit-card__num" aria-hidden="true">02</span>
+                <p class="fit-card__tag">Patrones</p>
+                <p class="fit-card__text">Repetís los mismos ciclos con el dinero, el&nbsp;trabajo o&nbsp;los vínculos.</p>
+              </li>
+              <li class="fit-card fit-card--c" data-reveal data-glow style="--d: 2">
+                <span class="fit-card__num" aria-hidden="true">03</span>
+                <p class="fit-card__tag">Claridad</p>
+                <p class="fit-card__text">Querés claridad y&nbsp;alguien que te sostenga mientras das el&nbsp;salto.</p>
+              </li>
+              <li class="fit-card fit-card--d" data-reveal data-glow style="--d: 3">
+                <span class="fit-card__num" aria-hidden="true">04</span>
+                <p class="fit-card__tag">Liderazgo</p>
+                <p class="fit-card__text">Liderás un equipo y&nbsp;querés que vuelva a&nbsp;encontrarle sentido a&nbsp;lo que hace.</p>
+              </li>
             </ul>
           </div>
         </section>
