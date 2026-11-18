@@ -50,3 +50,45 @@ export function prettyRoutes(pages) {
     },
   };
 }
+
+/**
+ * Cortes de línea: une con `&nbsp;` las palabras que nunca pueden quedar al
+ * final de un renglón (y, a, o, e, u, de, la, un) con la palabra siguiente.
+ * También une un número con la palabra que sigue (`12&nbsp;años`, `9&nbsp;países`).
+ * Solo en texto visible: no toca etiquetas, atributos, <script>, <style> ni <title>.
+ * Si la palabra siguiente arranca dentro de un <span>/<strong>/<em>/<a>, también.
+ */
+export function glueShortWords() {
+  const WORDS = "y|a|o|e|u|de|la|un";
+  const INLINE_OPEN = /^<(span|strong|em|b|i|a)\b/i;
+  const RAW = /^<(script|style|title|textarea)\b/i;
+  const glue = (text, nextIsInline) =>
+    text
+      .replace(
+        new RegExp(String.raw`(?<=^|[\s¿¡("“]|&nbsp;)(${WORDS})[ \t\r\n]+(?=\S${nextIsInline ? "|$" : ""})`, "giu"),
+        "$1&nbsp;",
+      )
+      .replace(/(?<=\d)[ \t\r\n]+(?=\p{L})/gu, "&nbsp;");
+
+  return {
+    name: "cg-glue-short-words",
+    transformIndexHtml: {
+      order: "pre",
+      handler(html) {
+        const parts = html.split(/(<[^>]*>)/);
+        let raw = null;
+        for (let i = 0; i < parts.length; i++) {
+          const part = parts[i];
+          if (part.startsWith("<")) {
+            if (raw && part.toLowerCase() === `</${raw}>`) raw = null;
+            else if (!raw && RAW.test(part)) raw = part.match(RAW)[1].toLowerCase();
+            continue;
+          }
+          if (raw || !part.trim()) continue;
+          parts[i] = glue(part, INLINE_OPEN.test(parts[i + 1] ?? ""));
+        }
+        return parts.join("");
+      },
+    },
+  };
+}

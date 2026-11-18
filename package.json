@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "vite",
     "build": "node scripts/build.mjs",
-    "preview": "vite preview --outDir ../../dist"
+    "preview": "vite preview --outDir ../../dist",
+    "check:text": "node scripts/check-text.mjs"
   },
   "license": "UNLICENSED",
   "type": "module",

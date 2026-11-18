@@ -162,8 +162,14 @@
 
 .creds__list {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 0 var(--s-5);
+}
+
+/* Dos columnas recién cuando cada título entra en uno o dos renglones */
+@media (min-width: 480px) {
+  .creds__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 .creds__list li {
@@ -251,7 +257,7 @@
 }
 
 .stage__name {
-  font-size: clamp(1.5rem, 1.15rem + 1.4vw, 2.25rem);
+  font-size: var(--fs-title);
   font-weight: 400;
   letter-spacing: -0.025em;
   transition: color 0.4s;
@@ -284,6 +290,3 @@
   }
 }
 
-.countries {
-  margin-top: var(--s-9);
-}

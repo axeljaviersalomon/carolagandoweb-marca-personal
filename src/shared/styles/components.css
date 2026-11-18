@@ -27,6 +27,8 @@
   min-height: 48px;
   padding: 0 1.5em;
   border-radius: var(--r-pill);
+  /* Si el texto no entra en una línea, dos renglones parejos */
+  text-wrap: balance;
   border: 1px solid var(--btn-border);
   background: var(--btn-bg);
   color: var(--btn-fg);
@@ -114,7 +116,7 @@
 .btn--sm {
   min-height: 40px;
   padding: 0 1.15em;
-  font-size: 0.8125rem;
+  font-size: var(--fs-xs);
 }
 
 @media (pointer: coarse) {
@@ -386,7 +388,7 @@
 }
 
 .field label {
-  font-size: 0.8125rem;
+  font-size: var(--fs-sm);
   font-weight: 400;
   letter-spacing: 0.01em;
   color: var(--ink-2);
@@ -472,7 +474,7 @@
 .choice legend {
   padding: 0;
   margin-bottom: 6px;
-  font-size: 0.8125rem;
+  font-size: var(--fs-sm);
   font-weight: 400;
   letter-spacing: 0.01em;
   color: var(--ink-2);
@@ -664,10 +666,11 @@
   border-bottom: 1px solid var(--line);
 }
 
+/* Grid y no flex: el texto ocupa todo el ancho libre y `balance` reparte bien los renglones */
 .faq summary {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  justify-content: space-between;
   gap: var(--s-5);
   min-height: 64px;
   padding-block: var(--s-4);
@@ -978,10 +981,15 @@
   letter-spacing: -0.01em;
 }
 
+/* Columnas al ancho de su contenido: si el email no entra al lado, baja entero */
 .footer__cols {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--s-6);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s-6) var(--s-8);
+}
+
+.footer__cols > * {
+  min-width: 0;
 }
 
 .footer__title {
@@ -1000,7 +1008,7 @@
   font-size: var(--fs-sm);
   font-weight: 400;
   color: var(--ink-2);
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
   transition: color 0.3s;
 }
 
@@ -1168,9 +1176,10 @@
 }
 
 /* ───────────── Movimiento compartido ───────────── */
+/* Arranca bien abajo: la máscara (.hero__line) tiene aire extra para la tinta */
 @keyframes cg-rise {
   from {
-    transform: translateY(105%);
+    transform: translateY(140%);
   }
 }
 
@@ -1295,5 +1304,203 @@
   .form-success__icon,
   .marquee__track {
     animation: none;
+  }
+}
+
+/* ───────────── Transición entre páginas: fundido a negro ─────────────
+   Salida: ui.js baja una cortina negra (.page-veil) y recién ahí navega. Con
+   @view-transition (Chrome, Edge, Safari) además la vieja se funde con la nueva
+   sin destello; si el CSS de la nueva llega tarde, el navegador la cancela y
+   queda la cortina.
+   Entrada: la cortina de :root::after arranca en negro y se levanta sola, sin
+   JS, en cuanto el contenido se pinta (en GHL llega tarde: así no se ve sin
+   estilo). Como es una animación con `both`, siempre termina transparente:
+   nunca deja la pantalla en negro. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+
+  :root::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    pointer-events: none;
+    background: #000;
+    animation: cg-curtain-up 0.75s var(--ease-soft) 0.12s both;
+  }
+}
+
+@keyframes cg-curtain-up {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* La vieja queda arriba y se funde sobre el negro de la nueva (su cortina) */
+::view-transition {
+  background: #000;
+}
+
+::view-transition-group(root) {
+  animation-duration: 0.42s;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+  animation: cg-vt-out 0.42s cubic-bezier(0.4, 0, 1, 1) both;
+}
+
+::view-transition-new(root) {
+  animation: none;
+}
+
+@keyframes cg-vt-out {
+  to {
+    opacity: 0;
+  }
+}
+
+/* Cortina de salida (ui.js): baja antes de navegar */
+.page-veil {
+  position: fixed;
+  inset: 0;
+  z-index: 1001;
+  pointer-events: none;
+  background: #000;
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 1, 1);
+}
+
+.page-veil.is-on {
+  opacity: 1;
+}
+
+/* ───────────── Progreso de lectura: barra vertical en el borde izquierdo ─────────────
+   Se llena con el scroll (bajando y subiendo) y brilla con el acento de cada marca.
+   CSS puro con animation-timeline; sin soporte, ui.js escribe --progress. */
+.scroll-progress {
+  position: fixed;
+  inset: 0 auto 0 0;
+  z-index: calc(var(--z-nav) + 1);
+  width: 3px;
+  pointer-events: none;
+  background: rgb(255 255 255 / 0.04);
+}
+
+.scroll-progress::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, var(--accent-hi), var(--accent));
+  box-shadow:
+    0 0 6px var(--accent),
+    0 0 16px color-mix(in oklab, var(--accent) 70%, transparent),
+    0 0 32px color-mix(in oklab, var(--accent) 40%, transparent);
+  transform-origin: 50% 0;
+  transform: scaleY(var(--progress, 0));
+}
+
+@supports (animation-timeline: scroll()) {
+  .scroll-progress::before {
+    animation: cg-progress linear both;
+    animation-timeline: scroll(root block);
+  }
+}
+
+@keyframes cg-progress {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+/* ───────────── Volver arriba ───────────── */
+.to-top {
+  --cta-h: 0px;
+  position: fixed;
+  right: max(var(--s-4), env(safe-area-inset-right));
+  bottom: calc(var(--s-4) + env(safe-area-inset-bottom));
+  z-index: calc(var(--z-sticky) + 1);
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid color-mix(in oklab, var(--accent-hi) 40%, transparent);
+  background: color-mix(in oklab, var(--bg) 75%, transparent);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  color: var(--accent-hi);
+  box-shadow: 0 10px 30px -10px rgb(0 0 0 / 0.6);
+  opacity: 0;
+  visibility: hidden;
+  translate: 0 calc(12px - var(--cta-h));
+  transition:
+    opacity 0.4s var(--ease-out),
+    translate 0.5s var(--ease-out),
+    visibility 0s linear 0.4s,
+    background-color 0.3s,
+    color 0.3s;
+}
+
+.to-top.is-visible {
+  opacity: 1;
+  visibility: visible;
+  translate: 0 calc(0px - var(--cta-h));
+  transition:
+    opacity 0.4s var(--ease-out),
+    translate 0.5s var(--ease-out),
+    visibility 0s,
+    background-color 0.3s,
+    color 0.3s;
+}
+
+/* En mobile sube por encima del CTA fijo cuando este aparece */
+:root:has(.sticky-cta.is-visible) .to-top {
+  --cta-h: 76px;
+}
+
+.to-top svg {
+  width: 20px;
+  height: 20px;
+}
+
+.to-top:focus-visible {
+  outline: 2px solid var(--accent-hi);
+  outline-offset: 3px;
+  border-radius: 50%;
+}
+
+@media (hover: hover) {
+  .to-top:hover {
+    background: var(--accent);
+    color: var(--accent-ink);
+  }
+}
+
+@media (min-width: 900px) {
+  .to-top {
+    right: var(--s-6);
+    bottom: var(--s-6);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .to-top,
+  .to-top.is-visible {
+    transition: none;
   }
 }

@@ -63,7 +63,7 @@
 }
 
 .c-hero__title {
-  max-width: 18ch;
+  max-width: 20ch;
   font-size: var(--fs-hero);
   line-height: 1.08;
   letter-spacing: -0.03em;
@@ -71,7 +71,7 @@
 }
 
 .c-hero__sub {
-  max-width: 42ch;
+  max-width: 54ch;
   margin-top: var(--s-5);
   font-size: var(--fs-lg);
   color: var(--ink-2);
@@ -147,7 +147,7 @@
 /* Deja lugar al número fantasma de la esquina */
 .pain strong {
   padding-right: 3.75rem;
-  font-size: 1.125rem;
+  font-size: var(--fs-lg);
   font-weight: 500;
   line-height: 1.3;
   letter-spacing: -0.015em;
@@ -318,7 +318,7 @@
 }
 
 .experience__list h3 {
-  font-size: clamp(1.5rem, 1.15rem + 1.4vw, 2.25rem);
+  font-size: var(--fs-title);
   font-weight: 400;
   letter-spacing: -0.025em;
   transition: color 0.4s;
@@ -401,7 +401,8 @@
 }
 
 .offer__name {
-  font-size: clamp(1.4rem, 1.15rem + 0.9vw, 1.85rem);
+  font-size: var(--fs-title);
+  line-height: 1.1;
   letter-spacing: -0.025em;
 }
 
@@ -415,6 +416,7 @@
 
 .offer__list li {
   position: relative;
+  text-wrap: balance;
   padding: var(--s-3) 0 var(--s-3) 22px;
   border-top: 1px solid var(--line);
   font-size: var(--fs-sm);
@@ -437,7 +439,7 @@
 }
 
 .offer__meta {
-  font-size: var(--fs-xs);
+  font-size: var(--fs-sm);
   letter-spacing: 0.01em;
   color: var(--mute);
 }

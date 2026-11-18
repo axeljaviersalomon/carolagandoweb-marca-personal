@@ -2,7 +2,18 @@ import "../styles/tokens.css";
 import "../styles/base.css";
 import "../styles/components.css";
 import { initForms } from "./forms.js";
-import { initCountUp, initNav, initPointerGlow, initReveal, initStickyCta, initVideos, initYear } from "./ui.js";
+import {
+  initBackToTop,
+  initCountUp,
+  initNav,
+  initPageTransitions,
+  initPointerGlow,
+  initReveal,
+  initScrollProgress,
+  initStickyCta,
+  initVideos,
+  initYear,
+} from "./ui.js";
 
 /** Punto de entrada compartido. Cada página lo importa desde su propio JS. */
 export function boot() {
@@ -17,4 +28,7 @@ export function boot() {
   initVideos(root);
   initForms(root);
   initYear(root);
+  initPageTransitions(root);
+  initScrollProgress(root);
+  initBackToTop(root);
 }

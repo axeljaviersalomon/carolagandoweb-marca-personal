@@ -59,7 +59,20 @@ h4 {
   font-weight: 300;
 }
 
-p {
+/* Preguntas de FAQ: renglones parejos */
+summary {
+  text-wrap: balance;
+}
+
+/* Texto corrido sin una palabra sola en el último renglón */
+p,
+li,
+dt,
+dd,
+figcaption,
+blockquote,
+label,
+a {
   text-wrap: pretty;
 }
 
@@ -105,6 +118,11 @@ button {
 ::selection {
   background: var(--accent);
   color: var(--accent-ink);
+}
+
+/* Palabras con guion que no se parten (e-book) */
+.nowrap {
+  white-space: nowrap;
 }
 
 .sr-only {
@@ -160,18 +178,19 @@ button {
 .section-head {
   display: grid;
   justify-items: center;
-  max-width: 44rem;
+  max-width: 56rem;
   margin: 0 auto clamp(40px, 5vw, 64px);
   text-align: center;
 }
 
 .section-head .h2 {
-  max-width: 20ch;
+  max-width: 22ch;
 }
 
 .section-head .lead {
   margin-top: var(--s-4);
-  max-width: 46ch;
+  max-width: 60ch;
+  text-wrap: balance;
 }
 
 .muted {

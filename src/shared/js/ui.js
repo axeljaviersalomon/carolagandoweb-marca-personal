@@ -1,6 +1,7 @@
 /**
  * Comportamientos de interfaz compartidos. Todo con IntersectionObserver:
- * nada escucha el evento scroll.
+ * nada escucha el evento scroll, salvo el respaldo de la barra de progreso
+ * en navegadores sin animation-timeline (con requestAnimationFrame).
  */
 
 export function initReveal(root) {
@@ -173,4 +174,107 @@ export function initCountUp(root) {
     el.textContent = "0";
     io.observe(el);
   });
+}
+
+const reducedMotion = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/**
+ * Salida de la transición entre páginas: baja una cortina negra y recién ahí navega.
+ * Corre siempre, no solo sin @view-transition: la transición nativa se cancela
+ * si el CSS de la página nueva llega tarde (en GHL el fragmento se inyecta al
+ * final), y así la salida es igual en todos los navegadores. Si la nativa sí
+ * corre, funde el negro con la página nueva y evita cualquier destello.
+ * La entrada (cortina que se levanta) es CSS puro: ver components.css.
+ */
+export function initPageTransitions(root) {
+  if (reducedMotion()) return;
+
+  const veil = document.createElement("div");
+  veil.className = "page-veil";
+  veil.setAttribute("aria-hidden", "true");
+  root.append(veil);
+
+  let safety;
+  const lift = () => {
+    clearTimeout(safety);
+    veil.classList.remove("is-on");
+  };
+
+  root.addEventListener("click", (e) => {
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    const link = e.target.closest("a[href]");
+    if (!link || link.hasAttribute("download") || (link.target && link.target !== "_self")) return;
+    const url = new URL(link.href, location.href);
+    if (url.origin !== location.origin || !/^https?:$/.test(url.protocol)) return;
+    // Anclas dentro de la misma página: scroll normal, sin cortina
+    if (url.pathname === location.pathname && url.search === location.search) return;
+
+    e.preventDefault();
+    veil.classList.add("is-on");
+    let gone = false;
+    const go = () => {
+      if (gone) return;
+      gone = true;
+      location.href = url.href;
+    };
+    veil.addEventListener("transitionend", go, { once: true });
+    setTimeout(go, 480);
+    // Seguridad: si la navegación no ocurre (o tarda demasiado), la cortina se levanta
+    safety = setTimeout(lift, 4000);
+  });
+
+  // Volver con el botón Atrás restaura la página desde la caché: sin cortina
+  addEventListener("pageshow", (e) => e.persisted && lift());
+}
+
+/** Barra vertical de progreso de scroll. CSS con animation-timeline; si no hay soporte, rAF. */
+export function initScrollProgress(root) {
+  const bar = document.createElement("div");
+  bar.className = "scroll-progress";
+  bar.setAttribute("aria-hidden", "true");
+  root.append(bar);
+  if (CSS.supports("animation-timeline: scroll()")) return;
+
+  const doc = document.documentElement;
+  let queued = false;
+  const update = () => {
+    queued = false;
+    const max = doc.scrollHeight - innerHeight;
+    bar.style.setProperty("--progress", max > 0 ? Math.min(scrollY / max, 1).toFixed(4) : "0");
+  };
+  const queue = () => {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(update);
+  };
+  addEventListener("scroll", queue, { passive: true });
+  addEventListener("resize", queue, { passive: true });
+  update();
+}
+
+/** Botón "volver arriba": aparece cuando el hero sale de pantalla. */
+export function initBackToTop(root) {
+  const hero = root.querySelector("[data-hero]") ?? root.querySelector("main > *");
+  if (!hero || !("IntersectionObserver" in window)) return;
+
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "to-top";
+  button.setAttribute("aria-label", "Volver arriba");
+  button.tabIndex = -1;
+  button.innerHTML =
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>';
+  root.append(button);
+
+  button.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: reducedMotion() ? "auto" : "smooth" });
+    // El foco vuelve al principio de la página (la marca de la nav)
+    root.querySelector("[data-nav] a, a, button")?.focus({ preventScroll: true });
+  });
+
+  new IntersectionObserver(([entry]) => {
+    const show = !entry.isIntersecting && entry.boundingClientRect.top < 0;
+    button.classList.toggle("is-visible", show);
+    button.tabIndex = show ? 0 : -1;
+  }).observe(hero);
 }
