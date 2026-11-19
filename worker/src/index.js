@@ -66,6 +66,7 @@ export default {
       .map((t) => t.trim().toLowerCase())
       .filter((t) => TAG_RE.test(t))
       .slice(0, 6);
+    tags.push(...triggerTags(kind, tags));
 
     try {
       const upsert = await ghl(env, "POST", "/contacts/upsert", contact);
@@ -79,6 +80,20 @@ export default {
     }
   },
 };
+
+/**
+ * Tags disparadores `form:*`: arrancan el workflow y el workflow los quita al
+ * final. Así un reenvío vuelve a disparar aunque el contacto ya tenga los tags
+ * `interes:*`/`lead:*` (el trigger "Contact Tag" solo salta cuando el tag se agrega).
+ *   apply   → form:apply
+ *   contact → form:contact
+ *   lead    → form:<slug> por cada lead:<slug> / lista-espera:<slug>
+ * Los arma el Worker, nunca vienen del form.
+ */
+export function triggerTags(kind, tags) {
+  if (kind !== "lead") return [`form:${kind}`];
+  return tags.map((t) => t.match(/^(?:lead|lista-espera):(.+)$/)?.[1]).filter(Boolean).map((s) => `form:${s}`);
+}
 
 /** Arma el body del upsert. Omite los campos vacíos para no pisar datos existentes. */
 export function buildContact(data, locationId) {

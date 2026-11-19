@@ -49,15 +49,20 @@ npm run build home       # solo una
 
 | Workflow | Trigger | Acciones |
 |---|---|---|
-| Mentoría: aplicación | Contact Tag (`interes:mentoria-1a1`, `interes:mentoria-grupal`, `interes:empresas`) | Crear oportunidad en pipeline Mentoría (Aplicó), aviso interno a Carola, CAPI `Lead`. *(Pendiente: si empresas va al mismo pipeline o a uno aparte)* |
-| Lead magnet | Contact Tag (`lead:*`, `lista-espera:*`) | Mail con el acceso al recurso gratis (o confirmación de lista de espera según el tag), CAPI `Lead` |
-| Contacto general | Contact Tag (`interes:contacto`) | Aviso interno con el custom field Mensaje, CAPI `Contact`. **No** entra al pipeline Mentoría |
+| Mentoría: aplicación | Contact Tag `form:apply` | **Publicado (8/11/2026).** Create opportunity en pipeline Mentoría → Aplicó (nombre `{{contact.name}} · {{contact.formato_mentora}} · {{contact.source}}`; sin duplicados si ya tiene una abierta), aviso interno tipo *Notification* a All users, quitar `form:apply`. Pendiente: CAPI `Lead` |
+| Lead magnet | Contact Tag `form:conecta-clase-gratis`, `form:salto-cuantico`, `form:conecta-evento`, `form:fenix-retiro` | **Sin armar.** Mail con el acceso al recurso gratis (o confirmación de lista de espera), quitar el `form:*`, CAPI `Lead`. Frenado: mandar mails por LC Email cobra (ver abajo) y faltan los links de los recursos |
+| Contacto general | Contact Tag `form:contact` | **Publicado (8/11/2026).** Aviso interno tipo *Notification* a All users con el custom field Mensaje, quitar `form:contact`. **No** entra al pipeline Mentoría. Pendiente: CAPI `Contact` |
 | Llamada agendada | Appointment booked (calendario Mentoría) | Mover oportunidad a "Llamada agendada", CAPI `Schedule` |
 | Compra | Order submitted / payment received | Tag `compro:<producto>`, dar acceso en Memberships, mail con acceso, CAPI `Purchase` |
 
 **Cambio de enfoque (7/11/2026):** el trigger "Inbound Webhook" es **Premium** (cobra por ejecución), así que no se usa. Los forms mandan a un **Cloudflare Worker** (`worker/`), que crea o actualiza el contacto y le agrega los tags por la API v2 de GHL (sin costo). Los workflows de la tabla arrancan con el trigger gratis **"Contact Tag"** (p. ej. tag `interes:contacto` → workflow "Contacto general").
 
-- Los 3 workflows con Inbound Webhook que se armaron primero quedaron en **borrador, nunca publicados**: borrarlos o rehacerlos con trigger "Contact Tag".
+- **Tags disparadores `form:*`** (8/11/2026): "Contact Tag" solo salta cuando el tag se agrega, así que un reenvío con un `interes:*` que el contacto ya tiene no dispararía nada. Por eso el Worker suma un tag `form:*` (`form:apply`, `form:contact`, o `form:<slug>` por cada `lead:<slug>` / `lista-espera:<slug>`) y cada workflow lo quita al final. Los workflows tienen *Allow re-entry* activo. Los `form:*` los arma el Worker; el form no puede mandarlos.
+- Pipeline **Mentoría** (8/11/2026): Aplicó → Llamada agendada → Llamada hecha. Ganada/Perdida se marcan con el estado de la oportunidad (Won/Lost), no son etapas. Un solo pipeline para todas las marcas y formatos (1a1, grupal, empresas): la marca de origen va en el nombre de la oportunidad (`web:<origen>`) y en los tags `pagina:*`.
+- Avisos internos: tipo *Notification* (campanita de GHL y app móvil, sin costo) a **All users**. Hoy el único usuario es Axel; cuando Carola tenga usuario en la subcuenta le llegan solos. El aviso por *Email* usa LC Email (cobra).
+- **Mails a contactos (pendiente de decisión):** la subcuenta manda por LC Email (dominio compartido `mail.msgsndrsonline.com`), que se cobra por mail desde la wallet (saldo $0, auto-recharge de $10 a la tarjeta). Alternativa gratis: conectar un SMTP propio en Settings → Email Services. No armar acciones de mail hasta decidir.
+- Los 3 workflows con Inbound Webhook se rehicieron: Mentoría y Contacto general ya usan "Contact Tag"; "Lead magnet" sigue con el trigger Premium, en borrador y sin publicar.
+- Workflows viejos que no son de la web: "Entrega Lead Magnet" (trigger Form submitted, mails de plantilla vacíos) y "AutoIG - ENTRADA" quedaron en borrador, sin tocar.
 - Mapeo del Worker: `first_name`, `last_name`, `email`, `phone`, `company_name` (Business Name) y los custom fields `goal` → `objetivo`, `format` → `formato_mentora`, `message` → `mensaje`. Los campos vacíos no se mandan (no pisan datos). Los tags se **agregan** (no reemplazan) y solo se aceptan los prefijos `pagina:`, `interes:`, `lead:`, `lista-espera:`.
 - Builder de una página: `https://app.gohighlevel.com/location/MroOvhFrUlGNpKkGwYJp/page-builder/<id>?source=website`.
 
