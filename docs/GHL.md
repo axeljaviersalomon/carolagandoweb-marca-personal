@@ -50,7 +50,7 @@ npm run build home       # solo una
 | Workflow | Trigger | Acciones |
 |---|---|---|
 | Mentoría: aplicación | Contact Tag `form:apply` | **Publicado (8/11/2026).** Create opportunity en pipeline Mentoría → Aplicó (nombre `{{contact.name}} · {{contact.formato_mentora}} · {{contact.source}}`; sin duplicados si ya tiene una abierta), aviso interno tipo *Notification* a All users, quitar `form:apply`. Pendiente: CAPI `Lead` |
-| Lead magnet | Contact Tag `form:conecta-clase-gratis`, `form:salto-cuantico`, `form:conecta-evento`, `form:fenix-retiro` | **Sin armar.** Mail con el acceso al recurso gratis (o confirmación de lista de espera), quitar el `form:*`, CAPI `Lead`. Frenado: mandar mails por LC Email cobra (ver abajo) y faltan los links de los recursos |
+| Lead magnet | Contact Tag `form:conecta-clase-gratis`, `form:salto-cuantico`, `form:conecta-evento`, `form:fenix-retiro` | **Armado en borrador, sin publicar (19/11/2026).** 4 triggers Contact Tag (uno por tag) → If/Else "Que form" con una rama por tag → Send email → quitar el `form:*` de esa rama. Clase gratis y Salto Cuántico mandan el link de acceso; evento de Conecta y retiro de Fénix confirman la lista de espera. Allow re-entry activo. Placeholders a reemplazar antes de publicar: `[LINK-CLASE-GRATIS]`, `[LINK-SALTO-CUANTICO]`, `[FECHA-EVENTO-CONECTA]`, `[FECHA-Y-LUGAR-RETIRO]`. Remitente vacío (usa el default). **No publicar hasta conectar el SMTP propio** (ver abajo). Mientras tanto los contactos se guardan bien pero no reciben nada, aunque el form dice "Revisá tu mail". Pendiente: CAPI `Lead` |
 | Contacto general | Contact Tag `form:contact` | **Publicado (8/11/2026).** Aviso interno tipo *Notification* a All users con el custom field Mensaje, quitar `form:contact`. **No** entra al pipeline Mentoría. Pendiente: CAPI `Contact` |
 | Llamada agendada | Appointment booked (calendario Mentoría) | Mover oportunidad a "Llamada agendada", CAPI `Schedule` |
 | Compra | Order submitted / payment received | Tag `compro:<producto>`, dar acceso en Memberships, mail con acceso, CAPI `Purchase` |
@@ -60,8 +60,20 @@ npm run build home       # solo una
 - **Tags disparadores `form:*`** (8/11/2026): "Contact Tag" solo salta cuando el tag se agrega, así que un reenvío con un `interes:*` que el contacto ya tiene no dispararía nada. Por eso el Worker suma un tag `form:*` (`form:apply`, `form:contact`, o `form:<slug>` por cada `lead:<slug>` / `lista-espera:<slug>`) y cada workflow lo quita al final. Los workflows tienen *Allow re-entry* activo. Los `form:*` los arma el Worker; el form no puede mandarlos.
 - Pipeline **Mentoría** (8/11/2026): Aplicó → Llamada agendada → Llamada hecha. Ganada/Perdida se marcan con el estado de la oportunidad (Won/Lost), no son etapas. Un solo pipeline para todas las marcas y formatos (1a1, grupal, empresas): la marca de origen va en el nombre de la oportunidad (`web:<origen>`) y en los tags `pagina:*`.
 - Avisos internos: tipo *Notification* (campanita de GHL y app móvil, sin costo) a **All users**. Hoy el único usuario es Axel; cuando Carola tenga usuario en la subcuenta le llegan solos. El aviso por *Email* usa LC Email (cobra).
-- **Mails a contactos (pendiente de decisión):** la subcuenta manda por LC Email (dominio compartido `mail.msgsndrsonline.com`), que se cobra por mail desde la wallet (saldo $0, auto-recharge de $10 a la tarjeta). Alternativa gratis: conectar un SMTP propio en Settings → Email Services. No armar acciones de mail hasta decidir.
-- Los 3 workflows con Inbound Webhook se rehicieron: Mentoría y Contacto general ya usan "Contact Tag"; "Lead magnet" sigue con el trigger Premium, en borrador y sin publicar.
+- **Mails a contactos (decidido 19/11/2026): SMTP gratis**, no LC Email (dominio compartido `mail.msgsndrsonline.com`, se cobra por mail desde la wallet). Se conecta en Settings → Email Services: Gmail SMTP con contraseña de aplicación de `carolagando.coach@gmail.com` mientras no haya dominio; con `carolagando.coach`, Brevo SMTP gratis (300/día) con SPF/DKIM del dominio.
+  - **Bloqueado por la agencia (19/11/2026):** el SMTP se agrega en Settings → Email Services → pestaña *Advanced Settings* ("Add your own email service"), pero hoy esa pantalla solo lista "Email system" (LC Email) como activo y **no ofrece botón para agregar un SMTP**. La agencia (Matrix Revelux) tiene que habilitarlo para la subcuenta. Después: cargar el SMTP (Gmail: `smtp.gmail.com`, 465 SSL o 587 TLS), marcarlo *Set as active*, mandar un test desde una acción de mail y recién ahí publicar "Lead magnet".
+- Los 3 workflows con Inbound Webhook se rehicieron: los 3 ya usan "Contact Tag". "Lead magnet" queda en borrador hasta tener el SMTP.
+
+#### Pendiente para publicar "Lead magnet"
+
+1. [ ] Pedirle a la agencia (Matrix Revelux) que habilite el SMTP propio en la subcuenta.
+2. [ ] Crear la contraseña de aplicación de Gmail (requiere verificación en 2 pasos) y cargar el SMTP en Advanced Settings. Las credenciales las carga una persona, no Claude.
+3. [ ] Marcarlo *Set as active* y confirmar que LC Email ("Email system") quede inactivo.
+4. [ ] Reemplazar en los 4 mails los placeholders `[LINK-CLASE-GRATIS]`, `[LINK-SALTO-CUANTICO]`, `[FECHA-EVENTO-CONECTA]` y `[FECHA-Y-LUGAR-RETIRO]` (datos de la clienta). En los de lista de espera, si no hay fecha, borrar el placeholder.
+5. [ ] *Send test mail* desde una acción y revisar en el encabezado del mail recibido que salga por el SMTP propio, no por `msgsndrsonline.com`.
+6. [ ] Publicar y probar de punta a punta: form de Salto Cuántico en la vista previa de `/quantum` → llega el mail → en el contacto ya no está `form:salto-cuantico` → Execution logs sin errores.
+7. [ ] Después: CAPI `Lead` (pendiente en todos los workflows).
+- **Reenvíos con el mismo teléfono:** el upsert busca por email y por teléfono. Si alguien aplica dos veces con el mismo WhatsApp y otro email, queda un solo contacto con los datos del último envío (el email anterior se pierde) y la oportunidad abierta no se duplica ni cambia de nombre.
 - Workflows viejos que no son de la web: "Entrega Lead Magnet" (trigger Form submitted, mails de plantilla vacíos) y "AutoIG - ENTRADA" quedaron en borrador, sin tocar.
 - Mapeo del Worker: `first_name`, `last_name`, `email`, `phone`, `company_name` (Business Name) y los custom fields `goal` → `objetivo`, `format` → `formato_mentora`, `message` → `mensaje`. Los campos vacíos no se mandan (no pisan datos). Los tags se **agregan** (no reemplazan) y solo se aceptan los prefijos `pagina:`, `interes:`, `lead:`, `lista-espera:`.
 - Builder de una página: `https://app.gohighlevel.com/location/MroOvhFrUlGNpKkGwYJp/page-builder/<id>?source=website`.
@@ -74,6 +86,8 @@ npm run build home       # solo una
 4. [ ] Al conectar el dominio, sumarlo a `ALLOWED_ORIGINS` en `worker/wrangler.toml` y volver a hacer deploy.
 
 Prueba real (7/11/2026): el Worker responde 403 a otros orígenes y 400 a datos inválidos. Los envíos desde la vista previa de `/mentorias` y `/contacto` dieron 200 y en Contacts quedaron bien nombre, email, teléfono, Business Name, tags (`pagina:*`, `interes:*`), Contact source `web:<origen>` y los custom fields Objetivo, Formato mentoría y Mensaje. La key del custom field va **sin** el prefijo `contact.` (ej. `objetivo`). Logs del Worker: `npx wrangler tail` dentro de `worker/`.
+
+Prueba punta a punta (19/11/2026): los 6 forms enviados desde las vistas previas (aplicación 1:1 y empresas con `?origen=quantum`, contacto, clase gratis, lista del evento, Salto Cuántico, lista del retiro) dieron 200. En GHL quedaron los contactos con sus datos, tags y `form:*`; Mentoría creó la oportunidad y quitó `form:apply`; Contacto quitó `form:contact`; llegaron las 3 notificaciones. Los 4 forms de lead dejan el `form:*` puesto (no hay workflow todavía). Los contactos de prueba se borraron.
 
 Plan gratis de Workers: 100.000 requests/día por cuenta, compartidas entre todos los Workers de esa cuenta. Un form usa 2 (preflight + POST).
 

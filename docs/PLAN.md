@@ -66,6 +66,8 @@ Todo en ARS salvo la mentoría (USD). Hoy no coinciden: Woo cobra ARS 23.499 por
 - Fotos reales en alta resolución (hoy solo hay un recorte de 497×785 px).
 - Copy de Quantum y Fénix; testimonios escritos (frase corta de cada uno).
 - Confirmar que Salto Cuántico puede ser gratis de forma permanente.
+- Links de acceso a la clase gratis de Conecta y a Salto Cuántico, y fecha (si la hay) del evento de Conecta y del retiro de Fénix: van en los mails del workflow "Lead magnet" (ver `docs/GHL.md`).
+- Contraseña de aplicación del Gmail para el SMTP de GHL (la carga ella o Axel, cuando la agencia habilite el SMTP).
 - Habilitar `carolagando.coach` en Vimeo → Privacidad → "Dónde se puede insertar" (los videos de testimonios hoy solo se ven en `quantumprograma.com`).
 
 ## Rediseño: Carola exclusiva + programas independientes (decidido e implementado 20-10-2026)
