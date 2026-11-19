@@ -106,6 +106,150 @@
   animation: cg-fade 1s var(--ease-out) both 0.45s;
 }
 
+/* ───────────── Dolores ─────────────
+   Misma tarjeta que Conecta (entrada escalonada + barra que se dibuja abajo),
+   con los colores de Quantum. */
+.pains__grid {
+  display: grid;
+  gap: var(--s-4);
+}
+
+.pain {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 28px 24px 30px;
+  border-radius: var(--r-card) var(--r-card) 0 0;
+  border: 1px solid var(--line);
+  background: color-mix(in oklab, var(--surface) 70%, transparent);
+}
+
+.pain strong {
+  padding-right: 3.75rem;
+  font-size: var(--fs-lg);
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+}
+
+.pain > span:not(.pain__num) {
+  font-size: var(--fs-sm);
+  line-height: 1.65;
+  color: var(--ink-2);
+}
+
+.pain__num {
+  position: absolute;
+  top: 10px;
+  right: 18px;
+  z-index: -1;
+  font-size: 3.4rem;
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: transparent;
+  -webkit-text-stroke: 1px rgb(255 216 77 / 0.18);
+  transition:
+    transform 0.6s var(--ease-out),
+    -webkit-text-stroke-color 0.4s;
+}
+
+.pain::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-2), var(--accent));
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.cg-page.cg-js .pain[data-reveal] {
+  transform: translateY(36px) scale(0.965);
+  transform-origin: 50% 100%;
+  transition:
+    opacity 0.7s var(--ease-out) calc(var(--d, 0) * 120ms),
+    transform 1s var(--ease-out) calc(var(--d, 0) * 120ms),
+    translate 0.55s var(--ease-out),
+    border-color 0.3s,
+    background-color 0.3s,
+    box-shadow 0.55s var(--ease-out);
+}
+
+.cg-page.cg-js .pain[data-reveal].is-in {
+  transform: none;
+}
+
+.pain.is-in::after,
+.cg-page:not(.cg-js) .pain::after {
+  animation: q-strike 0.9s var(--ease-out) forwards;
+  animation-delay: calc(0.35s + var(--d, 0) * 0.35s);
+}
+
+@keyframes q-strike {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .pain:hover {
+    translate: 0 -10px;
+    border-color: color-mix(in oklab, var(--accent) 40%, transparent);
+    background-color: color-mix(in oklab, var(--accent) 6%, var(--surface));
+    box-shadow: 0 30px 60px rgb(0 0 0 / 0.3);
+  }
+  .pain:hover .pain__num {
+    transform: translateY(4px) rotate(-6deg);
+    -webkit-text-stroke-color: rgb(255 216 77 / 0.45);
+  }
+}
+
+.pains__bridge {
+  max-width: 40rem;
+  margin: var(--s-8) auto 0;
+  text-align: center;
+}
+
+.pains__bridge h3 {
+  font-size: var(--fs-2xl);
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.pains__bridge p {
+  max-width: 50ch;
+  margin: var(--s-4) auto 0;
+  color: var(--ink-2);
+}
+
+/* Desde tablet: subgrid, para que los textos arranquen a la misma altura */
+@media (min-width: 640px) {
+  .pains__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    row-gap: var(--s-4);
+  }
+  .pain {
+    display: grid;
+    grid-row: span 2;
+    grid-template-rows: subgrid;
+    row-gap: 10px;
+    align-content: start;
+  }
+}
+
+@media (min-width: 1000px) {
+  .pains__grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+  }
+}
+
 /* ───────────── Programas ───────────── */
 .modules__list {
   display: grid;
@@ -275,7 +419,59 @@
   }
 }
 
+/* ───────────── Quién te guía ───────────── */
+.guide {
+  position: relative;
+  isolation: isolate;
+}
+
+.guide::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(40% 50% at 25% 50%, rgb(138 77 255 / 0.18), transparent 70%),
+    radial-gradient(35% 45% at 80% 40%, rgb(255 216 77 / 0.06), transparent 70%);
+}
+
+/* ───────────── Cierre ───────────── */
+.q-final {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  text-align: center;
+  background:
+    radial-gradient(60% 80% at 50% 120%, rgb(138 77 255 / 0.4), transparent 70%),
+    radial-gradient(35% 40% at 50% 45%, rgb(255 216 77 / 0.07), transparent 75%);
+}
+
+.q-final__title {
+  max-width: 18ch;
+  margin-inline: auto;
+  font-size: var(--fs-3xl);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+}
+
+.q-final .lead {
+  max-width: 48ch;
+  margin: var(--s-5) auto 0;
+}
+
+.q-final__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--s-3);
+  margin-top: var(--s-6);
+}
+
 @media (prefers-reduced-motion: reduce) {
+  .pain::after {
+    transform: scaleX(1);
+    animation: none !important;
+  }
   .q-hero__smoke::before,
   .q-hero__eyebrow,
   .q-hero__title,
