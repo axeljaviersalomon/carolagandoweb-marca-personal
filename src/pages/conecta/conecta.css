@@ -405,7 +405,7 @@
 
 /* ───────────── Opciones ─────────────
    Las tres tarjetas tienen la misma estructura (etiqueta, nombre, promesa,
-   tres ítems, dato y botón) y el mismo padding. En desktop usan subgrid: cada
+   tres ítems, precio, dato y botón) y el mismo padding. En desktop usan subgrid: cada
    pieza cae en la misma fila en las tres, así títulos, ítems y botones quedan
    a la misma altura. */
 .offers__grid {
@@ -508,6 +508,26 @@
   background: var(--mute);
 }
 
+.offer__price {
+  font-size: var(--fs-2xl);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+
+.offer__price span {
+  margin-right: 0.3em;
+  font-size: var(--fs-sm);
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--mute);
+}
+
+.offer--soon .offer__price {
+  color: var(--mute);
+}
+
 .offer__meta {
   font-size: var(--fs-sm);
   letter-spacing: 0.01em;
@@ -540,12 +560,12 @@
 @media (min-width: 900px) {
   .offers__grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    grid-template-rows: repeat(8, auto);
+    grid-template-rows: repeat(9, auto);
     column-gap: var(--s-4);
   }
   .offer {
     display: grid;
-    grid-row: span 8;
+    grid-row: span 9;
     grid-template-rows: subgrid;
     row-gap: var(--s-4);
   }

@@ -756,6 +756,25 @@
   margin-top: var(--s-4);
 }
 
+.f-join__date {
+  display: grid;
+  gap: 2px;
+  margin-top: var(--s-5);
+  padding-left: var(--s-4);
+  border-left: 2px solid var(--accent);
+}
+
+.f-join__date strong {
+  font-size: var(--fs-lg);
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.f-join__date span {
+  font-size: var(--fs-sm);
+  color: var(--mute);
+}
+
 .f-join__next {
   display: grid;
   gap: var(--s-3);

@@ -1501,6 +1501,21 @@
   }
 }
 
+/* Desktop angosto (laptops chicas, tablets apaisadas): el retrato queda pegado
+   al borde del contenedor y no hay lugar para que los datos salgan hacia
+   afuera sin cortarse. Se quedan apenas sobre el borde del marco. */
+@media (min-width: 900px) and (max-width: 1399px) {
+  .portrait__chip:nth-child(1) {
+    left: -3%;
+  }
+  .portrait__chip:nth-child(2) {
+    right: -3%;
+  }
+  .portrait__chip:nth-child(3) {
+    left: 0;
+  }
+}
+
 /* Texto que acompaña al retrato */
 .guide {
   overflow-x: clip;

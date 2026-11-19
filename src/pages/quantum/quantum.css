@@ -376,6 +376,79 @@
   font-weight: 400;
 }
 
+.bundle__price {
+  margin-bottom: var(--s-5);
+  font-size: var(--fs-3xl);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--accent);
+}
+
+.bundle__price span {
+  margin-left: 0.3em;
+  font-size: var(--fs-sm);
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--mute);
+}
+
+/* ───────────── Testimonios ───────────── */
+.q-voices__grid {
+  display: grid;
+  gap: var(--s-4);
+}
+
+.q-voice {
+  display: grid;
+  align-content: space-between;
+  gap: var(--s-5);
+  padding: var(--s-6) var(--s-5) var(--s-5);
+  border-radius: var(--r-card);
+  border: 1px solid var(--line);
+  background:
+    radial-gradient(80% 60% at 0% 0%, rgb(138 77 255 / 0.16), transparent 70%),
+    var(--surface);
+}
+
+.q-voice blockquote p {
+  font-size: var(--fs-lg);
+  line-height: 1.5;
+  color: var(--ink);
+  text-wrap: pretty;
+}
+
+.q-voice blockquote p::before {
+  content: "“";
+  color: var(--accent);
+}
+
+.q-voice blockquote p::after {
+  content: "”";
+  color: var(--accent);
+}
+
+.q-voice__name {
+  display: grid;
+  gap: 2px;
+  padding-top: var(--s-4);
+  border-top: 1px solid var(--line);
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.q-voice__name span {
+  font-size: var(--fs-sm);
+  font-weight: 400;
+  color: var(--mute);
+}
+
+@media (min-width: 900px) {
+  .q-voices__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
 .bundle__note {
   margin-top: var(--s-4);
   font-size: var(--fs-sm);
