@@ -15,12 +15,18 @@
       <!-- @include carola/nav {"active":"home","cta_href":"/mentorias#aplicar"} -->
 
       <main>
-        <!-- Hero a pantalla completa: título grande que se cruza con la foto -->
+        <!-- Hero a pantalla completa: texto a la izquierda, Carola dentro de un
+             halo a la derecha y una franja de formación al pie -->
         <section class="hero" data-hero>
           <div class="hero__smoke" aria-hidden="true"></div>
 
           <figure class="hero__visual">
+            <span class="hero__halo" aria-hidden="true"><i></i></span>
             <img class="hero__photo" src="/img/carola-ecos.webp" alt="Carola Gando, de blusa clara y cinturón negro, con dos reflejos suyos en blanco y negro detrás" width="1000" height="851" fetchpriority="high" />
+            <figcaption class="hero__tag">
+              <strong>Carola Gando</strong>
+              <span>High Impact Trainer</span>
+            </figcaption>
           </figure>
 
           <div class="container hero__inner">
@@ -36,6 +42,16 @@
                 <a class="btn btn--ghost" href="/sobre-mi">Conocé a&nbsp;Carola</a>
               </div>
             </div>
+          </div>
+
+          <div class="container hero__rail">
+            <p class="hero__rail-label">Formación</p>
+            <ul class="hero__creds" aria-label="Formación">
+              <li>Academia Europea de Neurociencias</li>
+              <li>Coaching Ontológico&nbsp;(ICF)</li>
+              <li>PNL</li>
+              <li>Firewalking</li>
+            </ul>
           </div>
         </section>
 

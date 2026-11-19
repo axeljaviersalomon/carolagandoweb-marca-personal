@@ -218,27 +218,58 @@
   }
 }
 
+/* Rendimiento: el reflejo que cruza la palabra va en su propia capa (::after)
+   y la sombra en otra fija (::before, text-shadow). Antes el reflejo animaba
+   el fondo del texto bajo un filter: drop-shadow, y el navegador volvía a
+   desenfocar toda la palabra gigante en cada cuadro. */
 .f-lockup__main {
+  position: relative;
   font-family: var(--font-brand);
   font-size: clamp(6.5rem, 3rem + 17vw, 15rem);
   font-weight: 400;
   line-height: 0.82;
   letter-spacing: 0.02em;
-  background: linear-gradient(105deg, transparent 40%, rgb(255 255 255 / 0.55) 50%, transparent 60%) -200% 0 / 250% 100% no-repeat, var(--gold);
+  /* Aire para la tinta: el degradé solo se pinta dentro de la caja */
+  padding: var(--ink-room) 0.06em;
+  margin: calc(var(--ink-room) * -1) -0.06em;
+  background: var(--gold);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  filter: drop-shadow(0 8px 30px rgb(0 0 0 / 0.55));
+}
+
+/* Mismo padding que la palabra: el texto de las capas cae exacto encima */
+.f-lockup__main::before,
+.f-lockup__main::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  padding: inherit;
+  pointer-events: none;
+}
+
+.f-lockup__main::before {
+  z-index: -1;
+  color: transparent;
+  text-shadow: 0 8px 30px rgb(0 0 0 / 0.55);
+}
+
+.f-lockup__main::after {
+  background: linear-gradient(105deg, transparent 40%, rgb(255 255 255 / 0.55) 50%, transparent 60%) -200% 0 / 250% 100% no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  will-change: transform;
   animation: f-sheen 7s var(--ease-in-out) 1.4s infinite;
 }
 
 @keyframes f-sheen {
   0% {
-    background-position: -200% 0, 0 0;
+    background-position: -200% 0;
   }
   35%,
   100% {
-    background-position: 200% 0, 0 0;
+    background-position: 200% 0;
   }
 }
 
@@ -424,9 +455,16 @@
 }
 
 /* Palabra fantasma (FUEGO, CENIZAS, RENACER) apoyada sobre la esquina de la
-   foto: contorno dorado y, donde pisa la foto, se llena de oro y la ilumina
-   (mix-blend-mode: screen). En mobile se monta sobre el borde de abajo. */
+   foto: contorno dorado y, donde pisa la foto, se llena de oro macizo que
+   sigue un poco más allá del borde y recién ahí se desvanece al contorno.
+   Sin mix-blend-mode: con oro opaco no hace falta y le ahorra al navegador
+   recomponer toda la sección al scrollear. En mobile se monta sobre el borde
+   de abajo. */
 .stage__ghost {
+  --gold-1: #fff0a8;
+  --gold-2: #ffd23f;
+  --gold-3: #f5b919;
+  --gold-out: rgb(245 185 25 / 0);
   position: relative;
   z-index: 2;
   display: block;
@@ -436,13 +474,15 @@
   font-size: var(--ghost);
   line-height: 0.85;
   letter-spacing: 0.02em;
-  background: linear-gradient(180deg, rgb(251 231 168 / 0.95) 0%, rgb(232 194 106 / 0.75) 55%, rgb(232 194 106 / 0) 56%);
+  /* Mobile: la palabra sube 0,62em menos el gap de la grilla sobre la foto.
+     Oro macizo hasta ese borde y se desvanece en el tramo siguiente */
+  --edge: calc(0.62em - var(--s-5));
+  background: linear-gradient(180deg, var(--gold-1) 0, var(--gold-2) calc(var(--edge) * 0.5), var(--gold-3) var(--edge), var(--gold-out) calc(var(--edge) + 0.3em));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  -webkit-text-stroke: 1px rgb(242 213 140 / 0.7);
-  mix-blend-mode: screen;
-  text-shadow: 0 0 40px rgb(232 194 106 / 0.25);
+  -webkit-text-stroke: 1px rgb(255 214 90 / 0.85);
+  filter: drop-shadow(0 0 18px rgb(255 196 40 / 0.3));
   pointer-events: none;
 }
 
@@ -485,7 +525,9 @@
     left: calc(var(--photo) - 1.05em);
     margin: 0;
     translate: 0 -46%;
-    background: linear-gradient(90deg, rgb(251 231 168 / 0.95) 0, rgb(232 194 106 / 0.8) 1em, rgb(232 194 106 / 0) 1.06em);
+    /* La foto termina a 1,05em del arranque de la palabra: oro macizo hasta
+       ahí y se desvanece en el tramo siguiente */
+    background: linear-gradient(90deg, var(--gold-1) 0, var(--gold-2) 0.55em, var(--gold-3) 1.05em, var(--gold-out) 1.45em);
     -webkit-background-clip: text;
     background-clip: text;
   }
@@ -499,7 +541,7 @@
   .stage:nth-child(2) .stage__ghost {
     left: auto;
     right: calc(var(--photo) - 1.05em);
-    background: linear-gradient(270deg, rgb(251 231 168 / 0.95) 0, rgb(232 194 106 / 0.8) 1em, rgb(232 194 106 / 0) 1.06em);
+    background: linear-gradient(270deg, var(--gold-1) 0, var(--gold-2) 0.55em, var(--gold-3) 1.05em, var(--gold-out) 1.45em);
     -webkit-background-clip: text;
     background-clip: text;
   }
@@ -870,7 +912,7 @@
   .f-hero__iso,
   .f-hero__eyebrow,
   .f-lockup,
-  .f-lockup__main,
+  .f-lockup__main::after,
   .f-lockup__top .f-spark,
   .f-hero__sub,
   .f-hero__ctas,

@@ -13,7 +13,12 @@
   mix-blend-mode: overlay;
 }
 
-/* ───────────── Hero ───────────── */
+
+/* ───────────── Hero ─────────────
+   Mobile: texto, foto y franja de formación apilados.
+   Desktop: el texto a la izquierda centrado en el alto; Carola a la derecha,
+   dentro de un halo, con la cara alineada a 3/4 del contenedor (no al borde
+   de la ventana) y la franja de formación como pie del hero. */
 .hero {
   position: relative;
   isolation: isolate;
@@ -60,9 +65,18 @@
   animation: cg-fade 0.9s var(--ease-out) both 0.05s;
 }
 
+/* Trazo fino delante del eyebrow */
+.hero__eyebrow::before {
+  content: "";
+  width: 2.4em;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+}
+
 /* Título a escala de cartel: la jerarquía sale del tamaño, no del grosor */
 .hero__title {
-  font-size: clamp(2.6rem, 0.6rem + 7.6vw, 8rem);
+  font-size: clamp(2.6rem, 0.9rem + 6.4vw, 5.6rem);
   font-weight: 500;
   line-height: 0.98;
   letter-spacing: -0.045em;
@@ -112,60 +126,211 @@
 
 /* Mobile: la foto va debajo del texto, a todo el ancho */
 .hero__visual {
+  position: relative;
   order: 2;
   align-self: center;
-  width: min(100%, 520px);
+  width: min(100%, 560px);
   margin-top: var(--s-5);
 }
 
 .hero__photo {
+  position: relative;
   width: 100%;
+  height: auto;
   /* Funde los bordes duros de la foto original con el humo */
   -webkit-mask-image: radial-gradient(ellipse 62% 72% at 52% 42%, #000 62%, transparent 100%);
   mask-image: radial-gradient(ellipse 62% 72% at 52% 42%, #000 62%, transparent 100%);
   animation: cg-photo 1.5s var(--ease-out) both 0.3s;
 }
 
-/* Desktop: hero a pantalla completa, foto grande anclada abajo a la derecha.
-   Topes para pantallas grandes: el hero no pasa de ~1000px de alto (escalado
-   con --up) y la foto nunca se agranda más allá de su tamaño real (1000x851):
-   así no se pixela. En pantallas anchas la foto se acerca al contenedor en vez
-   de quedar pegada al borde de la ventana. */
+/* Halo detrás de Carola: un anillo fino con luz violeta adentro y un punto
+   de luz que lo recorre (rota con transform: lo resuelve la placa de video) */
+.hero__halo {
+  position: absolute;
+  top: 44%;
+  left: 47%;
+  width: 78%;
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  border-radius: 50%;
+  border: 1px solid color-mix(in oklab, var(--accent-hi) 26%, transparent);
+  background: radial-gradient(closest-side, color-mix(in oklab, var(--accent) 30%, transparent), color-mix(in oklab, var(--accent) 8%, transparent) 70%, transparent);
+  pointer-events: none;
+}
+
+/* Segundo anillo, más grande y más tenue */
+.hero__halo::before {
+  content: "";
+  position: absolute;
+  inset: -14%;
+  border-radius: 50%;
+  border: 1px solid color-mix(in oklab, var(--accent-hi) 10%, transparent);
+}
+
+.hero__halo i {
+  position: absolute;
+  inset: -1px;
+  border-radius: 50%;
+  animation: cg-spin 30s linear infinite;
+}
+
+.hero__halo i::after {
+  content: "";
+  position: absolute;
+  top: 14.6%;
+  left: 14.6%;
+  width: 8px;
+  height: 8px;
+  margin: -4px;
+  border-radius: 50%;
+  background: var(--accent-hi);
+  box-shadow:
+    0 0 10px var(--accent-hi),
+    0 0 24px var(--accent);
+}
+
+/* Firma sobre la foto: quién es, en vidrio */
+.hero__tag {
+  position: absolute;
+  left: 4%;
+  bottom: 16%;
+  z-index: 1;
+  display: grid;
+  gap: 2px;
+  padding: var(--s-3) var(--s-4);
+  border-radius: var(--r-card);
+  border: 1px solid color-mix(in oklab, var(--accent-hi) 24%, transparent);
+  background: color-mix(in oklab, var(--bg) 66%, transparent);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  backdrop-filter: blur(14px) saturate(140%);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.08),
+    0 18px 40px -16px rgb(0 0 0 / 0.7);
+  animation: cg-fade 1s var(--ease-out) both 0.9s;
+}
+
+.hero__tag strong {
+  font-size: var(--fs-base);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+.hero__tag span {
+  font-size: var(--fs-xs);
+  letter-spacing: 0.04em;
+  color: var(--accent-hi);
+}
+
+/* Franja de formación al pie del hero */
+.hero__rail {
+  position: relative;
+  z-index: 1;
+  order: 3;
+  display: grid;
+  gap: var(--s-3);
+  padding-block: var(--s-5) var(--s-6);
+  border-top: 1px solid var(--line);
+  animation: cg-fade 1s var(--ease-out) both 0.8s;
+}
+
+.hero__rail-label {
+  font-size: var(--fs-xs);
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+
+.hero__creds {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--s-2) var(--s-4);
+  font-size: var(--fs-sm);
+  line-height: 1.4;
+  color: var(--ink-2);
+}
+
+/* Separador (solo en una línea, desktop): un punto de luz chico, como en la cinta */
 @media (min-width: 900px) {
-  /* El texto arranca cerca de la nav: sin el vacío que dejaba el centrado vertical */
+  .hero__creds {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--s-2) var(--s-3);
+  }
+  .hero__creds li + li::before {
+    content: "";
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    margin-right: var(--s-3);
+    vertical-align: middle;
+    border-radius: 50%;
+    background: var(--accent-hi);
+    opacity: 0.7;
+  }
+}
+
+/* Desktop: hero a pantalla completa. La foto se dimensiona por el alto del
+   hero (con tope: 1060px, ~1,25x el original, para que no se pixele) y su
+   cara queda en --face, a 3/4 del contenedor: en pantallas anchas acompaña
+   al texto en vez de irse al borde de la ventana. */
+@media (min-width: 900px) {
   .hero {
-    justify-content: flex-start;
-    min-height: clamp(680px, 100svh, calc(980px * var(--up)));
-    padding-top: calc(var(--nav-h) + clamp(32px, 7vh, 80px));
-    padding-bottom: clamp(48px, 7vh, 96px);
+    --face: calc(50% + min(var(--max), 100% - var(--gutter) * 2) * 0.25);
+    min-height: clamp(680px, 100svh, calc(1040px * var(--up)));
+    padding-top: var(--nav-h);
+  }
+  .hero__inner {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-block: clamp(32px, 6vh, 88px);
+  }
+  /* El texto ocupa ~la mitad del contenedor: la foto vive en la otra mitad */
+  .hero__inner > * {
+    max-width: min(100%, 52%);
   }
   .hero__visual {
     position: absolute;
-    right: max(0px, calc((100% - var(--max)) / 2 - 6vw));
+    left: var(--face);
     bottom: 0;
-    width: min(48vw, 1000px);
-    height: min(calc(100% - var(--nav-h) - 16px), 880px);
+    width: auto;
+    height: min(calc(100% - var(--nav-h) - 24px), 1060px, 74vw);
+    aspect-ratio: 1000 / 851;
     margin: 0;
+    /* La cara está al 44% del ancho de la foto */
+    translate: -44% 0;
   }
   .hero__photo {
     height: 100%;
-    object-fit: cover;
-    object-position: 50% 10%;
+    width: 100%;
+    object-fit: contain;
     /* Se funde por la izquierda, arriba y abajo: no se ve el borde de la foto */
     -webkit-mask-image:
-      linear-gradient(90deg, transparent 0%, #000 22%),
-      linear-gradient(0deg, transparent 0%, #000 18%, #000 88%, transparent 100%);
+      linear-gradient(90deg, transparent 0%, #000 18%),
+      linear-gradient(0deg, transparent 0%, #000 22%, #000 90%, transparent 100%);
     mask-image:
-      linear-gradient(90deg, transparent 0%, #000 22%),
-      linear-gradient(0deg, transparent 0%, #000 18%, #000 88%, transparent 100%);
+      linear-gradient(90deg, transparent 0%, #000 18%),
+      linear-gradient(0deg, transparent 0%, #000 22%, #000 90%, transparent 100%);
     -webkit-mask-composite: source-in;
     mask-composite: intersect;
   }
-  /* Ancho suficiente para que la bajada entre en 2 renglones */
+  .hero__halo {
+    top: 40%;
+    left: 44%;
+    width: 72%;
+  }
+  /* Sobre la cadera de Carola: siempre dentro de la ventana, lejos de los botones */
+  .hero__tag {
+    left: 20%;
+    bottom: 14%;
+  }
   .hero__foot {
     display: grid;
     gap: var(--s-6);
-    max-width: 40rem;
+    max-width: min(40rem, 52%);
     margin-top: var(--s-7);
   }
   .hero__sub {
@@ -173,6 +338,13 @@
   }
   .hero__ctas {
     margin-top: 0;
+  }
+  /* La franja va sobre el borde de abajo de la foto, que ya está fundido */
+  .hero__rail {
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: var(--s-6);
+    padding-block: var(--s-5);
   }
 }
 
@@ -207,6 +379,15 @@
     opacity: 0.25;
     transform: scale(1.05);
     transform-origin: 50% 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__photo,
+  .hero__tag,
+  .hero__rail,
+  .hero__halo i {
+    animation: none;
   }
 }
 
